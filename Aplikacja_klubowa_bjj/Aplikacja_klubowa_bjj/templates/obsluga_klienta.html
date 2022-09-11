@@ -1,0 +1,45 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<h2>{{ title }}</h2>
+<!--<p>Zaczynamy zabawę</p>-->
+
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+        
+
+            <!-- Stałe górne menu w zakładzce obsługa klienta -->
+
+        <div>
+            <div>
+                <div class="btn-group btn-group-vertical">
+
+                    <a class="btn btn-primary" href="{{url_for('obsluga_wyd') }}" role="button">Wydaj kluczyk</a>
+                    <a class="btn btn-primary" href="{{url_for('obsluga_sell') }}" role="button">Sprzedaj karnet</a>
+                    <a class="btn btn-primary" href="{{url_for('obsluga_check') }}" role="button">Sprawdź karnet</a>
+                    <a class="btn btn-primary" href="{{url_for('obsluga_id_finder') }}" role="button">id finder</a>
+
+                </div>
+
+                <br><br>
+
+                <!--Tutaj wrzucamy zawartość poszczególnych podstron obsługi klienta-->
+                <!--block content został zmieniony na block body tak samo w "głębszych plikach" żeby nie tworzyć erroru że są dwa block content w jednym pliku-->
+
+                <div class="container body-content">
+                    {% block body %}{% endblock %}
+                    <hr />
+                </div>
+
+
+            </div>
+        </div>
+
+        
+    </div>
+ </div>
+
+
+
+{% endblock %}
