@@ -36,16 +36,6 @@ def about():
         message=''
     )
 
-@app.route('/obsluga')
-def obsluga():
-    """Renders the about page."""
-    return render_template(
-        'obsluga_klienta.html',
-        title='Obsluga klienta',
-        year=datetime.now().year,
-        message=''
-    )
-
 @app.route('/obsluga_wydawanie')
 def obsluga_wyd():
     """Renders the about page."""
@@ -82,6 +72,46 @@ def obsluga_id_finder():
     return render_template(
         'obsluga_klienta/obsluga_id_finder.html',
         title='Obsluga klienta',
+        year=datetime.now().year,
+        message=''
+    )
+
+@app.route('/baza_dodaj_osobe')
+def baza_dodaj_osobe():
+    """Renders the about page."""
+    return render_template(
+        'baza_danych/baza_dodaj_osobe.html',
+        title='Baza danych',
+        year=datetime.now().year,
+        message=''
+    )
+
+@app.route('/baza_poprawianie')
+def baza_popraw():
+    """Renders the about page."""
+    return render_template(
+        'baza_danych/baza_popraw_dane_osoby.html',
+        title='Baza danych',
+        year=datetime.now().year,
+        message=''
+    )
+
+@app.route('/baza_pokaz')
+def baza_pokaz():
+    """Renders the about page."""
+    return render_template(
+        'baza_danych/baza_pokaz_wszystkich.html',
+        title='Baza danych',
+        year=datetime.now().year,
+        message=''
+    )
+
+@app.route('/baza_usun')
+def baza_usun():
+    """Renders the about page."""
+    return render_template(
+        'baza_danych/baza_usun_dane_osoby.html',
+        title='Baza danych',
         year=datetime.now().year,
         message=''
     )

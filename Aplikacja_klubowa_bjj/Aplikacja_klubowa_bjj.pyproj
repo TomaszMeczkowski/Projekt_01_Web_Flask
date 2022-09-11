@@ -40,11 +40,17 @@
     <Folder Include="Aplikacja_klubowa_bjj\static\fonts\" />
     <Folder Include="Aplikacja_klubowa_bjj\static\scripts\" />
     <Folder Include="Aplikacja_klubowa_bjj\templates\" />
+    <Folder Include="Aplikacja_klubowa_bjj\templates\baza_danych\" />
     <Folder Include="Aplikacja_klubowa_bjj\templates\obsluga_klienta\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Aplikacja_klubowa_bjj\static\content\custom.css" />
     <Content Include="Aplikacja_klubowa_bjj\templates\about.html" />
+    <Content Include="Aplikacja_klubowa_bjj\templates\baza_danych.html" />
+    <Content Include="Aplikacja_klubowa_bjj\templates\baza_danych\baza_dodaj_osobe.html" />
+    <Content Include="Aplikacja_klubowa_bjj\templates\baza_danych\baza_pokaz_wszystkich.html" />
+    <Content Include="Aplikacja_klubowa_bjj\templates\baza_danych\baza_popraw_dane_osoby.html" />
+    <Content Include="Aplikacja_klubowa_bjj\templates\baza_danych\baza_usun_dane_osoby.html" />
     <Content Include="Aplikacja_klubowa_bjj\templates\index.html" />
     <Content Include="Aplikacja_klubowa_bjj\templates\kontakt.html" />
     <Content Include="Aplikacja_klubowa_bjj\templates\layout.html" />

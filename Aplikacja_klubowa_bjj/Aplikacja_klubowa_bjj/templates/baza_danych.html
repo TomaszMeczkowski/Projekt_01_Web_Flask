@@ -7,24 +7,24 @@
 
 <div class="jumbotron jumbotron-fluid">
     <div class="container">
-        
 
-            <!-- Stałe górne menu w zakładce obsługa klienta -->
+
+        <!-- Stałe górne menu w zakładce baza danych -->
 
         <div>
             <div>
                 <div class="btn-group btn-group-vertical">
 
-                    <a class="btn btn-primary" href="{{url_for('obsluga_wyd') }}" role="button">Wydaj kluczyk</a>
-                    <a class="btn btn-primary" href="{{url_for('obsluga_sell') }}" role="button">Sprzedaj karnet</a>
-                    <a class="btn btn-primary" href="{{url_for('obsluga_check') }}" role="button">Sprawdź karnet</a>
-                    <a class="btn btn-primary" href="{{url_for('obsluga_id_finder') }}" role="button">id finder</a>
+                    <a class="btn btn-primary" href="{{url_for('baza_dodaj_osobe')}}" role="button">Dodaj nową osobę</a>
+                    <a class="btn btn-primary" href="{{url_for('baza_popraw')}}" role="button">Popraw dane osoby</a>
+                    <a class="btn btn-primary" href="{{url_for('baza_pokaz')}}" role="button">Pokaż wszystkie osoby</a>
+                    <a class="btn btn-primary" href="{{url_for('baza_usun')}}" role="button">Usuń dane osoby</a>
 
                 </div>
 
                 <br><br>
 
-                <!--Tutaj wrzucamy zawartość poszczególnych podstron obsługi klienta-->
+                <!--Tutaj wrzucamy zawartość poszczególnych podstron bazy danych-->
                 <!--block content został zmieniony na block body tak samo w "głębszych plikach" żeby nie tworzyć erroru że są dwa block content w jednym pliku-->
 
                 <div class="container body-content">
@@ -36,9 +36,9 @@
             </div>
         </div>
 
-        
+
     </div>
- </div>
+</div>
 
 
 
