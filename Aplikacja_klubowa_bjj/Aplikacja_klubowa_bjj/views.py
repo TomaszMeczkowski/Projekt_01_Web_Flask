@@ -135,3 +135,13 @@ def statystyki_osob():
         year=datetime.now().year,
         message=''
     )
+
+@app.route('/projekt info')
+def about_project():
+    """Renders the about page."""
+    return render_template(
+        'o_projekcie.html',
+        title='O projekcie',
+        year=datetime.now().year,
+        message=''
+    )

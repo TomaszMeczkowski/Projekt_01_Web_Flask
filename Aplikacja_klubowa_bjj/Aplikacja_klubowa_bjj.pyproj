@@ -60,6 +60,7 @@
     <Content Include="Aplikacja_klubowa_bjj\templates\obsluga_klienta\obsluga_id_finder.html" />
     <Content Include="Aplikacja_klubowa_bjj\templates\obsluga_klienta\obsluga_sprzedaz.html" />
     <Content Include="Aplikacja_klubowa_bjj\templates\obsluga_klienta\obsluga_wydawanie.html" />
+    <Content Include="Aplikacja_klubowa_bjj\templates\o_projekcie.html" />
     <Content Include="Aplikacja_klubowa_bjj\templates\statystyki.html" />
     <Content Include="Aplikacja_klubowa_bjj\templates\statystyki\statystyki_klub.html" />
     <Content Include="Aplikacja_klubowa_bjj\templates\statystyki\statystyki_osoby.html" />
