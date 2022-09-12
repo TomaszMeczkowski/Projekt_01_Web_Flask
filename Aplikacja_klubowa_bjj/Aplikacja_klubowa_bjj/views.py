@@ -16,7 +16,7 @@ def home():
         year=datetime.now().year,
     )
 
-@app.route('/contact')
+@app.route('/kontakt')
 def kontakt():
     """Renders the contact page."""
     return render_template(
@@ -26,7 +26,7 @@ def kontakt():
         message=''
     )
 
-@app.route('/about')
+@app.route('/o mnie')
 def about():
     """Renders the about page."""
     return render_template(
@@ -112,6 +112,26 @@ def baza_usun():
     return render_template(
         'baza_danych/baza_usun_dane_osoby.html',
         title='Baza danych',
+        year=datetime.now().year,
+        message=''
+    )
+
+@app.route('/statystyki_klubu')
+def statystyki_klubu():
+    """Renders the about page."""
+    return render_template(
+        'statystyki/statystyki_klub.html',
+        title='Statystyki',
+        year=datetime.now().year,
+        message=''
+    )
+
+@app.route('/statystyki')
+def statystyki_osob():
+    """Renders the about page."""
+    return render_template(
+        'statystyki/statystyki_osoby.html',
+        title='Statystyki',
         year=datetime.now().year,
         message=''
     )

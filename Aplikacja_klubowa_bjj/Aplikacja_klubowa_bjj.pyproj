@@ -41,6 +41,7 @@
     <Folder Include="Aplikacja_klubowa_bjj\static\scripts\" />
     <Folder Include="Aplikacja_klubowa_bjj\templates\" />
     <Folder Include="Aplikacja_klubowa_bjj\templates\baza_danych\" />
+    <Folder Include="Aplikacja_klubowa_bjj\templates\statystyki\" />
     <Folder Include="Aplikacja_klubowa_bjj\templates\obsluga_klienta\" />
   </ItemGroup>
   <ItemGroup>
@@ -59,6 +60,9 @@
     <Content Include="Aplikacja_klubowa_bjj\templates\obsluga_klienta\obsluga_id_finder.html" />
     <Content Include="Aplikacja_klubowa_bjj\templates\obsluga_klienta\obsluga_sprzedaz.html" />
     <Content Include="Aplikacja_klubowa_bjj\templates\obsluga_klienta\obsluga_wydawanie.html" />
+    <Content Include="Aplikacja_klubowa_bjj\templates\statystyki.html" />
+    <Content Include="Aplikacja_klubowa_bjj\templates\statystyki\statystyki_klub.html" />
+    <Content Include="Aplikacja_klubowa_bjj\templates\statystyki\statystyki_osoby.html" />
     <Content Include="requirements.txt" />
     <Content Include="Aplikacja_klubowa_bjj\static\content\bootstrap.css" />
     <Content Include="Aplikacja_klubowa_bjj\static\content\bootstrap.min.css" />
