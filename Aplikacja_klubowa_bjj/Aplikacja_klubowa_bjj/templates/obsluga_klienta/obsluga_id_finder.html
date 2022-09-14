@@ -3,6 +3,19 @@
 {% block body %}
 
 <p>id finder</p>
-<p>Miejsce na budowanie funkcjonalności związenj ze znajdywaniem id użytkowników</p>
+<form action="#">
 
+    <div class="form-group">
+        <label for="name">Imię:</label>
+        <input type="text" name="name" id="name" class="form-control" placeholder="Jan...">
+    </div>
+
+    <div class="form-group">
+        <label for="last_name">Nazwisko:</label>
+        <input type="text" name="last_name" id="last_name" class="form-control" placeholder="Kowalski...">
+    </div>
+
+    <!-- Przycisk do zatwierdzania  -->
+    <button type="submit" class="btn btn-primary">Zatwierdź</button>
+</form>
 {% endblock %}
