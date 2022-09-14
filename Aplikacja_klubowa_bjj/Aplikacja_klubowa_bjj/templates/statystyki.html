@@ -13,26 +13,36 @@
 
         <div>
             <div>
-                <div class="btn-group btn-group-vertical">
+                
+                    <div class="row">
+                        <a class="custom" href="{{url_for('statystyki_klubu')}}" role="button">Aktywność klubu</a>
+                    </div>
+                    <div class="row">
+                        <a class="custom" href="{{url_for('statystyki_osob')}}" role="button">Aktywność użytkowników</a>
+                    </div>
+                
 
-                    <a class="btn btn-primary" href="{{url_for('statystyki_klubu')}}" role="button">Aktywność klubu</a>
-                    <a class="btn btn-primary" href="{{url_for('statystyki_osob')}}" role="button">Aktywność użytkowników</a>
 
-                </div>
+                <!--<div class="btn-group btn-group-vertical">
+        <a class="btn btn-primary" href="{{url_for('statystyki_klubu')}}" role="button">Aktywność klubu</a>
+        <a class="btn btn-primary" href="{{url_for('statystyki_osob')}}" role="button">Aktywność użytkowników</a>
+    </div>-->
 
                 <br><br>
 
                 <!--Tutaj wrzucamy zawartość poszczególnych podstron statystyk-->
                 <!--block content został zmieniony na block body tak samo w "głębszych plikach" żeby nie tworzyć erroru że są dwa block content w jednym pliku-->
 
-                <div class="container body-content">
-                    {% block body %}{% endblock %}
-                    <hr />
+                
+                    <div class="container body-content">
+                        {% block body %}{% endblock %}
+                        <hr />
+                    </div>
+                
+
+
                 </div>
-
-
             </div>
-        </div>
 
 
     </div>
