@@ -3,7 +3,43 @@
 {% block body %}
 
 <h2>Dodawanie nowej osoby</h2>
-<p>Miejsce na budowanie funkcjonalności związenj z dodawaniem nowej osoby do bazy danych</p>
+<form action="#">
 
+    <div class="form-group">
+        <label for="name">Imię:</label>
+        <input type="text" name="name" id="name" class="form-control" placeholder="Jan...">
+    </div>
+
+    <div class="form-group">
+        <label for="last_name">Nazwisko:</label>
+        <input type="text" name="last_name" id="last_name" class="form-control" placeholder="Kowalski...">
+    </div>
+
+    <div class="form-group">
+        <label for="sel1">Pas:</label>
+        <select name="pas" id="pas" class="form-control">
+            <option value="Biały">Biały</option>
+            <option value="Niebieski">Niebieski</option>
+            <option value="Purpurowy">Purpurowy</option>
+            <option value="Brązowy">Brązowy</option>
+            <option value="Czarny">Czarny</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="sel1">Ilość belek:</label>
+        <select name="belki" id="belki" class="form-control">
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+        </select>
+    </div>
+
+
+    <!-- Przycisk do zatwierdzania  -->
+    <button type="submit" class="btn btn-primary">Zatwierdź</button>
+</form>
 
 {% endblock %}
