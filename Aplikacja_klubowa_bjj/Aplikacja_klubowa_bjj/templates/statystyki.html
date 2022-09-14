@@ -3,51 +3,26 @@
 {% block content %}
 
 <h2>{{ title }}</h2>
-<!--<p>Zaczynamy zabawę</p>-->
 
 <div class="jumbotron jumbotron-fluid">
     <div class="container">
 
+        <!-- Stałe boczne menu w zakładce statystyki -->
 
-        <!-- Stałe górne menu w zakładce baza danych -->
-
-        <div>
-            <div>
-                
-                    <div class="row">
-                        <a class="custom" href="{{url_for('statystyki_klubu')}}" role="button">Aktywność klubu</a>
-                    </div>
-                    <div class="row">
-                        <a class="custom" href="{{url_for('statystyki_osob')}}" role="button">Aktywność użytkowników</a>
-                    </div>
-                
-
-
-                <!--<div class="btn-group btn-group-vertical">
-        <a class="btn btn-primary" href="{{url_for('statystyki_klubu')}}" role="button">Aktywność klubu</a>
-        <a class="btn btn-primary" href="{{url_for('statystyki_osob')}}" role="button">Aktywność użytkowników</a>
-    </div>-->
-
-                <br><br>
-
-                <!--Tutaj wrzucamy zawartość poszczególnych podstron statystyk-->
-                <!--block content został zmieniony na block body tak samo w "głębszych plikach" żeby nie tworzyć erroru że są dwa block content w jednym pliku-->
-
-                
-                    <div class="container body-content">
-                        {% block body %}{% endblock %}
-                        <hr />
-                    </div>
-                
-
-
-                </div>
+        <div class="col-md-4">
+            <div class="row">
+                <a class="custom" href="{{url_for('statystyki_klubu')}}" role="button">Aktywność klubu</a>
             </div>
-
+            <div class="row">
+                <a class="custom" href="{{url_for('statystyki_osob')}}" role="button">Aktywność użytkowników</a>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <!--Treść danej podstrony statystyk-->
+                {% block body %}{% endblock %}
+        </div>
 
     </div>
 </div>
-
-
 
 {% endblock %}

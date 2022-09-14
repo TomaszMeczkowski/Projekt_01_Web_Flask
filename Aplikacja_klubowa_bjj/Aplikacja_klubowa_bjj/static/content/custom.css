@@ -1,22 +1,47 @@
-a.custom:link, a.custom:visited {
-    background-color: #6610f2;
-    color: white;
-    padding: 5px 10px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
+a.custom {
+    width: 200px;
+    border: 2px solid black;
+    background-color: white; /*Kolor t³a bezczynnego przycisku*/
+    border-color: #04AA6D; 
+    color: green; /*Kolor tekstu*/
+    cursor: pointer;
     border-radius: 5px;
     font-size: 14px;
-    width: 200px;
+    transition-duration: 0.4s;
+    display: inline-block; /*Bez tego nie bêdzie dzia³a³o 'width'*/
+    text-align: center;
+    text-decoration: none;
+    padding: 5px 10px;
 }
+
+a.custom:hover{
+    background-color: #04AA6D; /*Kolor t³a najechanego przycisku*/ 
+    color: white; /*Zmiana koloru tekstu ¿eby siê nie zlewa³*/
+}
+
+/*a.custom:link, a.custom:visited {
+    background-color: #9D63F5;*/  /*Kolor t³a button-a*/
+    /*color: white;*/  /*Kolor tekstu*/
+    /*padding: 5px 10px;*/ /* Oduniêcia ramek button-a od tekstu (po szerokoœci i po wysokoœci) */
+    /*text-align: center;
+    text-decoration: none;
+    display: inline-block;*/
+    /*border: 15px;*/
+    /*border-radius: 5px;*/
+    /*border-color: blue;*/
+    /*font-size: 14px;
+    width: 200px;
+    transition-duration: 0.4s;*/ /*Czas zmiany koloru t³a*/
+/*}
 
 a.custom:hover, a.custom:active {
     background-color: #5800DB;
-}
+}*/
 
 
 /* border: 5px solid #0d6efd;    Dodawanie*/
 
 /*div.float {
     float:none
+    background-color: #6610f2;
 }*/

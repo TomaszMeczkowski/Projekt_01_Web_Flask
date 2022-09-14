@@ -5,46 +5,33 @@
 <h2>{{ title }}</h2>
 <!--<p>Zaczynamy zabawę</p>-->
 
+
 <div class="jumbotron jumbotron-fluid">
     <div class="container">
-        
 
-            <!-- Stałe górne menu w zakładce obsługa klienta -->
+        <!-- Stałe boczne menu w zakładce obsługa klienta -->
 
-        <div>
-            <div>
-                <div class="row">
-                    <a class="custom" href="{{url_for('obsluga_wyd')}}" role="button">Wydaj kluczyk</a>
-                </div>
-                <div class="row">
-                    <a class="custom" href="{{url_for('obsluga_sell')}}" role="button">Sprzedaj karnet</a>
-                </div>
-                <div class="row">
-                    <a class="custom" href="{{url_for('obsluga_check')}}" role="button">Sprawdź karnet</a>
-                </div>
-                <div class="row">
-                    <a class="custom" href="{{url_for('obsluga_id_finder')}}" role="button">id finder</a>
-                </div>
-
-
-                <br><br>
-
-                <!--Tutaj wrzucamy zawartość poszczególnych podstron obsługi klienta-->
-                <!--block content został zmieniony na block body tak samo w "głębszych plikach" żeby nie tworzyć erroru że są dwa block content w jednym pliku-->
-
-                <div class="container body-content">
-                    {% block body %}{% endblock %}
-                    <hr />
-                </div>
-
-
+        <div class="col-md-4">
+            <div class="row">
+                <a class="custom" href="{{url_for('obsluga_wyd')}}" role="button">Wydaj kluczyk</a>
             </div>
+            <div class="row">
+                <a class="custom" href="{{url_for('obsluga_sell')}}" role="button">Sprzedaj karnet</a>
+            </div>
+            <div class="row">
+                <a class="custom" href="{{url_for('obsluga_check')}}" role="button">Sprawdź karnet</a>
+            </div>
+            <div class="row">
+                <a class="custom" href="{{url_for('obsluga_id_finder')}}" role="button">id finder</a>
+            </div>
+
+        </div>
+        <div class="col-md-8">
+            <!--Treść danej podstrony obsługi klienta-->
+            {% block body %}{% endblock %}
         </div>
 
-        
     </div>
- </div>
-
-
+</div>
 
 {% endblock %}
