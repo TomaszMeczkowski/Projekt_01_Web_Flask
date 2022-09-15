@@ -118,129 +118,12 @@ class BazaDanych:
         db.close()
         return True
 
-    def dodawanie_osob_parametry(self):
-        print("__Dodawanie nowej osoby__")
-        imie = input("Podaj imiê osoby trenuj¹cej:\n")
-        nazwisko = input("Podaj nazwisko osoby trenuj¹cej:\n")
-
-        while True:
-            pas = input("Podaj kolor pasa (Czarny/Br¹zowy/Purpurowy/Niebieski/Bia³y):\n").capitalize()
-
-            pasy = ["Czarny", "Br¹zowy", "Purpurowy", "Niebieski", "Bia³y"]
-
-            if pas not in pasy:
-                pass
-                #print(f"\n{colored('Nie ma takiego pasa', 'red')}\n")
-
-            else:
-                break
-
-        while True:
-            try:
-                belki = int(input("Podaj iloœæ belek (0-4):\n"))
-                if 0 <= belki <= 4:
-                    break
-                else:
-                    pass
-                    #print(f"\n{colored('Niew³aœciwa iloœæ belek', 'red')}\n")
-            except ValueError:
-                pass
-                #print(f"\n{colored('Nieprawid³owe dane', 'red')}\n")
-
-        
-        print(f"\nWprowadzone dane:\n"
-              f"{imie}, {nazwisko}, pas: {pas}, iloœæ belek na pasie: {belki}")
-
-        choice = int(input(f"\n1. Zatwierdziæ \n2. Poprawiæ\n0. Menu\n"))
-
-        if choice == 1:
-            return self.dodawanie_osob(imie, nazwisko, pas, belki)
-        elif choice == 0:
-            return False
-        else:
-            clear_screen()
-            return self.dodawanie_osob_parametry()
-
     def osoby_update(self, parametr, docelowa_wart, id_osoby):
         db, cursor_object = self.data_base_connector()
         zapytanie = f"UPDATE klub_zt.osoby_trenujace SET {parametr} = '{docelowa_wart}' WHERE (id = {id_osoby});"
         cursor_object.execute(zapytanie)
         db.commit()
         db.close()
-
-    def osoby_update_parametry(self):
-        while True:
-            try:
-                id_osoby = int(input("\nPodaj id osoby której dane maj¹ zostaæ zmienione:\n"))
-                if type(self.dane_osobowe_imie(id_osoby)) == str:
-                    break
-                else:
-
-                    #print(f"\n{colored('Brak takiej osoby w bazie danych', 'red')}\n")
-
-                    try:
-                        choice = int(input(f"\n1. Podaj nowe id"
-                                           f"\n0. Powrót\n"))
-                    except ValueError:
-                        choice = 1
-
-                    if choice == 1:
-                        pass
-                    else:
-                        id_osoby = False
-                        break
-
-            except ValueError:
-                #print(f"{colored('*Error: Niew³aœciwe dane*', 'red')}\n")
-                pass
-
-        if not id_osoby:
-            return False
-
-        while True:
-            try:
-                parametr = int(input("\nWybierz co ma zostaæ zmienione: "
-                                     "\n1.imie "
-                                     "\n2.nazwisko"
-                                     "\n3.pas "
-                                     "\n4.belki\n"))
-                if 1 <= parametr <= 4:
-                    break
-                else:
-                    pass
-
-            except ValueError:
-                pass
-
-        parametr_list = ["imie", "nazwisko", "pas", "belki"]
-        parametr = parametr_list[parametr - 1]
-
-        docelowa_wart = input("\nPodaj poprawne dane: \n")
-
-        db, cursor_object = mysql.connector.connect(user=self.user, password=self.password, host='127.0.0.1', port=3306,
-                                                    database="klub_zt")
-        dane = f"SELECT {parametr} FROM osoby_trenujace WHERE (id = {id_osoby});"
-        cursor_object.execute(dane)
-        wynik = cursor_object.fetchall()
-        db.commit()
-        db.close()
-
-        clear_screen()
-        print(f"\n___Proponowane zmiany___"
-              f"\nCo zmieniamy: {parametr}"
-              f"\nStare dane: {wynik[0][0]}"
-              f"\nNowe dane: {docelowa_wart}"
-              f"\nid osoby której dane zostan¹ zmieione: {id_osoby}")
-
-        choice = int(input(f"\n1. Zatwierdziæ \n2. Poprawiæ\n0. Menu (Porzuciæ zmiany)\n"))
-        if choice == 1:
-            self.osoby_update(parametr, docelowa_wart, id_osoby)
-            return True
-        elif choice == 0:
-            return False
-        else:
-            clear_screen()
-            return self.osoby_update_parametry()
 
     def osoby_delete(self, id_osoby):
         db, cursor_object = self.data_base_connector()
@@ -250,55 +133,6 @@ class BazaDanych:
         cursor_object.execute(zapytanie)
         db.commit()
         db.close()
-
-    def osoby_delete_parametry(self):
-        while True:
-            try:
-                id_osoby = int(input("\nPodaj id osoby której dane maj¹ zostaæ usuniête:\n"))
-                if type(self.dane_osobowe_imie(id_osoby)) == str:
-                    break
-                else:
-                    #print(f"\n{colored('Brak takiej osoby w bazie danych', 'red')}\n")
-
-                    try:
-                        choice = int(input(f"\n1. Podaj nowe id"
-                                           f"\n0. Powrót\n"))
-                    except ValueError:
-                        choice = 1
-
-                    if choice == 1:
-                        pass
-                    else:
-                        id_osoby = False
-                        break
-
-            except ValueError:
-                #print(f"{colored('*Error: Niew³aœciwe dane*', 'red')}\n")
-                pass
-
-        if not id_osoby:
-            return False
-
-        clear_screen()
-        print(f"Dane osoby o id={id_osoby} zostan¹ usuniête z bazy")
-
-        while True:
-            try:
-                choice = int(input(f"\n1. Zatwierdziæ \n2. Poprawiæ\n0. Menu (porzuæ zmiany)\n"))
-                if choice in [1, 2, 0]:
-                    break
-                else:
-                    pass
-            except ValueError:
-                pass
-
-        if choice == 1:
-            self.osoby_delete(id_osoby)
-            return True
-        elif choice == 0:
-            return False
-        else:
-            return self.osoby_delete_parametry()
 
     def reset_bazy_danych(self):
         db, cursor_object = self.data_base_connector()
@@ -374,14 +208,14 @@ class BazaDanych:
         db.commit()
         db.close()
 
-        print(colored(f"{'id':4s} {'Imie':11s} {'Nazwisko':18s} {'Pas':10s} Belki", 'cyan'))
+        #print(colored(f"{'id':4s} {'Imie':11s} {'Nazwisko':18s} {'Pas':10s} Belki", 'cyan'))
         print("_" * 50)
         for i in wyniki:
             if i[1] == '':
                 print(f"{i[0]}.")
             else:
-                color_pick = color_belt_picker(i[3])
-                belt = colored(i[3], color_pick)
+               
+                belt = i[3]
 
                 if i[3] == "Bia³y":
                     pass
@@ -480,118 +314,6 @@ class BazaDanych:
         db.commit()
         db.close()
 
-    def ticket_sell_parametry(self):
-        clear_screen()
-        while True:
-            try:
-                id_osoby = int(input("\nPodaj id osoby kupuj¹cej karnet:\n"))
-                if type(self.dane_osobowe_imie(id_osoby)) == str:
-                    break
-                else:
-                    print(f"\n{colored('Brak takiej osoby w bazie danych', 'red')}\n")
-
-                    try:
-                        choice = int(input(f"\n1. Podaj nowe id"
-                                           f"\n0. Powrót\n"))
-                    except ValueError:
-                        choice = 1
-
-                    if choice == 1:
-                        pass
-                    else:
-                        id_osoby = False
-                        break
-
-            except ValueError:
-                print(f"{colored('*Error: Niew³aœciwe dane*', 'red')}\n")
-                pass
-
-        if not id_osoby:
-            return False
-
-        month = month_converter(czas("month"))
-
-        karnety_men = {"1 Wejœcie": [1, "30z³"],
-                       "4 Wejœcia": [4, "100z³"],
-                       "8 Wejœæ": [8, "140z³"],
-                       "15 Wejœæ": [15, "160z³"],
-                       "Dzieci 4-7 lat": [999, "120z³"],
-                       "Dzieci 8-15 lat": [999, "130z³"],
-                       "Open": [999, "220z³"]}
-
-        karnety_women = {"1 Wejœcie": [1, "30z³"],
-                         "4 Wejœcia": [4, "100z³"],
-                         "8 Wejœæ": [8, "120z³"],
-                         "15 Wejœæ": [15, "140z³"],
-                         "Dzieci 4-7 lat": [999, "120z³"],
-                         "Dzieci 8-15 lat": [999, "130z³"],
-                         "Open": [999, "200z³"]}
-
-        clear_screen()
-        sex = input("\nK - Kobieta / M - Mê¿czyzna\n").upper()
-        clear_screen()
-        print("\n\n___Dostêpne karnety___\n")
-        if sex == "K" or sex == "KOBIETA":
-            sex = "Kobieta"
-            for i, j in karnety_women.items():
-                print(f"{i} - {j[1]}")
-
-        elif sex == "M" or sex == "MÊ¯CZYZNA":
-            sex = "Mê¿czyzna"
-            for i, j in karnety_men.items():
-                print(f"{i} - {j[1]}")
-
-        while True:
-            try:
-                typ = input("\nPodaj dok³adny typ karnetu do zakupu:\n").capitalize()
-
-                if typ == "1":
-                    typ = "1 Wejœcie"
-                elif typ == "4":
-                    typ = "4 Wejœcia"
-                elif typ == "8":
-                    typ = "8 Wejœæ"
-                elif typ == "15":
-                    typ = "15 Wejœæ"
-                elif typ == "Dzieci 4-7":
-                    typ = "Dziecie 4-7 lat"
-                elif typ == "Dzieci 8-15":
-                    typ = "Dzieci 8-15 lat"
-
-                amount = karnety_men.get(typ)[0]
-                break
-            except TypeError:
-                print(f"\n{colored('*Error: Niew³aœciwe dane*', 'red')}\n")
-
-        clear_screen()
-        print(f"\n___Wprowadzone dane___\n"
-              f"\nid osoby kupuj¹cej karnet: {id_osoby}"
-              f"\nP³eæ: {sex}"
-              f"\nTyp karnetu: {typ}"
-              f"\nMiesi¹c: {month}"
-              f"\n")
-
-        while True:
-            try:
-                choice = int(input("\n1. ZatwierdŸ"
-                                   "\n2. Popraw"
-                                   "\n"
-                                   "\n0. Menu (porzuæ zmiany)\n"))
-                if choice in [1, 2, 0]:
-                    break
-                else:
-                    pass
-            except ValueError:
-                pass
-
-        if choice == 1:
-            self.ticket_sell(id_osoby, True, month, typ, amount, sex)
-            return True
-        elif choice == 0:
-            return False
-        else:
-            return self.ticket_sell_parametry()
-
     def auto_ticket_month_check(self):
         db, cursor_object = self.data_base_connector()
 
@@ -657,44 +379,14 @@ class BazaDanych:
             self.statystyki_klubowe_wejscia()
             self.statystyki_osobowe_wejscia(id_osoby)
 
-            print(colored("\nMo¿na wydaæ kluczyk\n", "green"))
+            #print(colored("\nMo¿na wydaæ kluczyk\n", "green"))
             
             return True
 
         else:
-            print(colored("\nBrak aktywnego karnetu\n", "red"))
+            #print(colored("\nBrak aktywnego karnetu\n", "red"))
             
             return False
-
-    def key_giveaway_parametry(self):
-        while True:
-            try:
-                id_osoby = int(input("\nPodaj id osoby trenuj¹cej:\n"))
-                if type(self.dane_osobowe_imie(id_osoby)) == str:
-                    break
-                else:
-                    print(f"\n{colored('Brak takiej osoby w bazie danych', 'red')}\n")
-
-                    try:
-                        choice = int(input(f"\n1. Podaj nowe id"
-                                           f"\n0. Powrót\n"))
-                    except ValueError:
-                        choice = 1
-
-                    if choice == 1:
-                        pass
-                    else:
-                        id_osoby = False
-                        break
-
-            except ValueError:
-                print(f"{colored('*Error: Niew³aœciwe dane*', 'red')}\n")
-                pass
-
-        if not id_osoby:
-            return False
-
-        return self.key_giveaway(id_osoby)
 
     def ticket_check(self, id_osoby):
         db, cursor_object = self.data_base_connector()
@@ -709,51 +401,18 @@ class BazaDanych:
         amount_left = wynik[0][1]
 
         if activ and 0 < amount_left < 800:
-            print(f"{colored('Karnet jest aktywny', 'green')}"
-                  f"\nPozosta³a iloœæ wejœæ do wykorzystania: {amount_left}")
+            #print(f"{colored('Karnet jest aktywny', 'green')}"
+                  #f"\nPozosta³a iloœæ wejœæ do wykorzystania: {amount_left}")
+            pass
 
         elif activ and amount_left > 800:
-            print(f"{colored('Karnet jest aktywny', 'green')}"
-                  f"\nPozosta³a iloœæ wejœæ do wykorzystania: {colored('Nielimitowany dostêp', 'green')}\n")
+            #print(f"{colored('Karnet jest aktywny', 'green')}"
+                  #f"\nPozosta³a iloœæ wejœæ do wykorzystania: {colored('Nielimitowany dostêp', 'green')}\n")
+            pass
 
         else:
-            print(f"{colored('Karnet zosta³ wykorzystany', 'red')}")
-
-    def ticket_check_parametry(self):
-        while True:
-            try:
-                id_osoby = int(input("\nPodaj id osoby trenuj¹cej\n"))
-                if type(self.dane_osobowe_imie(id_osoby)) == str:
-                    break
-                else:
-                    print(f"\n{colored('Brak takiej osoby w bazie danych', 'red')}\n")
-
-                    try:
-                        choice = int(input(f"\n1. Podaj nowe id"
-                                           f"\n0. Powrót\n"))
-                    except ValueError:
-                        choice = 1
-
-                    if choice == 1:
-                        pass
-                    else:
-                        id_osoby = False
-                        break
-
-            except ValueError:
-                print(f"{colored('*Error: Niew³aœciwe dane*', 'red')}\n")
-
-        if not id_osoby:
-            return False
-
-        if type(self.dane_osobowe_imie(id_osoby)) == str and type(self.dane_osobowe_naziwsko(id_osoby)):
-            print(f"W³aœciciel karnetu: {colored(self.dane_osobowe_imie(id_osoby), 'blue')} "
-                  f"{colored(self.dane_osobowe_naziwsko(id_osoby), 'blue')}\n")
-
-            return self.ticket_check(id_osoby)
-
-        else:
-            print(f"{colored('Brak osoby o takim id w bazie danych', 'red')}")
+            #print(f"{colored('Karnet zosta³ wykorzystany', 'red')}")
+            pass
 
     def dane_osobowe_imie(self, id_osoby):
         db, cursor_object = self.data_base_connector()
@@ -800,18 +459,6 @@ class BazaDanych:
 
         return id_osoby
 
-    def id_finder_parametry(self):
-        clear_screen()
-        print("\nPodaj dane osoby trenuj¹cej")
-        imie = input("\nImiê: ")
-        nazwisko = input("Nazwisko: ")
-        id_osoby = self.id_finder(imie, nazwisko)
-
-        if id_osoby:
-            print(f"\nid szukanej osoby: {colored(self.id_finder(imie, nazwisko), 'blue')}")
-        else:
-            print(f"\n{colored('Brak takiej osoby w bazie danych', 'red')}")
-
     def statystyki_klubowe_wejscia(self):
         db, cursor_object = self.data_base_connector()
 
@@ -848,7 +495,7 @@ class BazaDanych:
         try:
             wyniki[0][1]
         except IndexError:
-            print(f"{colored('Brak danych w bazie', 'red')}")
+            #print(f"{colored('Brak danych w bazie', 'red')}")
             choice = False
 
         db.commit()
@@ -920,7 +567,7 @@ class BazaDanych:
         try:
             wyniki[0][1]
         except IndexError:
-            print(f"{colored('Brak danych statystycznych dla podanego id', 'red')}")
+            #print(f"{colored('Brak danych statystycznych dla podanego id', 'red')}")
             choice = False
 
         db.commit()
@@ -946,43 +593,6 @@ class BazaDanych:
             db.commit()
             db.close()
 
-            
-
-    def stat_entry_by_id_parametry(self):
-        while True:
-            try:
-                id_osoby = int(input("\nPodaj id osoby trenuj¹cej\n"))
-                if type(self.dane_osobowe_imie(id_osoby)) == str:
-                    break
-                else:
-                    print(f"\n{colored('Brak takiej osoby w bazie danych', 'red')}\n")
-
-                    try:
-                        choice = int(input(f"\n1. Podaj nowe id"
-                                           f"\n0. Powrót\n"))
-                    except ValueError:
-                        choice = 1
-
-                    if choice == 1:
-                        pass
-                    else:
-                        id_osoby = False
-                        break
-
-            except ValueError:
-                print(f"{colored('*Error: Niew³aœciwe dane*', 'red')}\n")
-
-        if not id_osoby:
-            return False
-
-        if type(self.dane_osobowe_imie(id_osoby)) == str and type(self.dane_osobowe_naziwsko(id_osoby)):
-            print(f"\n\nDane u¿ytkownika: {colored(self.dane_osobowe_imie(id_osoby), 'blue')} "
-                  f"{colored(self.dane_osobowe_naziwsko(id_osoby), 'blue')}\n")
-
-            self.stat_entry_by_id(id_osoby)
-
-        else:
-            print(f"{colored('Brak osoby o takim id w bazie danych', 'red')}")
 
     def dev_tool_statistics_01(self):
         db, cursor_object = self.data_base_connector()
@@ -1134,36 +744,6 @@ class BazaDanych:
 
         
         return True
-
-    def plot_osoba_parametry(self):
-        while True:
-            try:
-                id_osoby = int(input("\nPodaj id osoby której aktywnoœæ zostanie pokazana na wykresie:\n"))
-                if type(self.dane_osobowe_imie(id_osoby)) == str:
-                    break
-                else:
-                    #print(f"\n{colored('Brak takiej osoby w bazie danych', 'red')}\n")
-
-                    try:
-                        choice = int(input(f"\n1. Podaj nowe id"
-                                           f"\n0. Powrót\n"))
-                    except ValueError:
-                        choice = 1
-
-                    if choice == 1:
-                        pass
-                    else:
-                        id_osoby = False
-                        break
-
-            except ValueError:
-                #print(f"{colored('*Error: Niew³aœciwe dane*', 'red')}\n")
-                pass
-
-        if not id_osoby:
-            return False
-
-        return self.plot_osoba(id_osoby)
 
     def plot_klub(self):
         db, cursor_object = self.data_base_connector()
