@@ -165,23 +165,7 @@ class BazaDanych:
         db.commit()
         db.close()
 
-        #print(colored(f"{'id':4s} {'Imie':11s} {'Nazwisko':18s} {'Pas':10s} Belki", 'cyan'))
-        #print("_" * 50)
-        for i in wyniki:
-            if i[1] == '':
-                print(f"{i[0]}.")
-            else:
-                
-                belt = i[3]
-
-                if i[3] == "Bia³y":
-                    pass
-                else:
-                    while len(belt) < 19:
-                        belt += " "
-
-                print(f"{(str(i[0]) + '.'):4s} {i[1]:8s} |  {i[2]:12s}  |  {belt:14s}  |  {i[4]}")
-        print("_" * 50)
+        return wyniki
 
     def show_all_people_sorted_by_alf_nazwisko(self):
 
@@ -192,23 +176,7 @@ class BazaDanych:
         db.commit()
         db.close()
 
-        #print(colored(f"{'id':4s} {'Imie':11s} {'Nazwisko':18s} {'Pas':10s} Belki", 'cyan'))
-        print("_" * 50)
-        for i in wyniki:
-            if i[1] == '':
-                print(f"{i[0]}.")
-            else:
-               
-                belt = i[3]
-
-                if i[3] == "Bia³y":
-                    pass
-                else:
-                    while len(belt) < 19:
-                        belt += " "
-
-                print(f"{(str(i[0]) + '.'):4s} {i[1]:8s} |  {i[2]:12s}  |  {belt:14s}  |  {i[4]}")
-        print("_" * 50)
+        return wyniki
 
     def print_to_txt(self):
 
