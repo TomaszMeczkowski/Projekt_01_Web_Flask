@@ -153,25 +153,9 @@ class BazaDanych:
         wyniki = cursor_object.fetchall()
         db.commit()
         db.close()
-
-        #print(colored(f"{'id':4s} {'Imie':11s} {'Nazwisko':18s} {'Pas':10s} Belki", 'cyan'))
-        #print("_" * 50)
-        for i in wyniki:
-            if i[1] == '':
-                print(f"{i[0]}.")
-            else:
-                #color_pick = color_belt_picker(i[3])
-                belt = i[3]
-
-                if i[3] == "Bia³y":
-                    pass
-                else:
-                    while len(belt) < 19:
-                        belt += " "
-
-                print(f"{(str(i[0]) + '.'):4s} {i[1]:8s} |  {i[2]:12s}  |  {belt:14s}  |  {i[4]}")
-        print("_" * 50)
-
+        
+        return wyniki
+    
     def show_all_people_sorted_by_alf_imie(self):
 
         db, cursor_object = self.data_base_connector()
