@@ -582,19 +582,6 @@ class BazaDanych:
         db.close()
 
     def dev_tool_osoby(self):
-        print("£adowanie osób prefediniowanych do bazy danych...")
-        # osoby = [
-        #     ["Tomek", "Mêczkowski", "Purpurowy", 2],
-        #     ["Olga", "Zabulewicz", "Purpurowy", 2],
-        #     ["Alicja", "Kardas", "Niebieski", 3],
-        #     ["Ola", "Warczak", "Purpurowy", 3],
-        #     ["Jacek", "Sasin", "Niebieski", 2],
-        #     ["Tomek", "Kowalski", "Czarny", 2],
-        #     ["Olga", "Kownacka", "Br¹zowy", 4],
-        #     ["Alicja", "Nazaruk", "Purpurowy", 3],
-        #     ["Ola", "Warcz", "Niebieski", 3],
-        #     ["Jacek", "Sass", "Bia³y", 1]
-        # ]
 
         fake_data = Faker(["pl_PL"])
         pasy = ["Czarny", "Br¹zowy", "Purpurowy", "Niebieski", "Bia³y"]
@@ -608,7 +595,6 @@ class BazaDanych:
             osoba = [imie, nazwisko, pas, belki]
             osoby.append(osoba)
 
-        # Je¿eli chcemy wiecej powtórzeñ danych trzeba zmieniæ range(i) na wiêksze i
         for large_data in range(1):
             for i in range(0, len(osoby)):
                 self.dodawanie_osob(osoby[i][0], osoby[i][1], osoby[i][2], osoby[i][3])
@@ -617,7 +603,7 @@ class BazaDanych:
         for i in range(len(osoby) + 1):
             self.ticket_sell(i, True, f"{month_converter(czas('month'))}", "Open", 999, "M/K")
 
-        sleep(2)
+
 
     def dev_tool_klub_stat(self):
 
