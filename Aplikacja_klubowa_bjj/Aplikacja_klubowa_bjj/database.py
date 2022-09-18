@@ -604,7 +604,6 @@ class BazaDanych:
             self.ticket_sell(i, True, f"{month_converter(czas('month'))}", "Open", 999, "M/K")
 
 
-
     def dev_tool_klub_stat(self):
 
         db, cursor_object = self.data_base_connector()
@@ -695,7 +694,7 @@ class BazaDanych:
         try:
             wyniki[0][0]
         except IndexError:
-            #print(f"{colored('Brak danych statystycznych klubu', 'red')}")
+            #print(f"'Brak danych statystycznych klubu")
             return False
 
         ilosc_wejsc, daty = [], []
