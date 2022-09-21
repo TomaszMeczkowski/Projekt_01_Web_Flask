@@ -3,8 +3,10 @@ Routes and views for the flask application.
 """
 
 from datetime import datetime
-from flask import render_template
+from flask import render_template, request
 from Aplikacja_klubowa_bjj import app
+#from .database import BazaDanych
+
 
 @app.route('/')
 @app.route('/home')
@@ -36,9 +38,16 @@ def about():
         message=''
     )
 
-@app.route('/obsluga_wydawanie')
+@app.route('/obsluga_wydawanie', methods=('GET', 'POST'))
 def obsluga_wyd():
     """Renders the about page."""
+    if request.method == "POST":
+        name = request.form['name']
+        last_name = request.form['last_name']
+        user_id = request.form['user_id']
+
+        # Metoda podejmujaca decyzje co dalej majac juz dane 
+
     return render_template(
         'obsluga_klienta/obsluga_wydawanie.html',
         title='Obsluga klienta',
@@ -66,9 +75,16 @@ def obsluga_check():
         message=''
     )
 
-@app.route('/obsluga_id_finder')
+@app.route('/obsluga_id_finder', methods=('GET', 'POST'))
 def obsluga_id_finder():
     """Renders the about page."""
+    #if request.method == "POST":
+        #name = request.form['name']
+        #last_name = request.form['last_name']
+        #a = BazaDanych("root", "Torex123kt")
+        #user_id = a.id_finder(name, last_name)
+        #print(user_id)
+
     return render_template(
         'obsluga_klienta/obsluga_id_finder.html',
         title='Obsluga klienta',
