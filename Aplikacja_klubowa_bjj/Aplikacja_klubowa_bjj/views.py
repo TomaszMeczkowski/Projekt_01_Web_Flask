@@ -3,9 +3,21 @@ Routes and views for the flask application.
 """
 
 from datetime import datetime
-from flask import render_template, request
+from flask import Flask, render_template, request, json
+from flask.scaffold import _matching_loader_thinks_module_is_package
+from flaskext.mysql import MySQL
 from Aplikacja_klubowa_bjj import app
+from werkzeug.security import generate_password_hash
 #from .database import BazaDanych
+
+mysql = MySQL()
+
+#konfiguracja MySQL
+app.config['MYSQL_DATABASE_USER']='root'
+#app.config['MYSQL_DATABASE_PASSWORD']='kt'
+app.config['MYSQL_DATABASE_DB']='klub_zt'
+app.config['MYSQL_DATABASE_HOST']='localhost'
+mysql.init_app(app)
 
 
 @app.route('/')
@@ -15,6 +27,27 @@ def home():
     return render_template(
         'index.html',
         title='Home Page',
+        year=datetime.now().year,
+    )
+
+@app.route('/Konto', methods=('GET', 'POST'))
+def acc():
+    """Renders the home page."""
+    if request.method == "POST":
+        username = request.form['user_name_mysql']
+        password = request.form['password_mysql']
+        #print(username)
+        #print(type(username))
+
+        #print(password)
+        app.config['MYSQL_DATABASE_USER']=username
+        app.config['MYSQL_DATABASE_PASSWORD']=password
+        return home()
+
+
+    return render_template(
+        'account.html',
+        title='Konto',
         year=datetime.now().year,
     )
 
@@ -81,20 +114,49 @@ def obsluga_id_finder():
     #if request.method == "POST":
         #name = request.form['name']
         #last_name = request.form['last_name']
-        #a = BazaDanych("root", "Torex123kt")
-        #user_id = a.id_finder(name, last_name)
-        #print(user_id)
+        #.....
 
     return render_template(
         'obsluga_klienta/obsluga_id_finder.html',
         title='Obsluga klienta',
         year=datetime.now().year,
         message=''
-    )
+    )        
 
-@app.route('/baza_dodaj_osobe')
+@app.route('/baza_dodaj_osobe', methods=('GET', 'POST'))
 def baza_dodaj_osobe():
     """Renders the about page."""
+
+    if request.method == "POST":
+        name = request.form['name']
+        last_name = request.form['last_name']
+        #belt = request.form['']
+        #stripe = request.form['']
+
+
+        name = "Marcin"
+        last_name = "Kowaslki"
+        belt = "Niebieski"
+        stripe = 2
+        
+
+        if name and last_name and belt and stripe:
+            
+
+            conn = mysql.connect()
+            cursor = conn.cursor()
+
+            cursor.callproc("adding_new_person", (name, last_name, belt, stripe))
+            data = cursor.fetchall()
+            # Stronka po odpaleniu dodawaniu nowych osób dochodzi tutaj ale nie dodaje mi osoby do bazy
+
+        else:
+            return json.dumps({'html':'<span>Wypelnij wszystkie pola!</span>'})
+
+
+
+
+        
     return render_template(
         'baza_danych/baza_dodaj_osobe.html',
         title='Baza danych',

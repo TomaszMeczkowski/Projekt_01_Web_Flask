@@ -51,6 +51,7 @@
     <Folder Include="Aplikacja_klubowa_bjj\templates\obsluga_klienta\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Aplikacja_klubowa_bjj\templates\account.html" />
     <Content Include="Aplikacja_klubowa_bjj\static\content\custom.css" />
     <Content Include="Aplikacja_klubowa_bjj\templates\about.html" />
     <Content Include="Aplikacja_klubowa_bjj\templates\baza_danych.html" />
