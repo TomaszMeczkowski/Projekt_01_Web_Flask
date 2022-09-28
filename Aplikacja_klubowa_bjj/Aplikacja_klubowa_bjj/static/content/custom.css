@@ -19,29 +19,14 @@ a.custom:hover{
     color: white; /*Zmiana koloru tekstu ¿eby siê nie zlewa³*/
 }
 
-/*a.custom:link, a.custom:visited {
-    background-color: #9D63F5;*/  /*Kolor t³a button-a*/
-    /*color: white;*/  /*Kolor tekstu*/
-    /*padding: 5px 10px;*/ /* Oduniêcia ramek button-a od tekstu (po szerokoœci i po wysokoœci) */
-    /*text-align: center;
-    text-decoration: none;
-    display: inline-block;*/
-    /*border: 15px;*/
-    /*border-radius: 5px;*/
-    /*border-color: blue;*/
-    /*font-size: 14px;
-    width: 200px;
-    transition-duration: 0.4s;*/ /*Czas zmiany koloru t³a*/
-/*}
 
-a.custom:hover, a.custom:active {
-    background-color: #5800DB;
-}*/
-
-
-/* border: 5px solid #0d6efd;    Dodawanie*/
-
-/*div.float {
-    float:none
-    background-color: #6610f2;
-}*/
+div.custom {
+    margin: auto;
+    width: 50%; /*Note: Center aligning has no effect if the width property is not set (or set to 100%).*/
+    border: 3px solid green;
+    padding: 10px;
+    text-align: center;
+    color: green;
+    font-size: 18px;
+    font-weight: bold;
+}

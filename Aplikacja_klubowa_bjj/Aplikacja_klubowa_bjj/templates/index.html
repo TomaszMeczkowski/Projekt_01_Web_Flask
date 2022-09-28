@@ -4,9 +4,21 @@
 
 <div class="jumbotron">
     <h1>BJJ Club app</h1>
-    <p class="lead"> Pierwszy projekt aplikacji webowej z wykorzystaniem framework-a Flask, korzystając z HTML, CSS i JavaScript.</p>
+    <p class="lead"> Pierwszy projekt aplikacji webowej z wykorzystaniem framework-a Flask, korzystając z technologi: Python, HTML, CSS i JavaScript.</p>
     <p><a href="http://flask.pocoo.org/" class="custom" style="height:32px; width:160px">Dokumentacja Flask</a></p>  <!--Pojedyncze wartosci z css mozna podstawiac tez poprzez style-->
 </div>
+
+
+
+<!--Dodać informację o udanym logowaniu (np. modal window)-->
+
+{% if message != "" %}
+<div class="custom">
+    <h3>{{message}}</h3>
+</div>
+{% endif %}
+
+
 
 <div class="row">
     <div class="col-md-4">

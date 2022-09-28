@@ -3,6 +3,8 @@ Routes and views for the flask application.
 """
 
 from datetime import datetime
+from email import message
+from pkgutil import get_loader
 from flask import Flask, render_template, request, json
 from flask.scaffold import _matching_loader_thinks_module_is_package
 from flaskext.mysql import MySQL
@@ -13,42 +15,52 @@ from werkzeug.security import generate_password_hash
 mysql = MySQL()
 
 #konfiguracja MySQL
-app.config['MYSQL_DATABASE_USER']='root'
-#app.config['MYSQL_DATABASE_PASSWORD']='kt'
+app.config['MYSQL_DATABASE_USER']=None
+app.config['MYSQL_DATABASE_PASSWORD']=None
 app.config['MYSQL_DATABASE_DB']='klub_zt'
 app.config['MYSQL_DATABASE_HOST']='localhost'
+configuration_mysql = False
 mysql.init_app(app)
 
 
 @app.route('/')
 @app.route('/home')
-def home():
+def home(message=""):
     """Renders the home page."""
     return render_template(
         'index.html',
         title='Home Page',
         year=datetime.now().year,
+        message = message
     )
 
 @app.route('/Konto', methods=('GET', 'POST'))
 def acc():
     """Renders the home page."""
     if request.method == "POST":
+
+        global configuration_mysql
+        
         username = request.form['user_name_mysql']
         password = request.form['password_mysql']
-        #print(username)
-        #print(type(username))
-
-        #print(password)
+        
         app.config['MYSQL_DATABASE_USER']=username
         app.config['MYSQL_DATABASE_PASSWORD']=password
-        return home()
+
+        # Dodaæ walidacje wprowadzanych danych
+        # 1) Sprawdzenie czy pola zosta³y wype³nione
+        # 2) Sprawdzenie po³¹czenia z baz¹ 
+        # Wtedy dopiero zmieniamy config.. na True 
+        configuration_mysql = True
+
+        # Je¿eli uda³o siê zalogowaæ to dodaæ informacje 
+        return home(message="Udalo sie zaglogowac")
 
 
     return render_template(
         'account.html',
         title='Konto',
-        year=datetime.now().year,
+        year=datetime.now().year
     )
 
 @app.route('/kontakt')
@@ -74,10 +86,15 @@ def about():
 @app.route('/obsluga_wydawanie', methods=('GET', 'POST'))
 def obsluga_wyd():
     """Renders the about page."""
+
+    if not configuration_mysql:
+        return acc()
+    
     if request.method == "POST":
-        name = request.form['name']
-        last_name = request.form['last_name']
-        user_id = request.form['user_id']
+        pass
+        #name = request.form['name']
+        #last_name = request.form['last_name']
+        #user_id = request.form['user_id']
 
         # Metoda podejmujaca decyzje co dalej majac juz dane 
 
@@ -91,6 +108,10 @@ def obsluga_wyd():
 @app.route('/obsluga_sprzedaz')
 def obsluga_sell():
     """Renders the about page."""
+
+    if not configuration_mysql:
+        return acc()
+
     return render_template(
         'obsluga_klienta/obsluga_sprzedaz.html',
         title='Obsluga klienta',
@@ -101,6 +122,10 @@ def obsluga_sell():
 @app.route('/obsluga_check')
 def obsluga_check():
     """Renders the about page."""
+
+    if not configuration_mysql:
+        return acc()
+
     return render_template(
         'obsluga_klienta/obsluga_check.html',
         title='Obsluga klienta',
@@ -111,6 +136,10 @@ def obsluga_check():
 @app.route('/obsluga_id_finder', methods=('GET', 'POST'))
 def obsluga_id_finder():
     """Renders the about page."""
+
+    if not configuration_mysql:
+        return acc()
+
     #if request.method == "POST":
         #name = request.form['name']
         #last_name = request.form['last_name']
@@ -126,19 +155,15 @@ def obsluga_id_finder():
 @app.route('/baza_dodaj_osobe', methods=('GET', 'POST'))
 def baza_dodaj_osobe():
     """Renders the about page."""
+    
+    if not configuration_mysql:
+        return acc()
 
     if request.method == "POST":
         name = request.form['name']
         last_name = request.form['last_name']
-        #belt = request.form['']
-        #stripe = request.form['']
-
-
-        name = "Marcin"
-        last_name = "Kowaslki"
-        belt = "Niebieski"
-        stripe = 2
-        
+        belt = request.form['pas']
+        stripe = request.form['belki']        
 
         if name and last_name and belt and stripe:
             
@@ -146,15 +171,25 @@ def baza_dodaj_osobe():
             conn = mysql.connect()
             cursor = conn.cursor()
 
-            cursor.callproc("adding_new_person", (name, last_name, belt, stripe))
+            cursor.callproc('adding_new_person', (name, last_name, belt, stripe))
             data = cursor.fetchall()
+
+            if len(data) is 0:
+                conn.commit()
+                return json.dumps({'message':'User created succesfully'})
+            else:
+                return json.dumps({'error':str(data[0])})
+
             # Stronka po odpaleniu dodawaniu nowych osób dochodzi tutaj ale nie dodaje mi osoby do bazy
+            # TUTAJ KONTYNUOWAÆ PRACE , NA GÓRZE DODAÆ HAS£O DO MySQL 
+            # stored procedure sprawdzone (dzia³a jak siê u¿yje bezpoœrednio w mysql-u)
+            # kopia stored porcedure jest w tym samym folderze co projekt
+
+            # RUSZY£O !!!! Brakowa³o commita idioto
+            # Ale nie chce mi ruszaæ jak pobieram dane z okienek wybieralnych belt, stripe trzeb coœ tam naprawiæ
 
         else:
             return json.dumps({'html':'<span>Wypelnij wszystkie pola!</span>'})
-
-
-
 
         
     return render_template(
@@ -167,6 +202,10 @@ def baza_dodaj_osobe():
 @app.route('/baza_poprawianie')
 def baza_popraw():
     """Renders the about page."""
+
+    if not configuration_mysql:
+        return acc()
+
     return render_template(
         'baza_danych/baza_popraw_dane_osoby.html',
         title='Baza danych',
@@ -177,6 +216,10 @@ def baza_popraw():
 @app.route('/baza_pokaz')
 def baza_pokaz():
     """Renders the about page."""
+
+    if not configuration_mysql:
+        return acc()
+
     return render_template(
         'baza_danych/baza_pokaz_wszystkich.html',
         title='Baza danych',
@@ -187,6 +230,10 @@ def baza_pokaz():
 @app.route('/baza_usun')
 def baza_usun():
     """Renders the about page."""
+
+    if not configuration_mysql:
+        return acc()
+
     return render_template(
         'baza_danych/baza_usun_dane_osoby.html',
         title='Baza danych',
@@ -194,24 +241,30 @@ def baza_usun():
         message=''
     )
 
-@app.route('/statystyki_klubu')
+@app.route('/statystyki_klubu', methods=('GET', 'POST'))
 def statystyki_klubu():
     """Renders the about page."""
+
+    if not configuration_mysql:
+        return acc()
+
     return render_template(
         'statystyki/statystyki_klub.html',
         title='Statystyki',
-        year=datetime.now().year,
-        message=''
+        year=datetime.now().year
     )
 
 @app.route('/statystyki')
 def statystyki_osob():
     """Renders the about page."""
+
+    if not configuration_mysql:
+        return acc()
+
     return render_template(
         'statystyki/statystyki_osoby.html',
         title='Statystyki',
-        year=datetime.now().year,
-        message=''
+        year=datetime.now().year
     )
 
 @app.route('/projekt info')
