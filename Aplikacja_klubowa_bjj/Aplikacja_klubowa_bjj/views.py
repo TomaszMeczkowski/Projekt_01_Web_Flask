@@ -46,18 +46,20 @@ def acc():
         if not configuration_mysql:
             username = request.form['user_name_mysql']
             password = request.form['password_mysql']
+
+            if username and password:
         
-            app.config['MYSQL_DATABASE_USER']=username
-            app.config['MYSQL_DATABASE_PASSWORD']=password
+                app.config['MYSQL_DATABASE_USER']=username
+                app.config['MYSQL_DATABASE_PASSWORD']=password
 
-            # Dodaæ walidacje wprowadzanych danych
-            # 1) Sprawdzenie czy pola zosta³y wype³nione
-            # 2) Sprawdzenie po³¹czenia z baz¹ (Tutaj zainicjowaæ baze danych)
-            # Wtedy dopiero zmieniamy config.. na True 
-            configuration_mysql = True
+                # Dodaæ walidacje wprowadzanych danych
+                # 1) Sprawdzenie czy pola zosta³y wype³nione
+                # 2) Sprawdzenie po³¹czenia z baz¹ (Tutaj zainicjowaæ baze danych)
+                # Wtedy dopiero zmieniamy config.. na True 
+                configuration_mysql = True
 
-            # Je¿eli uda³o siê zalogowaæ to dodaæ informacje 
-            return home(message="Udalo sie zaglogowac")
+                # Je¿eli uda³o siê zalogowaæ to dodaæ informacje 
+                return home(message="Udalo sie zalogowac")
 
     if configuration_mysql:
         return acc_on()

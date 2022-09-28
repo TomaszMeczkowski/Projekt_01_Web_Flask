@@ -30,13 +30,13 @@
                     <li><a href="{{ url_for('baza_dodaj_osobe') }}">Baza danych</a></li>
                     <li><a href="{{ url_for('statystyki_klubu') }}">Statystyki</a></li>
                     <li><a href="{{ url_for('about_project') }}">O projekcie</a></li>
-                    <li><a href="{{ url_for('acc') }}">Konto</a></li>
+                    <li style="margin-left: 100px;"><a href="{{ url_for('acc') }}">Konto</a></li>
                 </ul>
             </div>
         </div>
     </div>
 
-    <div class="container body-content">
+    <div class="container body-content" style="margin-top: 25px;">
         {% block content %}{% endblock %}
         <hr />
         <footer>
