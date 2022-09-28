@@ -22,7 +22,7 @@ a.custom:hover{
 
 div.custom {
     margin: auto;
-    width: 50%; /*Note: Center aligning has no effect if the width property is not set (or set to 100%).*/
+    width: 30%; /*Note: Center aligning has no effect if the width property is not set (or set to 100%).*/
     border: 3px solid green;
     padding: 10px;
     text-align: center;

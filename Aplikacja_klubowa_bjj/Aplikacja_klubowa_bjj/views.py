@@ -37,30 +37,56 @@ def home(message=""):
 @app.route('/Konto', methods=('GET', 'POST'))
 def acc():
     """Renders the home page."""
+    
+
     if request.method == "POST":
 
         global configuration_mysql
+         
+        if not configuration_mysql:
+            username = request.form['user_name_mysql']
+            password = request.form['password_mysql']
         
-        username = request.form['user_name_mysql']
-        password = request.form['password_mysql']
-        
-        app.config['MYSQL_DATABASE_USER']=username
-        app.config['MYSQL_DATABASE_PASSWORD']=password
+            app.config['MYSQL_DATABASE_USER']=username
+            app.config['MYSQL_DATABASE_PASSWORD']=password
 
-        # Dodaæ walidacje wprowadzanych danych
-        # 1) Sprawdzenie czy pola zosta³y wype³nione
-        # 2) Sprawdzenie po³¹czenia z baz¹ 
-        # Wtedy dopiero zmieniamy config.. na True 
-        configuration_mysql = True
+            # Dodaæ walidacje wprowadzanych danych
+            # 1) Sprawdzenie czy pola zosta³y wype³nione
+            # 2) Sprawdzenie po³¹czenia z baz¹ (Tutaj zainicjowaæ baze danych)
+            # Wtedy dopiero zmieniamy config.. na True 
+            configuration_mysql = True
 
-        # Je¿eli uda³o siê zalogowaæ to dodaæ informacje 
-        return home(message="Udalo sie zaglogowac")
+            # Je¿eli uda³o siê zalogowaæ to dodaæ informacje 
+            return home(message="Udalo sie zaglogowac")
 
+    if configuration_mysql:
+        return acc_on()
 
     return render_template(
         'account.html',
         title='Konto',
         year=datetime.now().year
+    )
+
+@app.route('/Konto', methods=('GET', 'POST'))
+def acc_on():
+    """Renders the contact page."""
+
+    if request.method == "POST":
+
+        global configuration_mysql
+
+        app.config['MYSQL_DATABASE_USER']=None
+        app.config['MYSQL_DATABASE_PASSWORD']=None
+        configuration_mysql = False
+
+        return home(message="Zostales wylogowany")
+
+    return render_template(
+        'account_on.html',
+        title='Konto',
+        year=datetime.now().year,
+        message=''
     )
 
 @app.route('/kontakt')

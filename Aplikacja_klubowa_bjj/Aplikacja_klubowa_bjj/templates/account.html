@@ -2,27 +2,24 @@
 
 {% block content %}
 
-
-<!--<h2>Dodawanie nowej osoby</h2>-->
-<div class="jumbotron">
+<div class="jumbotron" style="width: 30%; margin: auto; padding: 50px; text-align: center; margin-top: 50px; margin-bottom: 50px;">
 
     <form method="post">
-        
-        <h2> Dane dostępowe MySQL </h2>
-        
+
+        <h2> Zaloguj się do serwera MySQL </h2>
+
         <br />
         <div class="form-group">
-            <label for="inputName">Username:</label>
+            <!-- <label for="inputName">Username:</label> -->
             <input type="text" name="user_name_mysql" id="user_name_mysql" class="form-control" placeholder="Username...">
         </div>
 
         <div class="form-group">
-            <label for="inputPassword">Password:</label>
+            <!-- <label for="inputPassword">Password:</label> -->
             <input type="password" name="password_mysql" id="password_mysql" class="form-control" placeholder="Password...">
         </div>
 
-        <!-- Przycisk do zatwierdzania  -->
-        <button type="submit" class="btn btn-primary">Zaloguj się</button>
+        <button type="submit" class="btn btn-primary" style="margin: auto; width: 80%;">Zaloguj się</button>
     </form>
 </div>
 
