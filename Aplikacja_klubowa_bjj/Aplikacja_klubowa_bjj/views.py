@@ -10,7 +10,8 @@ from flask.scaffold import _matching_loader_thinks_module_is_package
 from flaskext.mysql import MySQL
 from Aplikacja_klubowa_bjj import app
 from werkzeug.security import generate_password_hash
-#from .database import BazaDanych
+from .database import BazaDanych
+import mysql.connector
 
 mysql = MySQL()
 
@@ -18,7 +19,9 @@ mysql = MySQL()
 app.config['MYSQL_DATABASE_USER']=None
 app.config['MYSQL_DATABASE_PASSWORD']=None
 app.config['MYSQL_DATABASE_DB']='klub_zt'
-app.config['MYSQL_DATABASE_HOST']='localhost'
+#app.config['MYSQL_DATABASE_HOST']='localhost'
+app.config['MYSQL_DATABASE_HOST']='127.0.0.1'
+app.config['MYSQL_DATABASE_PORT']=3306
 configuration_mysql = False
 mysql.init_app(app)
 
@@ -51,14 +54,16 @@ def acc():
         
                 app.config['MYSQL_DATABASE_USER']=username
                 app.config['MYSQL_DATABASE_PASSWORD']=password
+                
+                #BazaDanych(username, password)
 
-                # Dodaæ walidacje wprowadzanych danych
-                # 1) Sprawdzenie czy pola zosta³y wype³nione
-                # 2) Sprawdzenie po³¹czenia z baz¹ (Tutaj zainicjowaæ baze danych)
+
+                # Dodac walidacje wprowadzanych danych
+                # 1) Sprawdzenie polaczenia z baza (Tutaj zainicjowac baze danych)
                 # Wtedy dopiero zmieniamy config.. na True 
                 configuration_mysql = True
 
-                # Je¿eli uda³o siê zalogowaæ to dodaæ informacje 
+                # Jezeli udalo siê zalogowac to dodac informacje 
                 return home(message="Udalo sie zalogowac")
 
     if configuration_mysql:
