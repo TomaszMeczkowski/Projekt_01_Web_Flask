@@ -30,3 +30,18 @@ div.custom {
     font-size: 18px;
     font-weight: bold;
 }
+
+
+tr.custom:nth-child(even) {
+    background-color: #e5e5e5;
+    border: 2px solid black;
+}
+
+td.custom {
+    padding: 8px;
+    border: 2px solid black;
+}
+
+th.custom {
+    border: 2px solid black;
+}

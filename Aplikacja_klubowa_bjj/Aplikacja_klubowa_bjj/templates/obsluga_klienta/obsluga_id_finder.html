@@ -2,8 +2,8 @@
 
 {% block body %}
 
-<p>id finder</p>
-<form action="#">
+<p style="text-align: center; font-size: 26px; font-weight: bold;">id finder</p>
+<form method="post">
 
     <div class="form-group">
         <label for="name">Imię:</label>
@@ -15,7 +15,29 @@
         <input type="text" name="last_name" id="last_name" class="form-control" placeholder="Kowalski...">
     </div>
 
+
+
     <!-- Przycisk do zatwierdzania  -->
-    <button type="submit" class="btn btn-primary">Zatwierdź</button>
+    <button type="submit" class="btn btn-primary" style="width: 120px;">Szukaj</button>
 </form>
+
+<br />
+
+<!--Opracować tutaj instrukcje if żeby nie zawsze się to wyświetlało itd-->
+{% if message[0] %}
+
+    {% if message[1] %}
+    <p>Imię: <b>{{message[2]}}</b></p>
+    <p>Nazwisko: <b>{{message[3]}}</b></p>  
+    <p>Nr id: <b>{{message[4]}}</b></p>
+    {% endif %}
+
+    {% if not message[1] %}
+    <p style="color: red;">Nie znaleziono takiej osoby</p>
+    {% endif %}
+
+{% endif %}
+
+
+
 {% endblock %}

@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Aplikacja_klubowa_bjj\" />
+    <Folder Include="Aplikacja_klubowa_bjj\MySQL .sql files\" />
     <Folder Include="Aplikacja_klubowa_bjj\static\" />
     <Folder Include="Aplikacja_klubowa_bjj\static\content\" />
     <Folder Include="Aplikacja_klubowa_bjj\static\fonts\" />
@@ -54,6 +55,13 @@
     <Folder Include="Aplikacja_klubowa_bjj\templates\obsluga_klienta\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Aplikacja_klubowa_bjj\MySQL .sql files\klub_zt_db.sql" />
+    <Content Include="Aplikacja_klubowa_bjj\MySQL .sql files\Klub_zt_stored_procedure_adding_people.sql" />
+    <Content Include="Aplikacja_klubowa_bjj\MySQL .sql files\klub_zt_table_1.sql" />
+    <Content Include="Aplikacja_klubowa_bjj\MySQL .sql files\klub_zt_table_2.sql" />
+    <Content Include="Aplikacja_klubowa_bjj\MySQL .sql files\klub_zt_table_3.sql" />
+    <Content Include="Aplikacja_klubowa_bjj\MySQL .sql files\klub_zt_table_4.sql" />
+    <Content Include="Aplikacja_klubowa_bjj\MySQL .sql files\klub_zt_table_5.sql" />
     <Content Include="Aplikacja_klubowa_bjj\templates\account.html" />
     <Content Include="Aplikacja_klubowa_bjj\static\content\custom.css" />
     <Content Include="Aplikacja_klubowa_bjj\templates\about.html" />

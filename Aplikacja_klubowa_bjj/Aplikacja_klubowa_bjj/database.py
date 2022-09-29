@@ -1,4 +1,3 @@
-from flaskext.mysql import MySQL
 import mysql.connector
 
 
@@ -7,13 +6,7 @@ class BazaDanych:
     def __init__(self, user, password):
         self.user = user
         self.password = password
-        #self.inicjowanie_bazy_danych_new()
-        #self.inicjowanie_bazy_danych()
-        #self.inicjowanie_tabel()
-        print("DB SETUP DONE")
-
-    def inicjowanie_bazy_danych_new(self):
-        pass
+        print("DB FILE ENTERED")
 
     def inicjowanie_bazy_danych(self):
         db = mysql.connector.connect(user=self.user, password=self.password, host='127.0.0.1', port=3306)
@@ -27,6 +20,39 @@ class BazaDanych:
                                                     database="klub_zt")
         cursor_object_db = databse_connector.cursor()
         return databse_connector, cursor_object_db
+
+    def dodawanie_osob(self, imie, nazwisko, pas, belki):
+        db, cursor_object = self.data_base_connector()
+
+        print("Connection Done")
+
+        zapytanie = "INSERT INTO osoby_trenujace(imie, nazwisko, pas, belki) VALUES(%s,%s,%s,%s)"
+        wartosci = (imie, nazwisko, pas, belki)
+        cursor_object.execute(zapytanie, wartosci)
+
+        zapytanie = f"SELECT id FROM osoby_trenujace WHERE imie = '{imie}' AND nazwisko = '{nazwisko}';"
+        cursor_object.execute(zapytanie)
+        id_osoby = cursor_object.fetchall()[0][0]
+        zapytanie = "INSERT INTO karnety(id, aktywny_karnet, miesiac, typ_karnetu, dostepne_treningi_ogolnie, " \
+                    "pozostale_treningi_w_miesiacu) VALUES(%s,%s,%s,%s,%s,%s);"
+        wartosci = (id_osoby, False, 0, 0, 0, 0)
+
+
+        print("ADDING PEOPLE IN PROGRES")
+
+        try:
+            cursor_object.execute(zapytanie, wartosci)
+            db.commit()
+
+        except mysql.connector.errors.IntegrityError:
+            #Error: Taka osoba istnieje juz w bazie danych*
+            db.close()
+            return False
+
+        
+        db.close()
+        return True
+
 
     def inicjowanie_tabel(self):
         db, cursor_object = self.data_base_connector()

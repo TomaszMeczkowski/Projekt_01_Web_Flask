@@ -2,16 +2,17 @@
 Routes and views for the flask application.
 """
 
+from cgitb import reset
 from datetime import datetime
 from email import message
 from pkgutil import get_loader
-from flask import Flask, render_template, request, json
+from flask import Flask, render_template, request
 from flask.scaffold import _matching_loader_thinks_module_is_package
 from flaskext.mysql import MySQL
 from Aplikacja_klubowa_bjj import app
 from werkzeug.security import generate_password_hash
-from .database import BazaDanych
-import mysql.connector
+#from .database import BazaDanych
+#import mysql.connector
 
 mysql = MySQL()
 
@@ -19,11 +20,27 @@ mysql = MySQL()
 app.config['MYSQL_DATABASE_USER']=None
 app.config['MYSQL_DATABASE_PASSWORD']=None
 app.config['MYSQL_DATABASE_DB']='klub_zt'
-#app.config['MYSQL_DATABASE_HOST']='localhost'
 app.config['MYSQL_DATABASE_HOST']='127.0.0.1'
 app.config['MYSQL_DATABASE_PORT']=3306
 configuration_mysql = False
 mysql.init_app(app)
+
+
+## Dev made log in 
+#app.config['MYSQL_DATABASE_USER']="root"
+#app.config['MYSQL_DATABASE_PASSWORD']=None  # Dopisac aktualne haslo
+#configuration_mysql = True
+
+## Przykladowe zapytanie do bazy
+#conn = mysql.connect()
+#cursor = conn.cursor()
+#imie = "Natasza"
+#nazwisko = "Bruno"
+#zapytanie = f"SELECT id FROM osoby_trenujace WHERE imie = '{imie}' AND nazwisko = '{nazwisko}'"
+#cursor.execute(zapytanie)
+#user_id = cursor.fetchall()
+#print(user_id[0][0])
+
 
 
 @app.route('/')
@@ -54,17 +71,18 @@ def acc():
         
                 app.config['MYSQL_DATABASE_USER']=username
                 app.config['MYSQL_DATABASE_PASSWORD']=password
-                
-                #BazaDanych(username, password)
 
 
-                # Dodac walidacje wprowadzanych danych
-                # 1) Sprawdzenie polaczenia z baza (Tutaj zainicjowac baze danych)
-                # Wtedy dopiero zmieniamy config.. na True 
-                configuration_mysql = True
+                try:
+                    conn = mysql.connect()
+                    configuration_mysql = True
 
-                # Jezeli udalo siê zalogowac to dodac informacje 
-                return home(message="Udalo sie zalogowac")
+                    # Jezeli udalo siê zalogowac to dodac informacje 
+                    return home(message="Udalo sie zalogowac")
+
+                except:
+                    pass
+                    # Dodac informacje ze nie udalo sie zalogowac (niewlasciwe dane)       
 
     if configuration_mysql:
         return acc_on()
@@ -135,7 +153,7 @@ def obsluga_wyd():
         'obsluga_klienta/obsluga_wydawanie.html',
         title='Obsluga klienta',
         year=datetime.now().year,
-        message=''
+        message='',
     )
 
 @app.route('/obsluga_sprzedaz')
@@ -170,19 +188,33 @@ def obsluga_check():
 def obsluga_id_finder():
     """Renders the about page."""
 
+    message = ""
+
     if not configuration_mysql:
         return acc()
 
-    #if request.method == "POST":
-        #name = request.form['name']
-        #last_name = request.form['last_name']
-        #.....
+    if request.method == "POST":
+        imie = request.form['name']
+        nazwisko = request.form['last_name']
 
+        conn = mysql.connect()
+        cursor = conn.cursor()
+        zapytanie = f"SELECT id FROM osoby_trenujace WHERE imie = '{imie}' AND nazwisko = '{nazwisko}'"
+        cursor.execute(zapytanie)
+        result = cursor.fetchall()
+       
+        try:
+            user_id = result[0][0]
+            message = (True, True, imie, nazwisko, user_id)
+
+        except IndexError:
+            message = (True, False)
+            
     return render_template(
         'obsluga_klienta/obsluga_id_finder.html',
         title='Obsluga klienta',
         year=datetime.now().year,
-        message=''
+        message=message
     )        
 
 @app.route('/baza_dodaj_osobe', methods=('GET', 'POST'))
@@ -253,11 +285,19 @@ def baza_pokaz():
     if not configuration_mysql:
         return acc()
 
+    conn = mysql.connect()
+    cursor = conn.cursor()
+    zapytanie = "SELECT * FROM osoby_trenujace;"
+    cursor.execute(zapytanie)
+    data_lista_osob = cursor.fetchall()
+
     return render_template(
         'baza_danych/baza_pokaz_wszystkich.html',
         title='Baza danych',
         year=datetime.now().year,
-        message=''
+        message='',
+        headings = ("Id", "Imie", "Nazwisko", "Pas", "Belki"),
+        data = data_lista_osob
     )
 
 @app.route('/baza_usun')
