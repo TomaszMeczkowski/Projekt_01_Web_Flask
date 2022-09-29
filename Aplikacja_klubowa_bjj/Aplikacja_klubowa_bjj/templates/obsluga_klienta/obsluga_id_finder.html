@@ -17,26 +17,75 @@
 
 
 
+    <div class="container">
+        <div class="modal fade" id="mojeModalne">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title">Wyniki wyszukiwań</h3>
+
+                    </div>
+                    <div class="modal-body">
+                        <div style="text-align: center;">
+                            {% if message[0] %}
+
+                            {% if message[1] %}
+
+
+                            <p>{{message[2]}} {{message[3]}} </p>
+                            <p>id: <b>{{message[4]}}</b></p>
+                            {% endif %}
+
+
+                            {% if not message[1] %}
+                            <p style="color: red;">Nie znaleziono takiej osoby</p>
+                            {% endif %}
+
+                            {% endif %}
+
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">zamknij</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
     <!-- Przycisk do zatwierdzania  -->
-    <button type="submit" class="btn btn-primary" style="width: 120px;">Szukaj</button>
+    <!--<button type="submit" class="btn btn-primary" style="width: 150px;">Szukaj</button>-->  <!--Działa POST-->
+
+    <!--Problemy z uruchomieniem metody POST poprzez jednocznesne wywołanie modala (Modal działa, wywołanie modala działa, brak wywołania metody post)-->
+    <input type="submit" class="btn btn-primary" data-toggle="modal" data-target="#mojeModalne" value="Szukaj" style="width: 150px;" />
+    
+
+    <!--<button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#mojeModalne" style="width: 150px;" formmethod="post">Szukaj</button>-->
 </form>
 
-<br />
+<!--Testowo dodany tekst (Po uruchomieniu modala, usunąc)-->
 
-<!--Opracować tutaj instrukcje if żeby nie zawsze się to wyświetlało itd-->
-{% if message[0] %}
+<div>
+    {% if message[0] %}
 
     {% if message[1] %}
-    <p>Imię: <b>{{message[2]}}</b></p>
-    <p>Nazwisko: <b>{{message[3]}}</b></p>  
-    <p>Nr id: <b>{{message[4]}}</b></p>
+
+
+    <p>{{message[2]}} {{message[3]}} </p>
+    <p>id: <b>{{message[4]}}</b></p>
     {% endif %}
+
 
     {% if not message[1] %}
     <p style="color: red;">Nie znaleziono takiej osoby</p>
     {% endif %}
 
-{% endif %}
+    {% endif %}
+</div>
+
+<br />
+
 
 
 

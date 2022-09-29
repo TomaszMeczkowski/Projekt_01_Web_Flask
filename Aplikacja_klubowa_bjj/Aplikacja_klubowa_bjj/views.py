@@ -26,9 +26,9 @@ configuration_mysql = False
 mysql.init_app(app)
 
 
-## Dev made log in 
+# Dev made log in 
 #app.config['MYSQL_DATABASE_USER']="root"
-#app.config['MYSQL_DATABASE_PASSWORD']=None  # Dopisac aktualne haslo
+#app.config['MYSQL_DATABASE_PASSWORD']=None # Dopisac aktualne haslo
 #configuration_mysql = True
 
 ## Przykladowe zapytanie do bazy
