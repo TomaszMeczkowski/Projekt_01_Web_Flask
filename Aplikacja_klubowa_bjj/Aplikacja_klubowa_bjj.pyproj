@@ -62,6 +62,9 @@
     <Content Include="Aplikacja_klubowa_bjj\MySQL .sql files\klub_zt_table_3.sql" />
     <Content Include="Aplikacja_klubowa_bjj\MySQL .sql files\klub_zt_table_4.sql" />
     <Content Include="Aplikacja_klubowa_bjj\MySQL .sql files\klub_zt_table_5.sql" />
+    <Content Include="Aplikacja_klubowa_bjj\static\content\bootstrap.css" />
+    <Content Include="Aplikacja_klubowa_bjj\static\content\bootstrap.rtl.css" />
+    <Content Include="Aplikacja_klubowa_bjj\static\scripts\bootstrap.bundle.js" />
     <Content Include="Aplikacja_klubowa_bjj\templates\account.html" />
     <Content Include="Aplikacja_klubowa_bjj\static\content\custom.css" />
     <Content Include="Aplikacja_klubowa_bjj\templates\about.html" />
@@ -84,28 +87,11 @@
     <Content Include="Aplikacja_klubowa_bjj\templates\statystyki\statystyki_klub.html" />
     <Content Include="Aplikacja_klubowa_bjj\templates\statystyki\statystyki_osoby.html" />
     <Content Include="requirements.txt" />
-    <Content Include="Aplikacja_klubowa_bjj\static\content\bootstrap.css" />
-    <Content Include="Aplikacja_klubowa_bjj\static\content\bootstrap.min.css" />
     <Content Include="Aplikacja_klubowa_bjj\static\content\site.css" />
     <Content Include="Aplikacja_klubowa_bjj\static\fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Aplikacja_klubowa_bjj\static\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Aplikacja_klubowa_bjj\static\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Aplikacja_klubowa_bjj\static\fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="Aplikacja_klubowa_bjj\static\scripts\bootstrap.js" />
-    <Content Include="Aplikacja_klubowa_bjj\static\scripts\bootstrap.min.js" />
-    <Content Include="Aplikacja_klubowa_bjj\static\scripts\jquery-1.10.2.intellisense.js" />
-    <Content Include="Aplikacja_klubowa_bjj\static\scripts\jquery-1.10.2.js" />
-    <Content Include="Aplikacja_klubowa_bjj\static\scripts\jquery-1.10.2.min.js" />
-    <Content Include="Aplikacja_klubowa_bjj\static\scripts\jquery-1.10.2.min.map" />
-    <Content Include="Aplikacja_klubowa_bjj\static\scripts\jquery.validate-vsdoc.js" />
-    <Content Include="Aplikacja_klubowa_bjj\static\scripts\jquery.validate.js" />
-    <Content Include="Aplikacja_klubowa_bjj\static\scripts\jquery.validate.min.js" />
-    <Content Include="Aplikacja_klubowa_bjj\static\scripts\jquery.validate.unobtrusive.js" />
-    <Content Include="Aplikacja_klubowa_bjj\static\scripts\jquery.validate.unobtrusive.min.js" />
-    <Content Include="Aplikacja_klubowa_bjj\static\scripts\modernizr-2.6.2.js" />
-    <Content Include="Aplikacja_klubowa_bjj\static\scripts\respond.js" />
-    <Content Include="Aplikacja_klubowa_bjj\static\scripts\respond.min.js" />
-    <Content Include="Aplikacja_klubowa_bjj\static\scripts\_references.js" />
   </ItemGroup>
   <ItemGroup>
     <Interpreter Include="env\">

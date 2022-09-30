@@ -4,49 +4,89 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ title }} - BJJ Club</title>
-    <link rel="stylesheet" type="text/css" href="/static/content/bootstrap.min.css" />
+
+
+    <link rel="stylesheet" type="text/css" href="/static/content/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="/static/content/bootstrap.rtl.css" />
     <link rel="stylesheet" type="text/css" href="/static/content/site.css" />
     <link rel="stylesheet" type="text/css" href="/static/content/custom.css" />
-    <script src="/static/scripts/modernizr-2.6.2.js"></script>
+
 </head>
 
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
+
+    <div>
+        <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="{{ url_for('home') }}">BJJ Club</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
                 </button>
-                <a href="/" class="navbar-brand">BJJ Club</a>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="{{ url_for('home') }}">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="{{ url_for('about') }}">O mnie</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="{{ url_for('kontakt') }}">Kontakt</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="{{ url_for('obsluga_wyd') }}">Obsług klienta</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="{{ url_for('baza_dodaj_osobe') }}">Baza danych</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="{{ url_for('statystyki_klubu') }}">Statystyki</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="{{ url_for('about_project') }}">O projekcie</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="{{ url_for('acc') }}">Konto</a>
+                        </li>
+
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Dropdown
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">Action</a></li>
+                                <li><a class="dropdown-item" href="#">Another action</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item" href="#">Something else here</a></li>
+                            </ul>
+                        </li>
+
+                    </ul>
+                    <form class="d-flex" role="search">
+                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-outline-success" type="submit">Search</button>
+                    </form>
+                </div>
             </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li><a href="{{ url_for('home') }}">Home</a></li>
-                    <li><a href="{{ url_for('about') }}">O mnie</a></li>
-                    <li><a href="{{ url_for('kontakt') }}">Kontakt</a></li>
-                    <li><a href="{{ url_for('obsluga_wyd') }}">Obsługa klienta</a></li>
-                    <li><a href="{{ url_for('baza_dodaj_osobe') }}">Baza danych</a></li>
-                    <li><a href="{{ url_for('statystyki_klubu') }}">Statystyki</a></li>
-                    <li><a href="{{ url_for('about_project') }}">O projekcie</a></li>
-                    <li style="margin-left: 100px;"><a href="{{ url_for('acc') }}">Konto</a></li>
-                </ul>
-            </div>
-        </div>
+        </nav>
     </div>
 
-    <div class="container body-content" style="margin-top: 25px;">
+
+    <div class="container body-content" style="margin-top: 80px;">
+
         {% block content %}{% endblock %}
-        <hr />
+
+        <hr style="margin-top: 80px;" />
         <footer>
             <p>&copy; {{ year }} - BJJ Club</p>
         </footer>
     </div>
 
-    <script src="/static/scripts/jquery-1.10.2.js"></script>
-    <script src="/static/scripts/bootstrap.js"></script>
-    <script src="/static/scripts/respond.js"></script>
+    <script src="/static/scripts/bootstrap.bundle.js"></script>
+
     {% block scripts %}{% endblock %}
 
 </body>

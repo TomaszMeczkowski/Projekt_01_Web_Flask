@@ -26,7 +26,7 @@ configuration_mysql = False
 mysql.init_app(app)
 
 
-# Dev made log in 
+## Dev made log in 
 #app.config['MYSQL_DATABASE_USER']="root"
 #app.config['MYSQL_DATABASE_PASSWORD']=None # Dopisac aktualne haslo
 #configuration_mysql = True
@@ -61,11 +61,15 @@ def acc():
 
     if request.method == "POST":
 
+        
         global configuration_mysql
+        print("Go On nigga")
          
         if not configuration_mysql:
+            print("Go On nigga_2")
             username = request.form['user_name_mysql']
             password = request.form['password_mysql']
+            print("Go On nigga_3")
 
             if username and password:
         
