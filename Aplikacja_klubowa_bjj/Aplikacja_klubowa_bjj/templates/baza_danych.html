@@ -3,34 +3,34 @@
 {% block content %}
 
 <h2>{{ title }}</h2>
-<!--<p>Zaczynamy zabawę</p>-->
 
-<div class="jumbotron jumbotron-fluid">
-    <div class="container">
+<div class="p-5 mb-4 bg-light rounded-3" style="margin: auto; width: 70%;">
+    <div class="container-fluid py-2" style="text-align: center;">
 
         <!-- Stałe boczne menu w zakładce bazy danych -->
 
-        <div class="col-md-4">
-            <div class="row" style="margin-bottom: 5px;">
-                <a class="custom" href="{{url_for('baza_dodaj_osobe')}}" role="button">Dodaj nową osobę</a>
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="row" style="margin-bottom: 5px;">
+                    <a class="custom" href="{{url_for('baza_dodaj_osobe')}}" role="button">Dodaj nową osobę</a>
+                </div>
+                <div class="row" style="margin-bottom: 5px;">
+                    <a class="custom" href="{{url_for('baza_popraw')}}" role="button">Popraw dane osoby</a>
+                </div>
+                <div class="row" style="margin-bottom: 5px;">
+                    <a class="custom" href="{{url_for('baza_pokaz')}}" role="button">Pokaż wszystkie osoby</a>
+                </div>
+                <div class="row" style="margin-bottom: 5px;">
+                    <a class="custom" href="{{url_for('baza_usun')}}" role="button">Usuń dane osoby</a>
+                </div>
             </div>
-            <div class="row" style="margin-bottom: 5px;">
-                <a class="custom" href="{{url_for('baza_popraw')}}" role="button">Popraw dane osoby</a>
-            </div>
-            <div class="row" style="margin-bottom: 5px;">
-                <a class="custom" href="{{url_for('baza_pokaz')}}" role="button">Pokaż wszystkie osoby</a>
-            </div>
-            <div class="row" style="margin-bottom: 5px;">
-                <a class="custom" href="{{url_for('baza_usun')}}" role="button">Usuń dane osoby</a>
+
+            <div class="col-md-8">
+
+                {% block body %}{% endblock %}
             </div>
 
         </div>
-        <div class="col-md-8">
-        <!--<div class="col-md-8" style="border: solid green 5px">-->   <!--Dodawanie obwódki żeby sprawdzić wymiary div-->
-            <!--Treść danej podstrony bazy danych-->
-            {% block body %}{% endblock %}
-        </div>
-
     </div>
 </div>
 
