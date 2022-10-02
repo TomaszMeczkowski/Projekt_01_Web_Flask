@@ -2,7 +2,7 @@
 
 {% block content %}
 
-<h2>{{ title }}</h2>
+<h2 style="margin: auto; width: 70%; margin-bottom: 15px;">{{ title }}</h2>
 
 <div class="p-5 mb-4 bg-light rounded-3" style="margin: auto; width: 70%;">
     <div class="container-fluid py-2" style="text-align: center;">
@@ -25,9 +25,10 @@
                 </div>
             </div>
 
-            <div class="col-md-8">
+            <div class="col-sm-6 offset-1">
 
                 {% block body %}{% endblock %}
+            
             </div>
 
         </div>

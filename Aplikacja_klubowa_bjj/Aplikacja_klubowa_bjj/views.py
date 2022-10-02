@@ -6,12 +6,12 @@ from cgitb import reset
 from datetime import datetime
 from email import message
 from pkgutil import get_loader
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, json
 from flask.scaffold import _matching_loader_thinks_module_is_package
 from flaskext.mysql import MySQL
 from Aplikacja_klubowa_bjj import app
 from werkzeug.security import generate_password_hash
-#from .database import BazaDanych
+from .database import BazaDanych
 #import mysql.connector
 
 mysql = MySQL()
@@ -26,9 +26,9 @@ configuration_mysql = False
 mysql.init_app(app)
 
 
-## Dev made log in 
+# Dev made log in 
 #app.config['MYSQL_DATABASE_USER']="root"
-#app.config['MYSQL_DATABASE_PASSWORD']=None # Dopisac aktualne haslo
+#app.config['MYSQL_DATABASE_PASSWORD']="" # Dopisac aktualne haslo
 #configuration_mysql = True
 
 ## Przykladowe zapytanie do bazy
@@ -47,6 +47,7 @@ mysql.init_app(app)
 @app.route('/home')
 def home(message=""):
     """Renders the home page."""
+
     return render_template(
         'index.html',
         title='Home Page',
@@ -57,7 +58,6 @@ def home(message=""):
 @app.route('/Konto', methods=('GET', 'POST'))
 def acc():
     """Renders the home page."""
-    
 
     if request.method == "POST":
 
@@ -75,9 +75,14 @@ def acc():
 
 
                 try:
-                    conn = mysql.connect()
+                    db = mysql.connect()
                     configuration_mysql = True
-                    conn.close()
+                    db.close()
+
+                    # Modul tworzacy tabele
+
+                    database_instance = BazaDanych(mysql)
+                    database_instance.inicjowanie_tabel_bazy_danych()
 
                     # Jezeli udalo siê zalogowac to dodac informacje 
                     return home(message="Udalo sie zalogowac")
@@ -199,13 +204,13 @@ def obsluga_id_finder():
         imie = request.form['name']
         nazwisko = request.form['last_name']
 
-        conn = mysql.connect()
-        cursor = conn.cursor()
+        db = mysql.connect()
+        cursor = db.cursor()
         zapytanie = f"SELECT id FROM osoby_trenujace WHERE imie = '{imie}' AND nazwisko = '{nazwisko}'"
         cursor.execute(zapytanie)
         result = cursor.fetchall()
-        conn.commit()
-        conn.close
+        db.commit()
+        db.close()
        
         try:
             user_id = result[0][0]
@@ -237,27 +242,19 @@ def baza_dodaj_osobe():
         if name and last_name and belt and stripe:
             
 
-            conn = mysql.connect()
-            cursor = conn.cursor()
+            db = mysql.connect()
+            cursor = db.cursor()
 
             cursor.callproc('adding_new_person', (name, last_name, belt, stripe))
             data = cursor.fetchall()
 
             if len(data) is 0:
-                conn.commit()
-                conn.close()
+                db.commit()
+                db.close()
                 return json.dumps({'message':'User created succesfully'})
             else:
-                conn.close()
+                db.close()
                 return json.dumps({'error':str(data[0])})
-
-            # Stronka po odpaleniu dodawaniu nowych osób dochodzi tutaj ale nie dodaje mi osoby do bazy
-            # TUTAJ KONTYNUOWAÆ PRACE , NA GÓRZE DODAÆ HAS£O DO MySQL 
-            # stored procedure sprawdzone (dzia³a jak siê u¿yje bezpoœrednio w mysql-u)
-            # kopia stored porcedure jest w tym samym folderze co projekt
-
-            # RUSZY£O !!!! Brakowa³o commita idioto
-            # Ale nie chce mi ruszaæ jak pobieram dane z okienek wybieralnych belt, stripe trzeb coœ tam naprawiæ
 
         else:
             return json.dumps({'html':'<span>Wypelnij wszystkie pola!</span>'})

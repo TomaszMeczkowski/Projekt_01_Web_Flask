@@ -2,29 +2,29 @@
 
 {% block body %}
 
-<h2>Lista osób</h2>
+<div style="width: 120%;">>
+    <h2>Lista osób</h2>
 
-<br />
+    <br />
 
-<table class="table" style="background-color: white; border: 2px solid black;">
-    <tr class="custom">
-        {% for header in headings %}
-        <th class="custom">{{header}}</th>
+    <table class="table" style="background-color: white; border: 2px solid black;">
+        <tr class="custom">
+            {% for header in headings %}
+            <th class="custom">{{header}}</th>
+            {% endfor %}
+        </tr>
+
+        {% for row in data %}
+        <tr class="custom">
+            {% for cell in row %}
+
+            <td class="custom">{{cell}}</td>
+
+            {% endfor %}
+        </tr>
         {% endfor %}
-    </tr>
 
-    {% for row in data %}
-    <tr class="custom">
-        {% for cell in row %}
+    </table>
+    {% endblock %}
 
-        <td class="custom">{{cell}}</td>
-
-        {% endfor %}
-    </tr>
-    {% endfor %}
-
-
-</table>
-
-
-{% endblock %}
+</div>
