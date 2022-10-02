@@ -77,6 +77,7 @@ def acc():
                 try:
                     conn = mysql.connect()
                     configuration_mysql = True
+                    conn.close()
 
                     # Jezeli udalo siê zalogowac to dodac informacje 
                     return home(message="Udalo sie zalogowac")
@@ -203,6 +204,8 @@ def obsluga_id_finder():
         zapytanie = f"SELECT id FROM osoby_trenujace WHERE imie = '{imie}' AND nazwisko = '{nazwisko}'"
         cursor.execute(zapytanie)
         result = cursor.fetchall()
+        conn.commit()
+        conn.close
        
         try:
             user_id = result[0][0]
@@ -242,8 +245,10 @@ def baza_dodaj_osobe():
 
             if len(data) is 0:
                 conn.commit()
+                conn.close()
                 return json.dumps({'message':'User created succesfully'})
             else:
+                conn.close()
                 return json.dumps({'error':str(data[0])})
 
             # Stronka po odpaleniu dodawaniu nowych osób dochodzi tutaj ale nie dodaje mi osoby do bazy
@@ -291,6 +296,8 @@ def baza_pokaz():
     zapytanie = "SELECT * FROM osoby_trenujace;"
     cursor.execute(zapytanie)
     data_lista_osob = cursor.fetchall()
+    conn.commit()
+    conn.close()
 
     return render_template(
         'baza_danych/baza_pokaz_wszystkich.html',
