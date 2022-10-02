@@ -2,27 +2,24 @@
 
 {% block body %}
 
-<p>Wydwanie kluczyków</p>
-<form method="post">
+<h3>Wydwanie kluczyków</h3>
+<div style="margin: auto; width: 80%;">
+    <form method="post">
 
-    <div class="form-group">
-        <label for="name">Imię:</label>
-        <input type="text" name="name" id="name" class="form-control" placeholder="Jan...">
-    </div>
+        <div style="margin: auto; width: 80%; margin-top: 25px;">
+            <input type="text" name="name" id="name" class="form-control" placeholder="Imię...">
+        </div>
 
-    <div class="form-group">
-        <label for="last_name">Nazwisko:</label>
-        <input type="text" name="last_name" id="last_name" class="form-control" placeholder="Kowalski...">
-    </div>
+        <div style="margin: auto; width: 80%; margin-top: 25px;">
+            <input type="text" name="last_name" id="last_name" class="form-control" placeholder="Nazwisko...">
+        </div>
 
-    <div class="form-group">
-        <label for="user_id">id:</label>
-        <input type="text" name="user_id" id="user_id" class="form-control" placeholder="123...">
-    </div>
+        <!--<div style="margin: auto; width: 80%; margin-top: 25px;">
+            <input type="text" name="user_id" id="user_id" class="form-control" placeholder="Nr id...">
+        </div>-->
 
-
-    <!-- Przycisk do zatwierdzania  -->
-    <button type="submit" class="btn btn-primary">Zatwierdź</button>
-</form>
+        <button type="submit" class="btn btn-primary" style="width: 60%; margin-top: 35px;">Wydaj kluczyk</button>
+    </form>
+</div>
 
 {% endblock %}

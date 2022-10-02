@@ -307,39 +307,39 @@ class BazaDanych:
     #            db.commit()
     #            db.close()
 
-    #def key_giveaway(self, id_osoby):
-    #    db, cursor_object = self.data_base_connector()
-    #    zapytanie = f"SELECT aktywny_karnet, dostepne_treningi_ogolnie, pozostale_treningi_w_miesiacu " \
-    #                f"FROM karnety WHERE id = {id_osoby};"
-    #    cursor_object.execute(zapytanie)
-    #    wynik = cursor_object.fetchall()
-    #    db.commit()
-    #    db.close()
+    def key_giveaway(self, id_osoby):
+        db, cursor_object = self.data_base_connector()
+        zapytanie = f"SELECT aktywny_karnet, dostepne_treningi_ogolnie, pozostale_treningi_w_miesiacu " \
+                    f"FROM karnety WHERE id = {id_osoby};"
+        cursor_object.execute(zapytanie)
+        wynik = cursor_object.fetchall()
+        db.commit()
+        db.close()
 
-    #    active = bool(wynik[0][0])
-    #    amount_left = wynik[0][2] - 1
-    #    if amount_left == -1:
-    #        active = False
+        active = bool(wynik[0][0])
+        amount_left = wynik[0][2] - 1
+        if amount_left == -1:
+            active = False
 
-    #    if active:
-    #        db, cursor_object = self.data_base_connector()
-    #        zapytanie = f"UPDATE klub_zt.karnety SET pozostale_treningi_w_miesiacu = {amount_left} " \
-    #                    f"WHERE id = {id_osoby};"
-    #        cursor_object.execute(zapytanie)
-    #        db.commit()
-    #        db.close()
+        if active:
+            db, cursor_object = self.data_base_connector()
+            zapytanie = f"UPDATE klub_zt.karnety SET pozostale_treningi_w_miesiacu = {amount_left} " \
+                        f"WHERE id = {id_osoby};"
+            cursor_object.execute(zapytanie)
+            db.commit()
+            db.close()
 
-    #        self.statystyki_klubowe_wejscia()
-    #        self.statystyki_osobowe_wejscia(id_osoby)
+            self.statystyki_klubowe_wejscia()
+            self.statystyki_osobowe_wejscia(id_osoby)
 
-    #        #print(colored("\nMo¿na wydaæ kluczyk\n", "green"))
+            #print(colored("\nMo¿na wydaæ kluczyk\n", "green"))
             
-    #        return True
+            return True
 
-    #    else:
-    #        #print(colored("\nBrak aktywnego karnetu\n", "red"))
+        else:
+            #print(colored("\nBrak aktywnego karnetu\n", "red"))
             
-    #        return False
+            return False
 
     #def ticket_check(self, id_osoby):
     #    db, cursor_object = self.data_base_connector()
@@ -397,45 +397,45 @@ class BazaDanych:
 
     #    return nazwisko
 
-    #def id_finder(self, imie, nazwisko):
-    #    db, cursor_object = self.data_base_connector()
-    #    zapytanie = f"SELECT id FROM osoby_trenujace WHERE imie = '{imie}' AND nazwisko = '{nazwisko}'"
-    #    cursor_object.execute(zapytanie)
-    #    wynik = cursor_object.fetchall()
-    #    db.commit()
-    #    db.close()
+    def id_finder(self, imie, nazwisko):
+        db, cursor_object = self.data_base_connector()
+        zapytanie = f"SELECT id FROM osoby_trenujace WHERE imie = '{imie}' AND nazwisko = '{nazwisko}'"
+        cursor_object.execute(zapytanie)
+        wynik = cursor_object.fetchall()
+        db.commit()
+        db.close()
 
-    #    try:
-    #        id_osoby = wynik[0][0]
-    #    except IndexError:
-    #        id_osoby = False
+        try:
+            id_osoby = wynik[0][0]
+        except IndexError:
+            id_osoby = False
 
-    #    return id_osoby
+        return id_osoby
 
-    #def statystyki_klubowe_wejscia(self):
-    #    db, cursor_object = self.data_base_connector()
+    def statystyki_klubowe_wejscia(self):
+        db, cursor_object = self.data_base_connector()
 
-    #    month = month_converter(czas("month"))
-    #    year = czas("year")
-    #    zapytanie = f"SELECT id, ilosc_wejsc, miesiac, rok FROM statystyki_klubowe " \
-    #                f"WHERE miesiac = '{month}' AND rok = {year}"
+        month = month_converter(czas("month"))
+        year = czas("year")
+        zapytanie = f"SELECT id, ilosc_wejsc, miesiac, rok FROM statystyki_klubowe " \
+                    f"WHERE miesiac = '{month}' AND rok = {year}"
 
-    #    cursor_object.execute(zapytanie)
-    #    wyniki = cursor_object.fetchall()
+        cursor_object.execute(zapytanie)
+        wyniki = cursor_object.fetchall()
 
-    #    if not wyniki:
-    #        zapytanie = f"INSERT INTO statystyki_klubowe(ilosc_wejsc, miesiac, rok) VALUES(%s, %s, %s) "
-    #        wartosci = (1, month, year)
-    #        cursor_object.execute(zapytanie, wartosci)
+        if not wyniki:
+            zapytanie = f"INSERT INTO statystyki_klubowe(ilosc_wejsc, miesiac, rok) VALUES(%s, %s, %s) "
+            wartosci = (1, month, year)
+            cursor_object.execute(zapytanie, wartosci)
 
-    #    else:
-    #        id_wpisu = wyniki[0][0]
-    #        ilosc_wejsc = wyniki[0][1] + 1
-    #        zapytanie = f"UPDATE klub_zt.statystyki_klubowe SET ilosc_wejsc = {ilosc_wejsc} WHERE (id = {id_wpisu});"
-    #        cursor_object.execute(zapytanie)
+        else:
+            id_wpisu = wyniki[0][0]
+            ilosc_wejsc = wyniki[0][1] + 1
+            zapytanie = f"UPDATE klub_zt.statystyki_klubowe SET ilosc_wejsc = {ilosc_wejsc} WHERE (id = {id_wpisu});"
+            cursor_object.execute(zapytanie)
 
-    #    db.commit()
-    #    db.close()
+        db.commit()
+        db.close()
 
     #def stat_entry(self):
     #    db, cursor_object = self.data_base_connector()
@@ -459,55 +459,55 @@ class BazaDanych:
     #        for i in wyniki:
     #            print(f"{i[1]}          | {i[2]} {i[3]}")
 
-    #def statystyki_osobowe_wejscia(self, id_osoby):
-    #    db, cursor_object = self.data_base_connector()
-    #    zapytanie = f"SELECT * FROM statystyki_osobowe WHERE id_osoby = {id_osoby};"
-    #    cursor_object.execute(zapytanie)
-    #    wyniki = cursor_object.fetchall()
+    def statystyki_osobowe_wejscia(self, id_osoby):
+        db, cursor_object = self.data_base_connector()
+        zapytanie = f"SELECT * FROM statystyki_osobowe WHERE id_osoby = {id_osoby};"
+        cursor_object.execute(zapytanie)
+        wyniki = cursor_object.fetchall()
 
-    #    day, month, year = data_for_user()
+        day, month, year = data_for_user()
 
-    #    if not wyniki:
-    #        zapytanie = f"INSERT INTO statystyki_osobowe(id_osoby, id_rekordu, ilosc_wejsc, miesiac, rok)" \
-    #                    f"VALUES(%s, %s, %s, %s, %s);"
-    #        wartosci = (id_osoby, 1, 1, month, year)
-    #        cursor_object.execute(zapytanie, wartosci)
+        if not wyniki:
+            zapytanie = f"INSERT INTO statystyki_osobowe(id_osoby, id_rekordu, ilosc_wejsc, miesiac, rok)" \
+                        f"VALUES(%s, %s, %s, %s, %s);"
+            wartosci = (id_osoby, 1, 1, month, year)
+            cursor_object.execute(zapytanie, wartosci)
 
-    #        zapytanie = f"INSERT INTO dodatkowe_info_osoby(id_osoby, pierwszy_trening)" \
-    #                    f"VALUES(%s, %s);"
-    #        month = czas("month")
-    #        pierwszy_trening = f"{year}-{month}-{day}"
-    #        wartosci = (id_osoby, pierwszy_trening)
-    #        cursor_object.execute(zapytanie, wartosci)
+            zapytanie = f"INSERT INTO dodatkowe_info_osoby(id_osoby, pierwszy_trening)" \
+                        f"VALUES(%s, %s);"
+            month = czas("month")
+            pierwszy_trening = f"{year}-{month}-{day}"
+            wartosci = (id_osoby, pierwszy_trening)
+            cursor_object.execute(zapytanie, wartosci)
 
-    #    else:
-    #        zapytanie = f"SELECT id_rekordu, ilosc_wejsc, id FROM statystyki_osobowe " \
-    #                    f"WHERE miesiac = '{month}' AND rok = {year} AND id_osoby = {id_osoby} LIMIT 1;"
-    #        cursor_object.execute(zapytanie)
-    #        wyniki = cursor_object.fetchall()
+        else:
+            zapytanie = f"SELECT id_rekordu, ilosc_wejsc, id FROM statystyki_osobowe " \
+                        f"WHERE miesiac = '{month}' AND rok = {year} AND id_osoby = {id_osoby} LIMIT 1;"
+            cursor_object.execute(zapytanie)
+            wyniki = cursor_object.fetchall()
 
-    #        zapytanie = f"SELECT id_rekordu FROM statystyki_osobowe " \
-    #                    f"WHERE (id_osoby = {id_osoby});"
-    #        cursor_object.execute(zapytanie)
-    #        wyniki_2 = list(cursor_object.fetchall()[0])
-    #        id_rekordu = max(wyniki_2)
+            zapytanie = f"SELECT id_rekordu FROM statystyki_osobowe " \
+                        f"WHERE (id_osoby = {id_osoby});"
+            cursor_object.execute(zapytanie)
+            wyniki_2 = list(cursor_object.fetchall()[0])
+            id_rekordu = max(wyniki_2)
 
-    #        if not wyniki:
-    #            zapytanie = f"INSERT INTO statystyki_osobowe(id_osoby, id_rekordu, ilosc_wejsc, miesiac, rok)" \
-    #                        f"VALUES(%s, %s, %s, %s, %s);"
-    #            id_rekordu += 1
-    #            wartosci = (id_osoby, id_rekordu, 1, month, year)
-    #            cursor_object.execute(zapytanie, wartosci)
+            if not wyniki:
+                zapytanie = f"INSERT INTO statystyki_osobowe(id_osoby, id_rekordu, ilosc_wejsc, miesiac, rok)" \
+                            f"VALUES(%s, %s, %s, %s, %s);"
+                id_rekordu += 1
+                wartosci = (id_osoby, id_rekordu, 1, month, year)
+                cursor_object.execute(zapytanie, wartosci)
 
-    #        else:
-    #            ilosc_wejsc = wyniki[0][1] + 1
-    #            id_input = wyniki[0][2]
-    #            zapytanie = f"UPDATE klub_zt.statystyki_osobowe SET ilosc_wejsc = {ilosc_wejsc} " \
-    #                        f"WHERE (id_rekordu = {id_rekordu} AND id_osoby = {id_osoby} AND id = {id_input});"
-    #            cursor_object.execute(zapytanie)
+            else:
+                ilosc_wejsc = wyniki[0][1] + 1
+                id_input = wyniki[0][2]
+                zapytanie = f"UPDATE klub_zt.statystyki_osobowe SET ilosc_wejsc = {ilosc_wejsc} " \
+                            f"WHERE (id_rekordu = {id_rekordu} AND id_osoby = {id_osoby} AND id = {id_input});"
+                cursor_object.execute(zapytanie)
 
-    #    db.commit()
-    #    db.close()
+        db.commit()
+        db.close()
 
     #def stat_entry_by_id(self, id_osoby):
     #    db, cursor_object = self.data_base_connector()

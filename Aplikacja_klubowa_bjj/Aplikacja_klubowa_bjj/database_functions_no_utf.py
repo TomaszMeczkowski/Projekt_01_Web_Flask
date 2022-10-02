@@ -6,8 +6,8 @@ import time
 
 def month_converter(data):
 
-    months = ["Styczeñ", "Luty", "Marzec", "Kwiecieñ", "Maj", "Czerwiec", "Lipiec", "Sierpieñ", "Wrzesieñ",
-              "PaŸdziernik", "Listopad", "Grudzieñ"]
+    months = ["January", "February", "March", "April", "May", "June", "July", "August", "September",
+              "October", "November", "December"]
 
     if type(data) == str and data in months:
         month = months.index(data) + 1
@@ -18,7 +18,7 @@ def month_converter(data):
         return month
 
     else:
-        print(u"\n**Z³e u¿ycie funckcji month converter**\n")
+        print(u"\n**Zle uzycie funckcji month converter**\n")
 
 
 def czas(dane):
@@ -42,7 +42,7 @@ def czas(dane):
         return int(time.strftime('%S', time.localtime()))
 
     else:
-        print(u"\n***Z³e u¿ycie funkcji czasu***\n")
+        print(u"\n***Zle uzycie funkcji czasu***\n")
 
 
 def mysql_data_converter(dane):

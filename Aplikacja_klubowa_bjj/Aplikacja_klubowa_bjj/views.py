@@ -12,7 +12,7 @@ from flaskext.mysql import MySQL
 from Aplikacja_klubowa_bjj import app
 from werkzeug.security import generate_password_hash
 from .database import BazaDanych
-#import mysql.connector
+
 
 mysql = MySQL()
 
@@ -26,22 +26,10 @@ configuration_mysql = False
 mysql.init_app(app)
 
 
-# Dev made log in 
+## Dev made log in 
 #app.config['MYSQL_DATABASE_USER']="root"
 #app.config['MYSQL_DATABASE_PASSWORD']="" # Dopisac aktualne haslo
 #configuration_mysql = True
-
-## Przykladowe zapytanie do bazy
-#conn = mysql.connect()
-#cursor = conn.cursor()
-#imie = "Natasza"
-#nazwisko = "Bruno"
-#zapytanie = f"SELECT id FROM osoby_trenujace WHERE imie = '{imie}' AND nazwisko = '{nazwisko}'"
-#cursor.execute(zapytanie)
-#user_id = cursor.fetchall()
-#print(user_id[0][0])
-
-
 
 @app.route('/')
 @app.route('/home')
@@ -67,19 +55,17 @@ def acc():
             username = request.form['user_name_mysql']
             password = request.form['password_mysql']
             
-
             if username and password:
         
                 app.config['MYSQL_DATABASE_USER']=username
                 app.config['MYSQL_DATABASE_PASSWORD']=password
-
 
                 try:
                     db = mysql.connect()
                     configuration_mysql = True
                     db.close()
 
-                    # Modul tworzacy tabele
+                    global database_instance
 
                     database_instance = BazaDanych(mysql)
                     database_instance.inicjowanie_tabel_bazy_danych()
@@ -89,10 +75,10 @@ def acc():
 
                 except:
                     pass
-                    # Dodac informacje ze nie udalo sie zalogowac (niewlasciwe dane)       
-
+                    # Dodac informacje ze nie udalo sie zalogowac (niewlasciwe dane lub coœ innego)   
+                     
     if configuration_mysql:
-        return acc_on()
+        return acc_on()   
 
     return render_template(
         'account.html',
@@ -149,12 +135,26 @@ def obsluga_wyd():
         return acc()
     
     if request.method == "POST":
-        pass
-        #name = request.form['name']
-        #last_name = request.form['last_name']
-        #user_id = request.form['user_id']
+        name = request.form['name']
+        last_name = request.form['last_name']
+        #user_id = request.form['user_id']   # Wylaczono z uzytku lacznie z html. obsluga_wydawanie
 
-        # Metoda podejmujaca decyzje co dalej majac juz dane 
+        user_id = database_instance.id_finder(name, last_name)
+
+        if user_id:
+            # JEST TAKA OSOBA
+
+            if database_instance.key_giveaway(user_id):
+                # Kluczyk wydany
+                pass
+            else:
+                # Karnet nieaktywny
+                pass
+
+        else:
+            pass
+            # Nie ma takiej osoby
+
 
     return render_template(
         'obsluga_klienta/obsluga_wydawanie.html',
@@ -241,24 +241,10 @@ def baza_dodaj_osobe():
 
         if name and last_name and belt and stripe:
             
-
-            db = mysql.connect()
-            cursor = db.cursor()
-
-            cursor.callproc('adding_new_person', (name, last_name, belt, stripe))
-            data = cursor.fetchall()
-
-            if len(data) is 0:
-                db.commit()
-                db.close()
+            if database_instance.adding_people(name, last_name, belt, stripe):
                 return json.dumps({'message':'User created succesfully'})
             else:
-                db.close()
-                return json.dumps({'error':str(data[0])})
-
-        else:
-            return json.dumps({'html':'<span>Wypelnij wszystkie pola!</span>'})
-
+                return json.dumps({'error':'User already in DB or another error occur'})
         
     return render_template(
         'baza_danych/baza_dodaj_osobe.html',
@@ -288,13 +274,7 @@ def baza_pokaz():
     if not configuration_mysql:
         return acc()
 
-    conn = mysql.connect()
-    cursor = conn.cursor()
-    zapytanie = "SELECT * FROM osoby_trenujace;"
-    cursor.execute(zapytanie)
-    data_lista_osob = cursor.fetchall()
-    conn.commit()
-    conn.close()
+    data_lista_osob = database_instance.training_people_report()
 
     return render_template(
         'baza_danych/baza_pokaz_wszystkich.html',

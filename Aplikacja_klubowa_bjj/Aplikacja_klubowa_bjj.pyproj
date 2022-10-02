@@ -32,6 +32,7 @@
     <Compile Include="Aplikacja_klubowa_bjj\database.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Aplikacja_klubowa_bjj\database_functions_no_utf.py" />
     <Compile Include="Aplikacja_klubowa_bjj\database_functions.py">
       <SubType>Code</SubType>
     </Compile>
@@ -56,7 +57,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Aplikacja_klubowa_bjj\MySQL_files\klub_zt_db.sql" />
-    <Content Include="Aplikacja_klubowa_bjj\MySQL_files\Klub_zt_stored_procedure_adding_people.sql" />
     <Content Include="Aplikacja_klubowa_bjj\static\content\bootstrap.css" />
     <Content Include="Aplikacja_klubowa_bjj\static\content\bootstrap.rtl.css" />
     <Content Include="Aplikacja_klubowa_bjj\static\scripts\bootstrap.bundle.js" />
