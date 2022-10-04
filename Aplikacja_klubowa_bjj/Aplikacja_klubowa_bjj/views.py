@@ -306,10 +306,13 @@ def statystyki_klubu():
     if not configuration_mysql:
         return acc()
 
+    data = database_instance.plot_club_activity()
+
     return render_template(
         'statystyki/statystyki_klub.html',
         title='Statystyki',
-        year=datetime.now().year
+        year=datetime.now().year,
+        data = data
     )
 
 @app.route('/statystyki')

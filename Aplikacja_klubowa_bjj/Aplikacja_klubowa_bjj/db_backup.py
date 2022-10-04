@@ -1,4 +1,3 @@
-
 import mysql.connector
 from database_functions import month_converter, czas, mysql_data_converter, data_for_user
 from pathlib import Path
@@ -683,52 +682,52 @@ class BazaDanych:
         
     #    return True
 
-    #def plot_klub(self):
-    #    db, cursor_object = self.data_base_connector()
+    def plot_klub(self):
+        db, cursor_object = self.data_base_connector()
 
-    #    zapytanie = f"SELECT ilosc_wejsc, miesiac, rok FROM statystyki_klubowe;"
-    #    cursor_object.execute(zapytanie)
-    #    wyniki = cursor_object.fetchall()
-    #    db.commit()
-    #    db.close()
+        zapytanie = f"SELECT ilosc_wejsc, miesiac, rok FROM statystyki_klubowe;"
+        cursor_object.execute(zapytanie)
+        wyniki = cursor_object.fetchall()
+        db.commit()
+        db.close()
 
-    #    try:
-    #        wyniki[0][0]
-    #    except IndexError:
-    #        #print(f"'Brak danych statystycznych klubu")
-    #        return False
+        try:
+            wyniki[0][0]
+        except IndexError:
+            #print(f"'Brak danych statystycznych klubu")
+            return False
 
-    #    ilosc_wejsc, daty = [], []
+        ilosc_wejsc, daty = [], []
 
-    #    for i in wyniki:
-    #        ilosc_wejsc.append(i[0])
-    #        daty.append(str(month_converter(i[1])) + "-" + str(i[2]))
+        for i in wyniki:
+            ilosc_wejsc.append(i[0])
+            daty.append(str(month_converter(i[1])) + "-" + str(i[2]))
 
-    #    x = np.array(daty)
-    #    y = np.array(ilosc_wejsc)
+        x = np.array(daty)
+        y = np.array(ilosc_wejsc)
 
-    #    fig, ax = plt.subplots()
-    #    ax.plot(x, y, 'o-', linewidth=2.0)
-    #    ax.set(xlabel="Data", ylabel="Iloœæ wejœæ na sale", title=f"Aktywnoœæ klubowiczów")
-    #    fig.autofmt_xdate()
+        fig, ax = plt.subplots()
+        ax.plot(x, y, 'o-', linewidth=2.0)
+        ax.set(xlabel="Data", ylabel="Iloœæ wejœæ na sale", title=f"Aktywnoœæ klubowiczów")
+        fig.autofmt_xdate()
 
-    #    day, month, year = data_for_user()
-    #    fig.text(0.8, 0.02, f"Data wydruku: {day} {month} {year}", ha='center',
-    #             fontweight='light', fontsize='x-small')
-    #    ax.grid()
+        day, month, year = data_for_user()
+        fig.text(0.8, 0.02, f"Data wydruku: {day} {month} {year}", ha='center',
+                 fontweight='light', fontsize='x-small')
+        ax.grid()
 
-    #    script_path = Path(__file__).parent.resolve()
-    #    path_dir = path.join(script_path, "Wydruki", "Aktywnosc_klubu")
+        script_path = Path(__file__).parent.resolve()
+        path_dir = path.join(script_path, "Wydruki", "Aktywnosc_klubu")
 
-    #    try:
-    #        makedirs(path_dir)
-    #    except FileExistsError:
-    #        pass
+        try:
+            makedirs(path_dir)
+        except FileExistsError:
+            pass
 
-    #    fig.savefig(rf"{path_dir}/aktywnosc_klubu.png")
+        fig.savefig(rf"{path_dir}/aktywnosc_klubu.png")
 
-    #    #print(f"\n{colored('Wykres zosta³ zapisany na dysku', 'green')}\n")
-    #    plt.show()
+        #print(f"\n{colored('Wykres zosta³ zapisany na dysku', 'green')}\n")
+        plt.show()
 
-    #    return True
+        return True
 

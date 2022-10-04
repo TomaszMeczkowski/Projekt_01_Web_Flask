@@ -1,4 +1,6 @@
 from .database_functions_no_utf import month_converter, czas, mysql_data_converter, data_for_user
+import numpy as np
+import matplotlib.pyplot as plt
 #from .database_functions import month_converter, czas, mysql_data_converter, data_for_user
 
 
@@ -151,7 +153,8 @@ class BazaDanych:
         return True
 
     def training_people_report(self):
-        
+
+        print("DataBase log: training people report (method ENTERED)")
         db, cursor_object = self.data_base_connector()
         zapytanie = "SELECT * FROM osoby_trenujace;"
         cursor_object.execute(zapytanie)
@@ -159,6 +162,7 @@ class BazaDanych:
         db.commit()
         db.close()
 
+        print("DataBase log: training people report (method COMPLETED)")
         return data_lista_osob
 
     def id_finder(self, imie, nazwisko):
@@ -305,3 +309,56 @@ class BazaDanych:
         db.close()
 
         print("DataBase log: statystyki osobowe wejscia (method COMPLETED)")
+        
+
+    def plot_club_activity(self):
+        print("DataBase log: plot club activity (method ENTERED)")
+        db, cursor_object = self.data_base_connector()
+
+        zapytanie = f"SELECT ilosc_wejsc, miesiac, rok FROM statystyki_klubowe;"
+        cursor_object.execute(zapytanie)
+        wyniki = cursor_object.fetchall()
+        db.commit()
+        db.close()
+
+        try:
+            wyniki[0][0]
+        except IndexError:
+            print(f"Database log: Brak danych statystycznych klubu do wydruku wykresu")
+            return False
+
+        ilosc_wejsc, daty = [], []
+
+        for i in wyniki:
+            ilosc_wejsc.append(i[0])
+            daty.append(str(month_converter(i[1])) + "-" + str(i[2]))
+
+        x = np.array(daty)
+        y = np.array(ilosc_wejsc)
+
+        fig, ax = plt.subplots()
+        ax.plot(x, y, 'o-', linewidth=2.0) 
+        ax.set(xlabel="Data", ylabel="Ilosc wejsc na sale", title=f"Aktywnosc klubowiczow")  # Dodac polskie znaki
+        fig.autofmt_xdate()
+
+        day, month, year = data_for_user()
+        fig.text(0.8, 0.02, f"Data wydruku: {day} {month} {year}", ha='center',
+                 fontweight='light', fontsize='x-small')
+        ax.grid()
+
+        #script_path = Path(__file__).parent.resolve()
+        #path_dir = path.join(script_path, "Wydruki", "Aktywnosc_klubu")
+
+        #try:
+        #    makedirs(path_dir)
+        #except FileExistsError:
+        #    pass
+
+        #fig.savefig(rf"{path_dir}/aktywnosc_klubu.png")
+        fig.savefig(rf"aktywnosc_klubu.png")
+
+       
+        #plt.show()
+
+        print("DataBase log: plot club activity (method COMPLETED)")
+        return True
