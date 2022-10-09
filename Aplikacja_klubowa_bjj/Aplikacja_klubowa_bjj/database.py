@@ -1,6 +1,9 @@
 from .database_functions_no_utf import month_converter, czas, mysql_data_converter, data_for_user
 import numpy as np
 import matplotlib.pyplot as plt
+import base64
+from io import BytesIO
+from matplotlib.figure import Figure
 #from .database_functions import month_converter, czas, mysql_data_converter, data_for_user
 
 
@@ -312,53 +315,58 @@ class BazaDanych:
         
 
     def plot_club_activity(self):
-        print("DataBase log: plot club activity (method ENTERED)")
-        db, cursor_object = self.data_base_connector()
 
-        zapytanie = f"SELECT ilosc_wejsc, miesiac, rok FROM statystyki_klubowe;"
-        cursor_object.execute(zapytanie)
-        wyniki = cursor_object.fetchall()
-        db.commit()
-        db.close()
+        labels = ["01-2022", "02-2022", "03-2022", "04-2022", "05-2022", "06-2022"]
+        values = [120, 130, 140, 100, 150, 90]
 
-        try:
-            wyniki[0][0]
-        except IndexError:
-            print(f"Database log: Brak danych statystycznych klubu do wydruku wykresu")
-            return False
+        return True, labels, values
+        #print("DataBase log: plot club activity (method ENTERED)")
+        #db, cursor_object = self.data_base_connector()
 
-        ilosc_wejsc, daty = [], []
-
-        for i in wyniki:
-            ilosc_wejsc.append(i[0])
-            daty.append(str(month_converter(i[1])) + "-" + str(i[2]))
-
-        x = np.array(daty)
-        y = np.array(ilosc_wejsc)
-
-        fig, ax = plt.subplots()
-        ax.plot(x, y, 'o-', linewidth=2.0) 
-        ax.set(xlabel="Data", ylabel="Ilosc wejsc na sale", title=f"Aktywnosc klubowiczow")  # Dodac polskie znaki
-        fig.autofmt_xdate()
-
-        day, month, year = data_for_user()
-        fig.text(0.8, 0.02, f"Data wydruku: {day} {month} {year}", ha='center',
-                 fontweight='light', fontsize='x-small')
-        ax.grid()
-
-        #script_path = Path(__file__).parent.resolve()
-        #path_dir = path.join(script_path, "Wydruki", "Aktywnosc_klubu")
+        #zapytanie = f"SELECT ilosc_wejsc, miesiac, rok FROM statystyki_klubowe;"
+        #cursor_object.execute(zapytanie)
+        #wyniki = cursor_object.fetchall()
+        #db.commit()
+        #db.close()
 
         #try:
-        #    makedirs(path_dir)
-        #except FileExistsError:
-        #    pass
+        #    wyniki[0][0]
+        #except IndexError:
+        #    print(f"Database log: Brak danych statystycznych klubu do wydruku wykresu")
+        #    return False, None
 
-        #fig.savefig(rf"{path_dir}/aktywnosc_klubu.png")
-        fig.savefig(rf"aktywnosc_klubu.png")
+        #ilosc_wejsc, daty = [], []
 
-       
-        #plt.show()
+        #for i in wyniki:
+        #    ilosc_wejsc.append(i[0])
+        #    daty.append(str(month_converter(i[1])) + "-" + str(i[2]))
 
-        print("DataBase log: plot club activity (method COMPLETED)")
-        return True
+        #x = np.array(daty)
+        #y = np.array(ilosc_wejsc)
+
+        ##fig, ax = plt.subplots()
+        #fig = Figure()
+        #ax = fig.subplots()
+        #ax.plot(x, y, 'o-', linewidth=2.0) 
+        #ax.set(xlabel="Data", ylabel="Ilosc wejsc na sale", title=f"Aktywnosc klubowiczow")  # Dodac polskie znaki
+        #fig.autofmt_xdate()
+
+        #day, month, year = data_for_user()
+        #fig.text(0.8, 0.02, f"Data wydruku: {day} {month} {year}", ha='center',
+        #         fontweight='light', fontsize='x-small')
+        #ax.grid()
+
+        
+        ##fig.savefig(rf"aktywnosc_klubu.png")
+
+        ## Save it to a temporary buffer.
+        #buf = BytesIO()
+        #fig.savefig(buf, format="png")
+
+        ## Embed the result in the html output.
+        #data = base64.b64encode(buf.getbuffer()).decode("ascii")
+        #image =  f"<img src='data:image/png;base64,{data}' alt='Rysunek Wykresu' />"
+        
+
+        #print("DataBase log: plot club activity (method COMPLETED)")
+        #return True, image

@@ -137,7 +137,7 @@ def obsluga_wyd():
     if request.method == "POST":
         name = request.form['name']
         last_name = request.form['last_name']
-        #user_id = request.form['user_id']   # Wylaczono z uzytku lacznie z html. obsluga_wydawanie
+        #user_id = request.form['user_id']   # Wylaczono z uzytku lacznie z html. obsluga_wydawanie (input field)
 
         user_id = database_instance.id_finder(name, last_name)
 
@@ -306,13 +306,15 @@ def statystyki_klubu():
     if not configuration_mysql:
         return acc()
 
-    data = database_instance.plot_club_activity()
+    choice, labels, values = database_instance.plot_club_activity()
 
     return render_template(
         'statystyki/statystyki_klub.html',
         title='Statystyki',
         year=datetime.now().year,
-        data = data
+        choice = choice,
+        labels = labels,
+        values = values
     )
 
 @app.route('/statystyki')
