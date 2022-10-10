@@ -1,3 +1,4 @@
+from itertools import count
 from .database_functions_no_utf import month_converter, czas, mysql_data_converter, data_for_user
 import numpy as np
 import matplotlib.pyplot as plt
@@ -79,6 +80,7 @@ class BazaDanych:
         db.close()
 
         print("DataBase log: Inicjowanie tabel bazy danych (method COMPLETED)")
+        self.auto_ticket_month_check()
 
     def data_base_connector(self):
         db = self.mysql.connect()
@@ -338,12 +340,13 @@ class BazaDanych:
         db.commit()
         db.close()
 
-        ## Exmaple data
+        ## Exmaple data (dev tool)
         #labels = ["01-2022", "02-2022", "03-2022", "04-2022", "05-2022", "06-2022"]
         #values = [120, 130, 140, 100, 150, 90]
-       
+
         labels = []
         values = []
+
 
         try:
             for i in wyniki:
@@ -405,6 +408,7 @@ class BazaDanych:
         return True
 
     def auto_ticket_month_check(self):
+        print("DataBase log: auto ticket month check (method ENTERED)")
         db, cursor_object = self.data_base_connector()
 
         zapytanie = f"SELECT id FROM karnety WHERE aktywny_karnet = 1;"
@@ -443,3 +447,35 @@ class BazaDanych:
                 cursor_object.execute(zapytanie)
                 db.commit()
                 db.close()
+        print("DataBase log: auto ticket month check (method COMPLETED)")
+
+    def dev_tool_klub_stat(self):
+        print("DataBase log: dev tool klub stat (method ENTERED)")
+        db, cursor_object = self.data_base_connector()
+
+        counter = 0
+        rok = 2018  # rok pocz¹tkowy danych
+
+        for i in range(12):
+            ilosc_wejsc = int(np.random.randint(low=0, high=31 * 60, size=1))
+
+            if i == 0:
+                counter = 0
+
+            counter += 1
+            if counter > 12:
+                counter = 1
+                rok += 1
+
+            if counter < 10:
+                counter = "0" + str(counter)
+                 
+            miesiac = counter
+
+            zapytanie = f"insert into statystyki_klubowe(ilosc_wejsc, miesiac, rok) " \
+                        f"values(%s, %s, %s);"
+            wartosci = (ilosc_wejsc, miesiac, rok)
+            cursor_object.execute(zapytanie, wartosci)
+
+        db.commit()
+        db.close()

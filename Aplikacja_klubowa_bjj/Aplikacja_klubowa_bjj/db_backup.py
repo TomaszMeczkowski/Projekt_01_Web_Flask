@@ -604,33 +604,33 @@ class BazaDanych:
     #        self.ticket_sell(i, True, f"{month_converter(czas('month'))}", "Open", 999, "M/K")
 
 
-    #def dev_tool_klub_stat(self):
+    def dev_tool_klub_stat(self):
 
-    #    db, cursor_object = self.data_base_connector()
+        db, cursor_object = self.data_base_connector()
 
-    #    counter = 0
-    #    rok = 2016  # Rok pocz¹tkowy danych
+        counter = 0
+        rok = 2016  # rok pocz¹tkowy danych
 
-    #    for i in range(12):
-    #        ilosc_wejsc = int(np.random.randint(low=0, high=31 * 60, size=1))
+        for i in range(12):
+            ilosc_wejsc = int(np.random.randint(low=0, high=31 * 60, size=1))
 
-    #        if i == 0:
-    #            counter = 0
+            if i == 0:
+                counter = 0
 
-    #        counter += 1
-    #        if counter > 12:
-    #            counter = 1
-    #            rok += 1
+            counter += 1
+            if counter > 12:
+                counter = 1
+                rok += 1
 
-    #        miesiac = month_converter(counter)
+            miesiac = month_converter(counter)
 
-    #        zapytanie = f"INSERT INTO statystyki_klubowe(ilosc_wejsc, miesiac, rok) " \
-    #                    f"VALUES(%s, %s, %s);"
-    #        wartosci = (ilosc_wejsc, miesiac, rok)
-    #        cursor_object.execute(zapytanie, wartosci)
+            zapytanie = f"insert into statystyki_klubowe(ilosc_wejsc, miesiac, rok) " \
+                        f"values(%s, %s, %s);"
+            wartosci = (ilosc_wejsc, miesiac, rok)
+            cursor_object.execute(zapytanie, wartosci)
 
-    #    db.commit()
-    #    db.close()
+        db.commit()
+        db.close()
 
     #def plot_osoba(self, id_osoby):
     #    db, cursor_object = self.data_base_connector()
