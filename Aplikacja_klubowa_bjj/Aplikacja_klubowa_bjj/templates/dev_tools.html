@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+
+{% block content %}
+{% if dev_tools %}
+
+
+<div class="p-5 mb-4 bg-light rounded-3" style="margin: auto; width: 40%;">
+    <div class="container-fluid py-2" style="text-align: center;">
+        <h1 class="display-6 fw-bold">Dev tools</h1>
+        <br>
+
+        <form method="post" name="reset">
+            <select name="opcje" id="opcje" class="form-select" style="margin: auto;">
+                <option selected>Wybierz działanie</option>
+                <option value="RESET">Reset bazy danych</option>
+                <option value="PRE-OSOBY">Predefiniowany zestaw osób</option>
+                <option value="STAT-OSOBY">Dane statyczne wejść dla osób o id nr 1-5 (bez dodawnia do statystyk klubu)</option>
+                <option value="STAT-KLUB">Dane statyczne wejść dla klubu</option>
+            </select>
+
+            <button type="submit" class="btn btn-primary" style=" margin-top: 35px;">Wykonaj</button>
+        </form>
+
+    </div>
+</div>
+
+
+<!--Dodać informację o udanej operacji (np. modal window, toast)-->
+
+
+
+{% endif %}
+{% endblock %}

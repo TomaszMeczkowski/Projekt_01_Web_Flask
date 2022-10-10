@@ -19,7 +19,7 @@ mysql = MySQL()
 #konfiguracja MySQL
 app.config['MYSQL_DATABASE_USER']=None
 app.config['MYSQL_DATABASE_PASSWORD']=None
-app.config['MYSQL_DATABASE_DB']='klub_zt'
+app.config['MYSQL_DATABASE_DB']='klub_zt_flask'
 app.config['MYSQL_DATABASE_HOST']='127.0.0.1'
 app.config['MYSQL_DATABASE_PORT']=3306
 configuration_mysql = False
@@ -30,6 +30,8 @@ mysql.init_app(app)
 #app.config['MYSQL_DATABASE_USER']="root"
 #app.config['MYSQL_DATABASE_PASSWORD']="" # Dopisac aktualne haslo
 #configuration_mysql = True
+dev_tools = True
+
 
 @app.route('/')
 @app.route('/home')
@@ -40,8 +42,41 @@ def home(message=""):
         'index.html',
         title='Home Page',
         year=datetime.now().year,
-        message = message
+        message = message        
     )
+
+@app.route('/Dev_Tools', methods=('GET', 'POST'))
+def dev_tools(message=""):
+    """Renders the home page."""
+    if configuration_mysql:
+
+        if request.method == "POST":
+            method = request.form['opcje']
+            if method == "RESET":
+                database_instance.reset_bazy_danych()
+
+            elif method == "PRE-OSOBY":
+                pass
+
+            elif method == "STAT-OSOBY":
+                pass
+
+            elif method == "STAT-KLUB":
+                pass
+
+            else:
+                pass
+
+
+        return render_template(
+            'dev_tools.html',
+            title='Dev page',
+            year=datetime.now().year,
+            message = message,
+            dev_tools = dev_tools
+            )
+    else:
+        return json.dumps({'message':'Musisz sie zalogowac na portalu'})
 
 @app.route('/Konto', methods=('GET', 'POST'))
 def acc():
@@ -104,7 +139,8 @@ def acc_on():
         'account_on.html',
         title='Konto',
         year=datetime.now().year,
-        message=''
+        message='',
+        dev_tools = dev_tools
     )
 
 @app.route('/kontakt')
@@ -163,12 +199,25 @@ def obsluga_wyd():
         message='',
     )
 
-@app.route('/obsluga_sprzedaz')
+@app.route('/obsluga_sprzedaz', methods=('GET', 'POST'))
 def obsluga_sell():
     """Renders the about page."""
 
     if not configuration_mysql:
         return acc()
+
+    if request.method == "POST":
+        print("DEBUG: POST METHOD ENTERED")
+        name = request.form['name_selling_ticket']
+        last_name = request.form['last_name_selling_ticket']
+        karnet = request.form['karnet']
+
+        print("DEBUG: REQUEST FORM COMPLETED")
+
+        if database_instance.ticket_sell_validate(name, last_name, karnet):
+            return json.dumps({'message':'Sprzedano karnet'})
+            # Dodaæ komunikat ¿e uda³o siê sprzedaæ
+            
 
     return render_template(
         'obsluga_klienta/obsluga_sprzedaz.html',

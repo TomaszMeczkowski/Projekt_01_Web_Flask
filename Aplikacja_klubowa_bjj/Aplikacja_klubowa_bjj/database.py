@@ -36,11 +36,10 @@ class BazaDanych:
                       "(" \
                       "id int NOT NULL, " \
                       "aktywny_karnet tinyint NOT NULL, " \
-                      "miesiac varchar(45) NOT NULL, " \
+                      "miesiac int NOT NULL, " \
                       "typ_karnetu varchar(45) NOT NULL," \
                       "dostepne_treningi_ogolnie int NOT NULL," \
                       "pozostale_treningi_w_miesiacu int NOT NULL," \
-                      "plec varchar(15), " \
                       "PRIMARY KEY (id), UNIQUE KEY id_UNIQUE (id)" \
                       ")"
 
@@ -59,7 +58,7 @@ class BazaDanych:
         creat_table = "CREATE TABLE IF NOT EXISTS statystyki_klubowe" \
                       "(id INT NOT NULL AUTO_INCREMENT," \
                       "ilosc_wejsc INT NOT NULL," \
-                      "miesiac varchar(45) NOT NULL," \
+                      "miesiac int NOT NULL," \
                       "rok INT NOT NULL," \
                       "PRIMARY KEY (id), UNIQUE KEY id_UNIQUE (id));"
 
@@ -70,7 +69,7 @@ class BazaDanych:
                       "id_osoby INT NOT NULL," \
                       "id_rekordu INT NOT NULL," \
                       "ilosc_wejsc INT NOT NULL," \
-                      "miesiac VARCHAR(45) NOT NULL," \
+                      "miesiac int NOT NULL," \
                       "rok INT NOT NULL," \
                       "PRIMARY KEY (id), UNIQUE KEY id_UNIQUE (id));"
 
@@ -127,6 +126,20 @@ class BazaDanych:
         db.commit()
         db.close()
  
+    def reset_bazy_danych(self):
+        print("DataBase log: Reset bazy danych (method ENTERED)")
+
+        db, cursor_object = self.data_base_connector()
+        zapytanie = f"DROP TABLE IF EXISTS " \
+                    f"osoby_trenujace, karnety, dodatkowe_info_osoby, statystyki_klubowe, statystyki_osobowe;"
+
+        cursor_object.execute(zapytanie)
+        db.commit()
+        db.close()
+
+        print("DataBase log: Reset bazy danych (method COMPLETED)")
+        self.inicjowanie_tabel_bazy_danych()
+
     def adding_people(self, imie, nazwisko, pas, belki):
         print("DataBase log: adding people (method ENTERED)")
 
@@ -208,7 +221,7 @@ class BazaDanych:
 
         if active:
             db, cursor_object = self.data_base_connector()
-            zapytanie = f"UPDATE klub_zt.karnety SET pozostale_treningi_w_miesiacu = {amount_left} " \
+            zapytanie = f"UPDATE klub_zt_flask.karnety SET pozostale_treningi_w_miesiacu = {amount_left} " \
                         f"WHERE id = {id_osoby};"
             cursor_object.execute(zapytanie)
             db.commit()
@@ -230,7 +243,7 @@ class BazaDanych:
 
         db, cursor_object = self.data_base_connector()
 
-        month = month_converter(czas("month"))
+        month = czas("month")
         year = czas("year")
 
         zapytanie = f"SELECT id, ilosc_wejsc, miesiac, rok FROM statystyki_klubowe " \
@@ -247,7 +260,7 @@ class BazaDanych:
         else:
             id_wpisu = wyniki[0][0]
             ilosc_wejsc = wyniki[0][1] + 1
-            zapytanie = f"UPDATE klub_zt.statystyki_klubowe SET ilosc_wejsc = {ilosc_wejsc} WHERE (id = {id_wpisu});"
+            zapytanie = f"UPDATE klub_zt_flask.statystyki_klubowe SET ilosc_wejsc = {ilosc_wejsc} WHERE (id = {id_wpisu});"
             cursor_object.execute(zapytanie)
 
         db.commit()
@@ -304,7 +317,7 @@ class BazaDanych:
             else:
                 ilosc_wejsc = wyniki[0][1] + 1
                 id_input = wyniki[0][2]
-                zapytanie = f"UPDATE klub_zt.statystyki_osobowe SET ilosc_wejsc = {ilosc_wejsc} " \
+                zapytanie = f"UPDATE klub_zt_flask.statystyki_osobowe SET ilosc_wejsc = {ilosc_wejsc} " \
                             f"WHERE (id_rekordu = {id_rekordu} AND id_osoby = {id_osoby} AND id = {id_input});"
                 cursor_object.execute(zapytanie)
 
@@ -316,57 +329,117 @@ class BazaDanych:
 
     def plot_club_activity(self):
 
-        labels = ["01-2022", "02-2022", "03-2022", "04-2022", "05-2022", "06-2022"]
-        values = [120, 130, 140, 100, 150, 90]
+        print("DataBase log: plot club activity (method ENTERED)")
+        db, cursor_object = self.data_base_connector()
 
+        zapytanie = f"SELECT ilosc_wejsc, miesiac, rok FROM statystyki_klubowe;"
+        cursor_object.execute(zapytanie)
+        wyniki = cursor_object.fetchall()
+        db.commit()
+        db.close()
+
+        ## Exmaple data
+        #labels = ["01-2022", "02-2022", "03-2022", "04-2022", "05-2022", "06-2022"]
+        #values = [120, 130, 140, 100, 150, 90]
+       
+        labels = []
+        values = []
+
+        try:
+            for i in wyniki:
+                month = i[1]
+                if month < 10:
+                    month = "0" + str(month)
+
+                labels.append(str(month) + "-" + str(i[2]))
+                values.append(i[0])
+        except IndexError:
+            print("DataBase log: plot club activity (method COMPLETED but no results in database 'Index Error occur')")
+            return False, labels, values    
+
+        print("DataBase log: plot club activity (method COMPLETED)")
         return True, labels, values
-        #print("DataBase log: plot club activity (method ENTERED)")
-        #db, cursor_object = self.data_base_connector()
 
-        #zapytanie = f"SELECT ilosc_wejsc, miesiac, rok FROM statystyki_klubowe;"
-        #cursor_object.execute(zapytanie)
-        #wyniki = cursor_object.fetchall()
-        #db.commit()
-        #db.close()
+    def ticket_sell_validate(self, imie, nazwisko, karnet):
+        print("DataBase log: ticket sell validate (method ENTERED)")
+        user_id = self.id_finder(imie, nazwisko)
+        month = czas("month")
 
-        #try:
-        #    wyniki[0][0]
-        #except IndexError:
-        #    print(f"Database log: Brak danych statystycznych klubu do wydruku wykresu")
-        #    return False, None
+        if karnet == "Dzieci":
+            amount = 999
 
-        #ilosc_wejsc, daty = [], []
+        elif karnet == "1":
+            amount = 1
 
-        #for i in wyniki:
-        #    ilosc_wejsc.append(i[0])
-        #    daty.append(str(month_converter(i[1])) + "-" + str(i[2]))
+        elif karnet == "4":
+            amount = 4
 
-        #x = np.array(daty)
-        #y = np.array(ilosc_wejsc)
+        elif karnet == "8":
+            amount = 8
 
-        ##fig, ax = plt.subplots()
-        #fig = Figure()
-        #ax = fig.subplots()
-        #ax.plot(x, y, 'o-', linewidth=2.0) 
-        #ax.set(xlabel="Data", ylabel="Ilosc wejsc na sale", title=f"Aktywnosc klubowiczow")  # Dodac polskie znaki
-        #fig.autofmt_xdate()
+        elif karnet == 15:
+            amount = 15
 
-        #day, month, year = data_for_user()
-        #fig.text(0.8, 0.02, f"Data wydruku: {day} {month} {year}", ha='center',
-        #         fontweight='light', fontsize='x-small')
-        #ax.grid()
+        elif karnet == "Open":
+            amount = 999
 
-        
-        ##fig.savefig(rf"aktywnosc_klubu.png")
 
-        ## Save it to a temporary buffer.
-        #buf = BytesIO()
-        #fig.savefig(buf, format="png")
+        active = True
+        typ = karnet
 
-        ## Embed the result in the html output.
-        #data = base64.b64encode(buf.getbuffer()).decode("ascii")
-        #image =  f"<img src='data:image/png;base64,{data}' alt='Rysunek Wykresu' />"
-        
+        print("DataBase log: ticket sell validate (method COMPLETED)")
+        return self.ticket_sell(user_id, active, month, typ, amount)
 
-        #print("DataBase log: plot club activity (method COMPLETED)")
-        #return True, image
+
+    def ticket_sell(self, id_osoby, active, month, typ, amount):
+        print("DataBase log: ticket sell (method ENTERED)")
+        db, cursor_object = self.data_base_connector()
+        zapytanie = f"UPDATE klub_zt_flask.karnety SET aktywny_karnet = {active}, miesiac = '{month}', " \
+                    f"typ_karnetu = '{typ}', dostepne_treningi_ogolnie = '{amount}'," \
+                    f" pozostale_treningi_w_miesiacu = '{amount}' WHERE (id = {id_osoby});"
+        cursor_object.execute(zapytanie)
+        db.commit()
+        db.close()
+
+        print("DataBase log: ticket sell (method COMPLETED)")
+        return True
+
+    def auto_ticket_month_check(self):
+        db, cursor_object = self.data_base_connector()
+
+        zapytanie = f"SELECT id FROM karnety WHERE aktywny_karnet = 1;"
+        cursor_object.execute(zapytanie)
+        wyniki = cursor_object.fetchall()
+        db.commit()
+        db.close()
+
+        lista_aktywnych_id = []
+        for i in wyniki:
+            lista_aktywnych_id.append(i[0])
+
+        current_month = czas("month")
+
+        db, cursor_object = self.data_base_connector()
+
+        zapytanie = f"SELECT miesiac FROM karnety WHERE aktywny_karnet = 1 LIMIT 1;"
+        cursor_object.execute(zapytanie)
+        wyniki = cursor_object.fetchall()
+        db.commit()
+        db.close()
+
+        try:
+            month_data = wyniki[0][0]
+        except IndexError:
+            month_data = None
+
+        if month_data == current_month:
+            pass
+        else:
+            for i in lista_aktywnych_id:
+                db, cursor_object = self.data_base_connector()
+                zapytanie = f"UPDATE klub_zt_flask.karnety SET aktywny_karnet = {False}, miesiac = '{current_month}' " \
+                            f"WHERE (id = {i});"
+
+                cursor_object.execute(zapytanie)
+                db.commit()
+                db.close()

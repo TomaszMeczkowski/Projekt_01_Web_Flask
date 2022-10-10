@@ -14,7 +14,17 @@
             <button type="submit" class="btn btn-primary" style="margin: auto; width: 40%;">Wyloguj się</button>
         </form>
 
+        {% if dev_tools %}
+        <div style="padding-top: 50px">
+            <p>
+                <a class="btn btn-danger" aria-current="page" href="{{ url_for('dev_tools') }}" style="margin: auto; width: 40%;">Dev Tools</a>
+            </p>
+        </div>
+        {% endif %}
+
     </div>
 </div>
+
+
 
 {% endblock %}

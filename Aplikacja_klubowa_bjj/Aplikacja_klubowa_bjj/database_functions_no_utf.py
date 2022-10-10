@@ -54,5 +54,5 @@ def mysql_data_converter(dane):
 
 
 def data_for_user():
-    day_now, month_now, year_now = czas('day'), month_converter(czas('month')), czas('year')
+    day_now, month_now, year_now = czas('day'), czas('month'), czas('year')
     return day_now, month_now, year_now

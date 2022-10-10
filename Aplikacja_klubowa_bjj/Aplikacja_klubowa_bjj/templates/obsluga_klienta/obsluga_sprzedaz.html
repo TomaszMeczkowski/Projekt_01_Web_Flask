@@ -2,7 +2,34 @@
 
 {% block body %}
 
-<p>Sprzedaż karnetów</p>
-<p>Miejsce na budowanie funkcjonalności związanej ze sprzedażą karnetów</p>
+<h3>Sprzedaż karnetów</h3>
+<div style="margin: auto; width: 80%;">
+    <form method="post">
+
+        <div style="margin: auto; width: 80%; margin-top: 25px;">
+            <input type="text" name="name_selling_ticket" id="name_selling_ticket" class="form-control" placeholder="Imię...">
+        </div>
+
+        <div style="margin: auto; width: 80%; margin-top: 25px;">
+            <input type="text" name="last_name_selling_ticket" id="last_name_selling_ticket" class="form-control" placeholder="Nazwisko...">
+        </div>
+
+        <div style="margin: auto; width: 80%; margin-top: 25px;">
+            <select name="karnet" id="karnet" class="form-select">
+                <option selected>Karnet</option>
+                <option value="Dzieci">Dzieci (4-18 lat) -  150 PLN</option>
+                <option value="1">1 wejście - 30 PLN</option>
+                <option value="4">4 wejścia - 100 PLN</option>
+                <option value="8">8 wejść - 140 PLN</option>
+                <option value="15">15 wejść - 160 PLN</option>
+                <option value="Open">OPEN - 220 PLN</option>
+            </select>
+
+        </div>
+
+        <!-- Przycisk do zatwierdzania  -->
+        <button type="submit" class="btn btn-primary" style="width: 60%; margin-top: 35px;">Sprzedaj</button>
+    </form>
+</div>
 
 {% endblock %}

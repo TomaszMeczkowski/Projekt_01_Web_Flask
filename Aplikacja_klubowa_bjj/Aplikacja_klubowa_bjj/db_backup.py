@@ -257,54 +257,54 @@ class BazaDanych:
     #    writer.close()
     #    system(rf"{path_dir}/Lista_osób_trenuj¹cych.xlsx")
 
-    #def ticket_sell(self, id_osoby, active, month, typ, amount, plec):
-    #    db, cursor_object = self.data_base_connector()
-    #    zapytanie = f"UPDATE klub_zt.karnety SET aktywny_karnet = {active}, miesiac = '{month}', " \
-    #                f"typ_karnetu = '{typ}', dostepne_treningi_ogolnie = '{amount}'," \
-    #                f" pozostale_treningi_w_miesiacu = '{amount}', plec = '{plec}' WHERE (id = {id_osoby});"
-    #    cursor_object.execute(zapytanie)
-    #    db.commit()
-    #    db.close()
+    def ticket_sell(self, id_osoby, active, month, typ, amount, plec):
+        db, cursor_object = self.data_base_connector()
+        zapytanie = f"UPDATE klub_zt.karnety SET aktywny_karnet = {active}, miesiac = '{month}', " \
+                    f"typ_karnetu = '{typ}', dostepne_treningi_ogolnie = '{amount}'," \
+                    f" pozostale_treningi_w_miesiacu = '{amount}', plec = '{plec}' WHERE (id = {id_osoby});"
+        cursor_object.execute(zapytanie)
+        db.commit()
+        db.close()
 
-    #def auto_ticket_month_check(self):
-    #    db, cursor_object = self.data_base_connector()
+    def auto_ticket_month_check(self):
+        db, cursor_object = self.data_base_connector()
 
-    #    zapytanie = f"SELECT id FROM karnety WHERE aktywny_karnet = 1;"
-    #    cursor_object.execute(zapytanie)
-    #    wyniki = cursor_object.fetchall()
-    #    db.commit()
-    #    db.close()
+        zapytanie = f"SELECT id FROM karnety WHERE aktywny_karnet = 1;"
+        cursor_object.execute(zapytanie)
+        wyniki = cursor_object.fetchall()
+        db.commit()
+        db.close()
 
-    #    lista_aktywnych_id = []
-    #    for i in wyniki:
-    #        lista_aktywnych_id.append(i[0])
+        lista_aktywnych_id = []
+        for i in wyniki:
+            lista_aktywnych_id.append(i[0])
 
-    #    current_month = month_converter(czas("month"))
+        current_month = month_converter(czas("month"))
 
-    #    db, cursor_object = self.data_base_connector()
+        db, cursor_object = self.data_base_connector()
 
-    #    zapytanie = f"SELECT miesiac FROM karnety WHERE aktywny_karnet = 1 LIMIT 1;"
-    #    cursor_object.execute(zapytanie)
-    #    wyniki = cursor_object.fetchall()
-    #    db.commit()
-    #    db.close()
+        zapytanie = f"SELECT miesiac FROM karnety WHERE aktywny_karnet = 1 LIMIT 1;"
+        cursor_object.execute(zapytanie)
+        wyniki = cursor_object.fetchall()
+        db.commit()
+        db.close()
 
-    #    try:
-    #        month_data = wyniki[0][0]
-    #    except IndexError:
-    #        month_data = None
+        try:
+            month_data = wyniki[0][0]
+        except IndexError:
+            month_data = None
 
-    #    if month_data == current_month:
-    #        pass
-    #    else:
-    #        for i in lista_aktywnych_id:
-    #            db, cursor_object = self.data_base_connector()
-    #            zapytanie = f"UPDATE klub_zt.karnety SET aktywny_karnet = {False}, miesiac = '{current_month}' " \
-    #                        f"WHERE (id = {i});"
+        if month_data == current_month:
+            pass
+        else:
+            for i in lista_aktywnych_id:
+                db, cursor_object = self.data_base_connector()
+                zapytanie = f"UPDATE klub_zt.karnety SET aktywny_karnet = {False}, miesiac = '{current_month}' " \
+                            f"WHERE (id = {i});"
 
-    #            cursor_object.execute(zapytanie)
-    #            db.commit()
-    #            db.close()
+                cursor_object.execute(zapytanie)
+                db.commit()
+                db.close()
 
     def key_giveaway(self, id_osoby):
         db, cursor_object = self.data_base_connector()

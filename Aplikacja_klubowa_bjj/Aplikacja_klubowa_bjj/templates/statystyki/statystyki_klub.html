@@ -3,35 +3,30 @@
 {% block body %}
 
 <h2>Aktywność klubu</h2>
-<p>Miejsce na budowanie funkcjonalności związanej z aktywnością klubu</p>
 
 <br>
 
 {% if choice %}
-<canvas id="lineChart" , width="400" , height="400">
+<canvas id="lineChart" , width="200" , height="100">
     <script>
-                var ctx = document.getElementById("lineChart").getContext("2d");
-                var lineChar = new Chart(ctx,{
-                    type: "line",
-                    data: {
-                        labels: {{ labels | safe }},
-                        datasets: [
-                            {
-                                label: "Data points",
-                                data: {{ values | safe }},
-                                fill: false,
-                                borderColor: "rgb(75, 192, 192)",
-                                lineTension: 0.1
-                            }
-                        ]
-                    },
-                    options: {
-                        responsive: false
-                    }
+            var ctx = document.getElementById("lineChart").getContext("2d");
+            var lineChar = new Chart(ctx,{
+                type: "line",
+                data: {labels: {{ labels | safe }},
+                       datasets: [
+                       {label: "Ilość wejść na sale",
+                        data: {{ values | safe }},
+                        fill: true,
+                        borderColor: "rgb(75, 192, 192)",
+                        lineTension: 0.1}]
+                       },
+                options:
+                    {responsive: true,
+                    scales: { y: { beginAtZero: true } }}
                 });
     </script>
 </canvas>
-
 {% endif %}
+
 
 {% endblock %}
