@@ -480,23 +480,13 @@ class BazaDanych:
     def dev_tool_osoby(self):
         print("DataBase log: dev tool osoby (method ENTERED)")
 
-        #fake_data = Faker(["pl_PL"])
-        #pasy = ["Czarny", "Br¹zowy", "Purpurowy", "Niebieski", "Bia³y"]
         osoby = [
                  ["Tomek", "Meczkowski", "Purpurowy", 2],
-                 ["Olga", "Zabulewicz", "Purpurwoy", 2],
-                 ["Jacek", "Kowalski", "Bialy", 4],
+                 ["Olga", "Zabulewicz", "Czarny", 2],
+                 ["Jacek", "Kowalski", "Niebieski", 4],
                  ["Alicja", "Kardas", "Niebieski", 3],
-                 ["Ewa", "Szklanko", "Bialy", 2]
+                 ["Ewa", "Szklanko", "Czarny", 2]
                  ]
-
-        #for i in range(100):
-        #    imie = fake_data.name().split()[0]
-        #    nazwisko = fake_data.name().split()[1]
-        #    pas = choice(pasy)
-        #    belki = randint(0, 4)
-        #    osoba = [imie, nazwisko, pas, belki]
-        #    osoby.append(osoba)
 
         for osoba in osoby:
             self.adding_people(osoba[0], osoba[1], osoba[2], osoba[3])
