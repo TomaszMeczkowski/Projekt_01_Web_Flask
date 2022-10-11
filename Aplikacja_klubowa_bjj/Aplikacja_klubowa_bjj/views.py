@@ -56,13 +56,13 @@ def dev_tools(message=""):
                 database_instance.reset_bazy_danych()
 
             elif method == "PRE-OSOBY":
-                pass
+                database_instance.dev_tool_osoby()
 
             elif method == "STAT-OSOBY":
-                pass
+                database_instance.dev_tool_statistics_for_people_01_05()
 
             elif method == "STAT-KLUB":
-                pass
+                database_instance.dev_tool_klub_stat()
 
             else:
                 pass

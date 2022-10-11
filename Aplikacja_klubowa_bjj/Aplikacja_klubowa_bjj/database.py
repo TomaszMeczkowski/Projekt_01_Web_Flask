@@ -1,10 +1,7 @@
-from itertools import count
 from .database_functions_no_utf import month_converter, czas, mysql_data_converter, data_for_user
 import numpy as np
-import matplotlib.pyplot as plt
-import base64
-from io import BytesIO
-from matplotlib.figure import Figure
+from faker import Faker
+from random import choice, randint
 #from .database_functions import month_converter, czas, mysql_data_converter, data_for_user
 
 
@@ -450,11 +447,12 @@ class BazaDanych:
         print("DataBase log: auto ticket month check (method COMPLETED)")
 
     def dev_tool_klub_stat(self):
+
         print("DataBase log: dev tool klub stat (method ENTERED)")
         db, cursor_object = self.data_base_connector()
 
         counter = 0
-        rok = 2018  # rok pocz¹tkowy danych
+        rok = 2018
 
         for i in range(12):
             ilosc_wejsc = int(np.random.randint(low=0, high=31 * 60, size=1))
@@ -466,9 +464,6 @@ class BazaDanych:
             if counter > 12:
                 counter = 1
                 rok += 1
-
-            if counter < 10:
-                counter = "0" + str(counter)
                  
             miesiac = counter
 
@@ -479,3 +474,71 @@ class BazaDanych:
 
         db.commit()
         db.close()
+
+        print("DataBase log: dev tool klub stat (method COMPLETED)")
+
+    def dev_tool_osoby(self):
+        print("DataBase log: dev tool osoby (method ENTERED)")
+
+        #fake_data = Faker(["pl_PL"])
+        #pasy = ["Czarny", "Br¹zowy", "Purpurowy", "Niebieski", "Bia³y"]
+        osoby = [
+                 ["Tomek", "Meczkowski", "Purpurowy", 2],
+                 ["Olga", "Zabulewicz", "Purpurwoy", 2],
+                 ["Jacek", "Kowalski", "Bialy", 4],
+                 ["Alicja", "Kardas", "Niebieski", 3],
+                 ["Ewa", "Szklanko", "Bialy", 2]
+                 ]
+
+        #for i in range(100):
+        #    imie = fake_data.name().split()[0]
+        #    nazwisko = fake_data.name().split()[1]
+        #    pas = choice(pasy)
+        #    belki = randint(0, 4)
+        #    osoba = [imie, nazwisko, pas, belki]
+        #    osoby.append(osoba)
+
+        for osoba in osoby:
+            self.adding_people(osoba[0], osoba[1], osoba[2], osoba[3])
+
+        print("DataBase log: dev tool osoby (method COMPLETED)")
+
+     
+    def dev_tool_statistics_for_people_01_05(self):
+        print("DataBase log: dev tool osoby statystyki (method ENTERED)")
+
+        db, cursor_object = self.data_base_connector()
+
+        counter = 0
+        rok = 2018
+
+        for j in range(5):
+
+            zapytanie = f"INSERT INTO dodatkowe_info_osoby(id_osoby, pierwszy_trening) VALUES(%s, %s)"
+            wartosci = (j + 1, "2018-01-01")
+            cursor_object.execute(zapytanie, wartosci)
+
+            for i in range(36):
+                id_osoby = j + 1
+                id_rekordu = i + 1
+                ilosc_wejsc = int(np.random.randint(low=0, high=31, size=1))
+
+                if i == 0:
+                    counter = 0
+
+                counter += 1
+                if counter > 12:
+                    counter = 1
+                    rok += 1
+
+                miesiac = counter
+
+                zapytanie = f"INSERT INTO statystyki_osobowe(id_osoby, id_rekordu, ilosc_wejsc, miesiac, rok) " \
+                            f"VALUES(%s, %s, %s, %s, %s);"
+                wartosci = (id_osoby, id_rekordu, ilosc_wejsc, miesiac, rok)
+                cursor_object.execute(zapytanie, wartosci)
+
+        db.commit()
+        db.close()
+
+        print("DataBase log: dev tool osoby statystyki (method COMPLETED)")

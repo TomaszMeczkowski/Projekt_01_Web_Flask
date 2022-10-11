@@ -49,6 +49,7 @@
     <Folder Include="Aplikacja_klubowa_bjj\static\" />
     <Folder Include="Aplikacja_klubowa_bjj\static\content\" />
     <Folder Include="Aplikacja_klubowa_bjj\static\fonts\" />
+    <Folder Include="Aplikacja_klubowa_bjj\static\images\" />
     <Folder Include="Aplikacja_klubowa_bjj\static\scripts\" />
     <Folder Include="Aplikacja_klubowa_bjj\templates\" />
     <Folder Include="Aplikacja_klubowa_bjj\templates\baza_danych\" />
@@ -59,8 +60,10 @@
     <Content Include="Aplikacja_klubowa_bjj\MySQL_files\klub_zt_flask_db.sql" />
     <Content Include="Aplikacja_klubowa_bjj\static\content\bootstrap.css" />
     <Content Include="Aplikacja_klubowa_bjj\static\content\bootstrap.rtl.css" />
+    <Content Include="Aplikacja_klubowa_bjj\static\images\activity.svg" />
     <Content Include="Aplikacja_klubowa_bjj\static\scripts\bootstrap.bundle.js" />
     <Content Include="Aplikacja_klubowa_bjj\static\scripts\Password_Visibility.js" />
+    <Content Include="Aplikacja_klubowa_bjj\static\scripts\toast.js" />
     <Content Include="Aplikacja_klubowa_bjj\templates\account.html" />
     <Content Include="Aplikacja_klubowa_bjj\static\content\custom.css" />
     <Content Include="Aplikacja_klubowa_bjj\templates\about.html" />
