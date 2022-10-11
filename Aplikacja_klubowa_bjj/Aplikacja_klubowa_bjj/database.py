@@ -1,7 +1,5 @@
 from .database_functions_no_utf import month_converter, czas, mysql_data_converter, data_for_user
 import numpy as np
-from faker import Faker
-from random import choice, randint
 #from .database_functions import month_converter, czas, mysql_data_converter, data_for_user
 
 

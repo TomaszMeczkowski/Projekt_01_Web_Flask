@@ -2,15 +2,12 @@
 Routes and views for the flask application.
 """
 
-from cgitb import reset
 from datetime import datetime
-from email import message
-from pkgutil import get_loader
 from flask import Flask, render_template, request, json
-from flask.scaffold import _matching_loader_thinks_module_is_package
+#from flask.scaffold import _matching_loader_thinks_module_is_package
 from flaskext.mysql import MySQL
 from Aplikacja_klubowa_bjj import app
-from werkzeug.security import generate_password_hash
+#from werkzeug.security import generate_password_hash
 from .database import BazaDanych
 
 
