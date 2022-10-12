@@ -27,7 +27,10 @@ mysql.init_app(app)
 #app.config['MYSQL_DATABASE_USER']="root"
 #app.config['MYSQL_DATABASE_PASSWORD']="" # Dopisac aktualne haslo
 #configuration_mysql = True
-dev_tools = True
+#database_instance = BazaDanych(mysql)
+#database_instance.inicjowanie_tabel_bazy_danych()
+#dev_tools = True
+#db_log_info = True  # Zmienic plik tak zeby db logi w terminalu pokazywaly sie w zaleznosci od tej wartosci
 
 
 @app.route('/')
@@ -351,16 +354,16 @@ def statystyki_klubu():
 
     if not configuration_mysql:
         return acc()
-
-    choice, labels, values = database_instance.plot_club_activity()
+    
+    choice, data, years = database_instance.plot_club_activity_2()
 
     return render_template(
         'statystyki/statystyki_klub.html',
         title='Statystyki',
         year=datetime.now().year,
         choice = choice,
-        labels = labels,
-        values = values
+        data = data,
+        years = years
     )
 
 @app.route('/statystyki')

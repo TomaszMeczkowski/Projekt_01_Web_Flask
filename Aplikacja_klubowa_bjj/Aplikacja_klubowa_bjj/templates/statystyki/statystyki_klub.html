@@ -4,29 +4,44 @@
 
 <h2>Aktywność klubu</h2>
 
+{% if choice %}
+
+{% for year in years %}
+
 <br>
 
-{% if choice %}
-<canvas id="lineChart" , width="200" , height="100">
+<canvas id="lineChart-{{year}}" , width="200" , height="100">
     <script>
-            var ctx = document.getElementById("lineChart").getContext("2d");
+            var ctx = document.getElementById("lineChart-{{year}}").getContext("2d");
             var lineChar = new Chart(ctx,{
                 type: "line",
-                data: {labels: {{ labels | safe }},
+                data: { labels: {{ data[year]['Labels'] | safe }} ,
                        datasets: [
                        {label: "Ilość wejść na sale",
-                        data: {{ values | safe }},
+                        data: {{ data[year]['Values'] | safe }},
                         fill: true,
                         borderColor: "rgb(75, 192, 192)",
                         lineTension: 0.1}]
                        },
                 options:
                     {responsive: true,
-                    scales: { y: { beginAtZero: true } }}
+                    scales: { y: { beginAtZero: true } },
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Rok: {{year}}',
+                            font: { size: 24 }}
+                            }
+                    }
                 });
     </script>
 </canvas>
+
+{% endfor %}
+
+
 {% endif %}
+
 
 
 {% endblock %}

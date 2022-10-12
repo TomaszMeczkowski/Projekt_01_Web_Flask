@@ -322,6 +322,44 @@ class BazaDanych:
         db.close()
 
         print("DataBase log: statystyki osobowe wejscia (method COMPLETED)")
+
+
+    def plot_club_activity_2(self):
+
+        print("DataBase log: plot club activity 2 (method ENTERED)")
+
+        db, cursor_object = self.data_base_connector()
+
+        zapytanie = f"SELECT ilosc_wejsc, miesiac, rok FROM statystyki_klubowe;"
+        cursor_object.execute(zapytanie)
+        wyniki = cursor_object.fetchall()
+        db.commit()
+        db.close()
+
+        results = dict()
+        years = []
+
+        for i in wyniki:
+            year = i[2]
+            if year not in years:
+                years.append(year)
+                results[year] = {"Labels": [], "Values": []}
+
+        for i in wyniki:
+            if i[1] < 10:
+                string = "0" + str(i[1])
+                results[i[2]]["Labels"].append(string + "-" + str(i[2]))
+            else:
+                results[i[2]]["Labels"].append(str(i[1]) + "-" + str(i[2]))
+
+            results[i[2]]["Values"].append(i[0])
+
+        years.reverse()
+        years_descending = years
+        print("DataBase log: plot club activity 2 (method COMPLETED)")
+
+        return True, results, years_descending
+
         
 
     def plot_club_activity(self):
@@ -342,7 +380,6 @@ class BazaDanych:
         labels = []
         values = []
 
-
         try:
             for i in wyniki:
                 month = i[1]
@@ -353,7 +390,7 @@ class BazaDanych:
                 values.append(i[0])
         except IndexError:
             print("DataBase log: plot club activity (method COMPLETED but no results in database 'Index Error occur')")
-            return False, labels, values    
+            return False, labels, values   
 
         print("DataBase log: plot club activity (method COMPLETED)")
         return True, labels, values
@@ -452,7 +489,7 @@ class BazaDanych:
         counter = 0
         rok = 2018
 
-        for i in range(12):
+        for i in range(36):
             ilosc_wejsc = int(np.random.randint(low=0, high=31 * 60, size=1))
 
             if i == 0:

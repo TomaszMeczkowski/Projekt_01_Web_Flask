@@ -61,6 +61,10 @@
     <Content Include="Aplikacja_klubowa_bjj\static\content\bootstrap.css" />
     <Content Include="Aplikacja_klubowa_bjj\static\content\bootstrap.rtl.css" />
     <Content Include="Aplikacja_klubowa_bjj\static\images\activity.svg" />
+    <Content Include="Aplikacja_klubowa_bjj\static\images\eye-fill.svg" />
+    <Content Include="Aplikacja_klubowa_bjj\static\images\eye-slash-fill.svg" />
+    <Content Include="Aplikacja_klubowa_bjj\static\images\eye-slash.svg" />
+    <Content Include="Aplikacja_klubowa_bjj\static\images\eye.svg" />
     <Content Include="Aplikacja_klubowa_bjj\static\scripts\bootstrap.bundle.js" />
     <Content Include="Aplikacja_klubowa_bjj\static\scripts\Password_Visibility.js" />
     <Content Include="Aplikacja_klubowa_bjj\static\scripts\toast.js" />
