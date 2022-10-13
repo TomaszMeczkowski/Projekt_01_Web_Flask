@@ -29,7 +29,7 @@ mysql.init_app(app)
 #configuration_mysql = True
 #database_instance = BazaDanych(mysql)
 #database_instance.inicjowanie_tabel_bazy_danych()
-#dev_tools = True
+dev_tools = True
 #db_log_info = True  # Zmienic plik tak zeby db logi w terminalu pokazywaly sie w zaleznosci od tej wartosci
 
 
@@ -290,16 +290,16 @@ def baza_dodaj_osobe():
 
         if name and last_name and belt and stripe:
             
-            if database_instance.adding_people(name, last_name, belt, stripe):
-                return json.dumps({'message':'User created succesfully'})
-            else:
-                return json.dumps({'error':'User already in DB or another error occur'})
+            if database_instance.adding_people(name, last_name, belt, stripe):                
+                #"Uzytkownik zostal pomyslnie dodany bo bazy"
+            
+            else:               
+               #"*ERROR* : Uzytkownik juz znajduje sie bazie danych"
         
     return render_template(
         'baza_danych/baza_dodaj_osobe.html',
         title='Baza danych',
         year=datetime.now().year,
-        message=''
     )
 
 @app.route('/baza_poprawianie')
@@ -355,7 +355,7 @@ def statystyki_klubu():
     if not configuration_mysql:
         return acc()
     
-    choice, data, years = database_instance.plot_club_activity_2()
+    choice, data, years = database_instance.plot_club_activity()
 
     return render_template(
         'statystyki/statystyki_klub.html',

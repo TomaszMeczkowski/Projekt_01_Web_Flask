@@ -4,6 +4,13 @@
 
 <h2>Aktywność klubu</h2>
 
+{% if not choice %}
+
+<p>Brak danych</p>
+
+{% endif %}
+
+
 {% if choice %}
 
 {% for year in years %}

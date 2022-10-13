@@ -324,7 +324,7 @@ class BazaDanych:
         print("DataBase log: statystyki osobowe wejscia (method COMPLETED)")
 
 
-    def plot_club_activity_2(self):
+    def plot_club_activity(self):
 
         print("DataBase log: plot club activity 2 (method ENTERED)")
 
@@ -358,42 +358,12 @@ class BazaDanych:
         years_descending = years
         print("DataBase log: plot club activity 2 (method COMPLETED)")
 
+        if years == []:
+            return False, False, False
+
         return True, results, years_descending
 
-        
-
-    def plot_club_activity(self):
-
-        print("DataBase log: plot club activity (method ENTERED)")
-        db, cursor_object = self.data_base_connector()
-
-        zapytanie = f"SELECT ilosc_wejsc, miesiac, rok FROM statystyki_klubowe;"
-        cursor_object.execute(zapytanie)
-        wyniki = cursor_object.fetchall()
-        db.commit()
-        db.close()
-
-        ## Exmaple data (dev tool)
-        #labels = ["01-2022", "02-2022", "03-2022", "04-2022", "05-2022", "06-2022"]
-        #values = [120, 130, 140, 100, 150, 90]
-
-        labels = []
-        values = []
-
-        try:
-            for i in wyniki:
-                month = i[1]
-                if month < 10:
-                    month = "0" + str(month)
-
-                labels.append(str(month) + "-" + str(i[2]))
-                values.append(i[0])
-        except IndexError:
-            print("DataBase log: plot club activity (method COMPLETED but no results in database 'Index Error occur')")
-            return False, labels, values   
-
-        print("DataBase log: plot club activity (method COMPLETED)")
-        return True, labels, values
+       
 
     def ticket_sell_validate(self, imie, nazwisko, karnet):
         print("DataBase log: ticket sell validate (method ENTERED)")

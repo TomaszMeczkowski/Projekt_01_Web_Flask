@@ -38,28 +38,32 @@
             </div>
 
             <!-- Przycisk do zatwierdzania  -->
-            <button type="submit" class="btn btn-primary" id="liveToastBtn" style="width: 60%; margin-top: 35px;">Dodaj</button>
+            <button type="submit" class="btn btn-primary" style="width: 60%; margin-top: 35px;">Dodaj</button>
+            <!--<button type="submit" class="btn btn-primary" id="liveToastBtn" style="width: 60%; margin-top: 35px;">Dodaj</button>-->
         </form>
 
         <br>
 
-        <!--<button type="button" class="btn btn-primary" id="liveToastBtn">Show live toast</button>-->
-
-        <div class="toast-container position-fixed bottom-0 end-0 p-3">
-            <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="false">
+        <button type="button" class="btn btn-primary" id="livetoastbtn">show live toast</button>
+       
+        <!--<div class="toast-container position-fixed bottom-0 end-0 p-3">-->
+        <div style="position: absolute; bottom: 20px; right: 20px;">
+            <div id="liveToast" class="toast" role="status" aria-live="assertive" aria-atomic="true" data-bs-autohide="false">
                 <div class="toast-header">
 
                     <img src="/static/images/activity.svg" alt="Image not found">
 
                     <strong class="me-auto">BJJ CLUB</strong>
-                    <!--<small>1 min ago</small>-->
+                    <small style="padding-right: 20px;">1 min ago</small>
                     <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
                 </div>
                 <div class="toast-body">
-                    Osoba została dodana do systemu
+                    + AAA
                 </div>
             </div>
         </div>
+
+       
 
 
 
