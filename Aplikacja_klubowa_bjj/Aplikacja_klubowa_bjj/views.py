@@ -290,11 +290,13 @@ def baza_dodaj_osobe():
 
         if name and last_name and belt and stripe:
             
-            if database_instance.adding_people(name, last_name, belt, stripe):                
+            if database_instance.adding_people(name, last_name, belt, stripe):
+                pass
                 #"Uzytkownik zostal pomyslnie dodany bo bazy"
             
-            else:               
-               #"*ERROR* : Uzytkownik juz znajduje sie bazie danych"
+            else:
+                pass
+                #"*ERROR* : Uzytkownik juz znajduje sie bazie danych"
         
     return render_template(
         'baza_danych/baza_dodaj_osobe.html',
