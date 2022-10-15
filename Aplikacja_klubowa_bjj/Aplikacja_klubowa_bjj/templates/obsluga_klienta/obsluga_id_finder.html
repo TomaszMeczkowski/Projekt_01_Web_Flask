@@ -2,7 +2,7 @@
 
 {% block body %}
 
-<p style="text-align: center; font-size: 26px; font-weight: bold;">id finder</p>
+<p style="text-align: center; font-size: 26px; font-weight: bold;">Znajdź id użytkownika</p>
 <form method="post">
 
     <div style="margin: auto; width: 60%; margin-top: 25px;">
@@ -13,75 +13,50 @@
         <input type="text" name="last_name" id="last_name" class="form-control" placeholder="Nazwisko...">
     </div>
 
+    {% if message[0] %}
 
+    <script>
+        $(document).ready(function() {
+            $("#exampleModal").modal('show');
+        });
+    </script>
 
-    <div class="container">
-        <div class="modal fade" id="mojeModalne">
-            <div class="modal-dialog">
+    <div>
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
+
                     <div class="modal-header">
-                        <h3 class="modal-title">Wyniki wyszukiwań</h3>
-
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Wyniki wyszukiwań</h1>
                     </div>
+
                     <div class="modal-body">
-                        <div style="text-align: center;">
-                            {% if message[0] %}
+                        {% if message[1] %}
+                        {{message[2]}} {{message[3]}}  <b>id = {{message[4]}}</b>
+                        {% endif %}
 
-                            {% if message[1] %}
+                        {% if not message[1] %}
+                        Nie znaleziono takiej osoby
+                        {% endif %}
 
 
-                            <p style="margin-top: 15px;">{{message[2]}} {{message[3]}}  id = <b>{{message[4]}}</b></p>
-                            {% endif %}
-
-
-                            {% if not message[1] %}
-                            <p style="color: red; margin-top: 15px;">Nie znaleziono takiej osoby</p>
-                            {% endif %}
-
-                            {% endif %}
-
-                        </div>
                     </div>
+
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">zamknij</button>
+                        <button type="button" class="custom-grey" style="width: 100px;" data-bs-dismiss="modal">Zamknij</button>
                     </div>
+
                 </div>
             </div>
-
         </div>
     </div>
 
-    <!-- Przycisk do zatwierdzania  -->
-    <!--<button type="submit" class="btn btn-primary" style="width: 150px;">Szukaj</button>-->  <!--Działa POST-->
-    <!--Problemy z uruchomieniem metody POST poprzez jednocznesne wywołanie modala (Modal działa, wywołanie modala działa, brak wywołania metody post)-->
-    <input type="submit" class="btn btn-primary" data-toggle="modal" data-target="#mojeModalne" value="Szukaj" style="width: 150px; margin-top: 25px;" />
+    {% endif %}
 
 
-    <!--<button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#mojeModalne" style="width: 150px;" formmethod="post">Szukaj</button>-->
+    <button type="submit" class="custom-blue" style="width: 150px; font-size: 16px; margin-top: 25px;">Szukaj</button>
+
 </form>
-
-<!--Testowo dodany tekst (Po uruchomieniu modala, usunąc)-->
-
-<div>
-    {% if message[0] %}
-
-    {% if message[1] %}
-
-
-    <p>{{message[2]}} {{message[3]}} </p>
-    <p>id: <b>{{message[4]}}</b></p>
-    {% endif %}
-
-
-    {% if not message[1] %}
-    <p style="color: red;">Nie znaleziono takiej osoby</p>
-    {% endif %}
-
-    {% endif %}
-</div>
-
-<br />
-
 
 
 

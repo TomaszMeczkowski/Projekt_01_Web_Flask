@@ -22,43 +22,80 @@ a.custom:hover{
 button.custom-blue {
     width: 200px;
     border: 2px solid black;
-    background-color: white; /*Kolor t³a bezczynnego przycisku*/
-    border-color: deepskyblue;
-    color: deepskyblue; /*Kolor tekstu*/
+    background-color: white;
+    /*Kolor t³a bezczynnego przycisku*/
+    border-color: rgb(13, 110, 253);
+    color: rgb(13, 110, 253);
+    /*Kolor tekstu*/
     cursor: pointer;
     border-radius: 5px;
     font-size: 14px;
     transition-duration: 0.4s;
-    display: inline-block; /*Bez tego nie bêdzie dzia³a³o 'width'*/
+    display: inline-block;
+    /*Bez tego nie bêdzie dzia³a³o 'width'*/
     text-align: center;
     text-decoration: none;
     padding: 5px 10px;
 }
 
 button.custom-blue:hover {
-    background-color: deepskyblue; /*Kolor t³a najechanego przycisku*/
-    color: white; /*Zmiana koloru tekstu ¿eby siê nie zlewa³*/
+        background-color: rgb(13, 110, 253);
+        /*Kolor t³a najechanego przycisku*/
+        color: white;
+        /*Zmiana koloru tekstu ¿eby siê nie zlewa³*/
     }
 
 button.custom-purple {
     width: 200px;
     border: 2px solid black;
-    background-color: white; /*Kolor t³a bezczynnego przycisku*/
+    background-color: white;
+    /*Kolor t³a bezczynnego przycisku*/
     border-color: rgb(138, 14, 221);
-    color: rgb(138, 14, 221); /*Kolor tekstu*/
+    color: rgb(138, 14, 221);
+    /*Kolor tekstu*/
     cursor: pointer;
     border-radius: 5px;
     font-size: 14px;
     transition-duration: 0.4s;
-    display: inline-block; /*Bez tego nie bêdzie dzia³a³o 'width'*/
+    display: inline-block;
+    /*Bez tego nie bêdzie dzia³a³o 'width'*/
     text-align: center;
     text-decoration: none;
     padding: 5px 10px;
 }
 
-    button.custom-purple:hover {
-        background-color: rgb(138, 14, 221); /*Kolor t³a najechanego przycisku*/
-        color: white; /*Zmiana koloru tekstu ¿eby siê nie zlewa³*/
+button.custom-purple:hover {
+        background-color: rgb(138, 14, 221);
+        /*Kolor t³a najechanego przycisku*/
+        color: white;
+        /*Zmiana koloru tekstu ¿eby siê nie zlewa³*/
+    }
+
+button.custom-grey {
+    width: 200px;
+    border: 2px solid black;
+    background-color: white;
+    /*Kolor t³a bezczynnego przycisku*/
+    border-color: rgb(112, 112, 112);
+    color: rgb(112, 112, 112);
+    /*Kolor tekstu*/
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 14px;
+    transition-duration: 0.4s;
+    display: inline-block;
+    /*Bez tego nie bêdzie dzia³a³o 'width'*/
+    text-align: center;
+    text-decoration: none;
+    padding: 5px 10px;
+}
+
+button.custom-grey:hover {
+        background-color: rgb(112, 112, 112);
+        /*Kolor t³a najechanego przycisku*/
+        color: white;
+        /*Zmiana koloru tekstu ¿eby siê nie zlewa³*/
+    }r: white; /*Zmiana koloru tekstu ¿eby siê nie zlewa³*/
     }
 
 

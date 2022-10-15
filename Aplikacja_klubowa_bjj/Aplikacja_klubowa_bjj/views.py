@@ -244,7 +244,7 @@ def obsluga_check():
 def obsluga_id_finder():
     """Renders the about page."""
 
-    message = ""
+    message = False
 
     if not configuration_mysql:
         return acc()
@@ -260,13 +260,14 @@ def obsluga_id_finder():
         result = cursor.fetchall()
         db.commit()
         db.close()
-       
-        try:
-            user_id = result[0][0]
-            message = (True, True, imie, nazwisko, user_id)
 
-        except IndexError:
-            message = (True, False)
+        if imie and nazwisko:
+            try:
+                user_id = result[0][0]
+                message = (True, True, imie, nazwisko, user_id)
+
+            except IndexError:
+                message = (True, False)
             
     return render_template(
         'obsluga_klienta/obsluga_id_finder.html',
