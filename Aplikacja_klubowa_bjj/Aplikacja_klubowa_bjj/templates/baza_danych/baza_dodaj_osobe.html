@@ -37,35 +37,46 @@
                 </select>
             </div>
 
-            <!-- Przycisk do zatwierdzania  -->
             <button type="submit" class="custom-blue" style="width: 60%; margin-top: 35px;">Dodaj</button>
-            <!--<button type="submit" class="btn btn-primary" id="liveToastBtn" style="width: 60%; margin-top: 35px;">Dodaj</button>-->
+
         </form>
 
         <br>
 
-        <!--<button type="button" class="btn btn-primary" id="livetoastbtn">show live toast</button>-->
-       
-        <!--<div class="toast-container position-fixed bottom-0 end-0 p-3">-->
+        {% if message != "" %}
+
+        <script>
+        $(document).ready(function() {
+            $("#adding_people_toast").toast('show');
+        });
+        </script>
+
+
         <div style="position: absolute; bottom: 20px; right: 20px;">
-            <div id="liveToast" class="toast" role="status" aria-live="assertive" aria-atomic="true" data-bs-autohide="false">
+            <div id="adding_people_toast" class="toast" role="status" aria-live="assertive" aria-atomic="true" data-bs-autohide="false">
                 <div class="toast-header">
 
                     <img src="/static/images/activity.svg" alt="Image not found">
 
                     <strong class="me-auto">BJJ CLUB</strong>
-                    <small style="padding-right: 20px;">1 min ago</small>
+                    <small style="padding-right: 20px;">1 min temu</small>
                     <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
                 </div>
                 <div class="toast-body">
-                    Udało dodać się osobę do bazy danych
-                </div>
+
+                    {% if message == "added" %}
+                    <b>{{data[0]}} {{data[1]}}</b> został/a dodany/a do bazy
+                    {% endif %}
+
+                    {% if message == "error" %}
+                    <b style="color: red;">*Błąd*</b> : Użytkownik już znajduję sie bazie
+                    {% endif %}
+
+</div>
             </div>
         </div>
 
-       
-
-
+        {% endif %}
 
     </div>
 

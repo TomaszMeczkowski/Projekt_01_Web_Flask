@@ -106,7 +106,7 @@ def acc():
                     database_instance.inicjowanie_tabel_bazy_danych()
 
                     # Jezeli udalo siê zalogowac to dodac informacje 
-                    return home(message="Udalo sie zalogowac")
+                    return home(message="zalogowany")
 
                 except:
                     pass
@@ -133,7 +133,7 @@ def acc_on():
         app.config['MYSQL_DATABASE_PASSWORD']=None
         configuration_mysql = False
 
-        return home(message="Zostales wylogowany")
+        return home(message="wylogowany")
 
     return render_template(
         'account_on.html',
@@ -279,7 +279,9 @@ def obsluga_id_finder():
 @app.route('/baza_dodaj_osobe', methods=('GET', 'POST'))
 def baza_dodaj_osobe():
     """Renders the about page."""
-    
+    message = ""
+    data = None
+
     if not configuration_mysql:
         return acc()
 
@@ -292,17 +294,20 @@ def baza_dodaj_osobe():
         if name and last_name and belt and stripe:
             
             if database_instance.adding_people(name, last_name, belt, stripe):
-                pass
+                message = "added"
+                data = name, last_name
                 #"Uzytkownik zostal pomyslnie dodany bo bazy"
             
             else:
-                pass
+                message = "error"
                 #"*ERROR* : Uzytkownik juz znajduje sie bazie danych"
         
     return render_template(
         'baza_danych/baza_dodaj_osobe.html',
         title='Baza danych',
         year=datetime.now().year,
+        message = message,
+        data = data
     )
 
 @app.route('/baza_poprawianie')

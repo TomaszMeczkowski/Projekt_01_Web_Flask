@@ -11,14 +11,50 @@
 </div>
 
 
-
-<!--Dodać informację o udanym logowaniu (np. modal window)-->
-
 {% if message != "" %}
-<div class="custom" style="margin:auto; margin-top: 25px; margin-bottom: 25px;">
-    <h3>{{message}}</h3>
+<script>
+        $(document).ready(function() {
+            $("#id_finder_modal").modal('show');
+        });
+</script>
+
+<div>
+    <div class="modal fade" id="id_finder_modal" tabindex="-1" aria-labelledby="id_finder_modal_label" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="id_finder_modal_label">Panel logowania</h1>
+                </div>
+
+                <div class="modal-body" style="margin-top: 20px; margin-bottom: 20px;">
+
+                    <div style="margin:auto; margin-top: 25px; margin-bottom: 25px; text-align: center;">
+
+                        {% if message == "zalogowany" %}
+                        <h3>Zostałeś zalogowany</h3>
+                        {% endif %}
+
+                        {% if message == "wylogowany" %}
+                        <h3>Zostałeś wylogowany</h3>
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="custom-grey" style="width: 100px;" data-bs-dismiss="modal">Zamknij</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
 </div>
+
 {% endif %}
+
+
 
 
 <div class="row" style="margin-top: 100px;">

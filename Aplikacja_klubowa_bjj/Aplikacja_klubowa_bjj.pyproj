@@ -68,7 +68,6 @@
     <Content Include="Aplikacja_klubowa_bjj\static\scripts\bootstrap.bundle.js" />
     <Content Include="Aplikacja_klubowa_bjj\static\scripts\jquery-3.4.1.min.js" />
     <Content Include="Aplikacja_klubowa_bjj\static\scripts\Password_Visibility.js" />
-    <Content Include="Aplikacja_klubowa_bjj\static\scripts\toast.js" />
     <Content Include="Aplikacja_klubowa_bjj\templates\account.html" />
     <Content Include="Aplikacja_klubowa_bjj\static\content\custom.css" />
     <Content Include="Aplikacja_klubowa_bjj\templates\about.html" />
