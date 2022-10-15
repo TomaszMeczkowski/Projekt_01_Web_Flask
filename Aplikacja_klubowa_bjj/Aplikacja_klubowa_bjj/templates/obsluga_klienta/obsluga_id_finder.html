@@ -5,14 +5,12 @@
 <p style="text-align: center; font-size: 26px; font-weight: bold;">id finder</p>
 <form method="post">
 
-    <div class="form-group">
-        <label for="name">Imię:</label>
-        <input type="text" name="name" id="name" class="form-control" placeholder="Jan...">
+    <div style="margin: auto; width: 60%; margin-top: 25px;">
+        <input type="text" name="name" id="name" class="form-control" placeholder="Imię...">
     </div>
 
-    <div class="form-group">
-        <label for="last_name">Nazwisko:</label>
-        <input type="text" name="last_name" id="last_name" class="form-control" placeholder="Kowalski...">
+    <div style="margin: auto; width: 60%; margin-top: 25px;">
+        <input type="text" name="last_name" id="last_name" class="form-control" placeholder="Nazwisko...">
     </div>
 
 
@@ -32,13 +30,12 @@
                             {% if message[1] %}
 
 
-                            <p>{{message[2]}} {{message[3]}} </p>
-                            <p>id: <b>{{message[4]}}</b></p>
+                            <p style="margin-top: 15px;">{{message[2]}} {{message[3]}}  id = <b>{{message[4]}}</b></p>
                             {% endif %}
 
 
                             {% if not message[1] %}
-                            <p style="color: red;">Nie znaleziono takiej osoby</p>
+                            <p style="color: red; margin-top: 15px;">Nie znaleziono takiej osoby</p>
                             {% endif %}
 
                             {% endif %}
@@ -56,10 +53,9 @@
 
     <!-- Przycisk do zatwierdzania  -->
     <!--<button type="submit" class="btn btn-primary" style="width: 150px;">Szukaj</button>-->  <!--Działa POST-->
-
     <!--Problemy z uruchomieniem metody POST poprzez jednocznesne wywołanie modala (Modal działa, wywołanie modala działa, brak wywołania metody post)-->
-    <input type="submit" class="btn btn-primary" data-toggle="modal" data-target="#mojeModalne" value="Szukaj" style="width: 150px;" />
-    
+    <input type="submit" class="btn btn-primary" data-toggle="modal" data-target="#mojeModalne" value="Szukaj" style="width: 150px; margin-top: 25px;" />
+
 
     <!--<button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#mojeModalne" style="width: 150px;" formmethod="post">Szukaj</button>-->
 </form>
