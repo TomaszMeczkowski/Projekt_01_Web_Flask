@@ -2,22 +2,87 @@
 
 {% block body %}
 
-<p>Sprawdzanie karnetów  ##Under Construction##</p>
+<p style="text-align: center; font-size: 26px; font-weight: bold;">Sprawdzanie karnetów</p>
 <form method="post">
 
-    <div class="form-group">
-        <label for="name">Imię:</label>
-        <input type="text" name="name" id="name" class="form-control" placeholder="Jan...">
+    <div style="margin: auto; width: 60%; margin-top: 25px;">
+        <input type="text" name="name" id="name" class="form-control" placeholder="Imię...">
     </div>
 
-    <div class="form-group">
-        <label for="last_name">Nazwisko:</label>
-        <input type="text" name="last_name" id="last_name" class="form-control" placeholder="Kowalski...">
+    <div style="margin: auto; width: 60%; margin-top: 25px;">
+        <input type="text" name="last_name" id="last_name" class="form-control" placeholder="Nazwisko...">
     </div>
 
 
-    <!-- Przycisk do zatwierdzania  -->
-    <button type="submit" class="custom-blue" style="margin-top: 25px;">Zatwierdź</button>
+    <button type="submit" class="custom-blue" style="width: 150px; font-size: 16px; margin-top: 25px;">Sprawdź</button>
 </form>
+
+
+
+{% if data[0] %}
+
+<script>
+    $(document).ready(function () {
+        $("#spr_karnetu_modal").modal('show');
+    });
+</script>
+
+<div>
+    <div class="modal fade" id="spr_karnetu_modal" tabindex="-1" aria-labelledby="spr_karnetu_modal_label" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="spr_karnetu_modal_label">Wyniki wyszukiwań</h1>
+                </div>
+
+                <div class="modal-body" style="margin-top: 20px; margin-bottom: 20px;">
+
+                    {% if data[1] < 800 %}
+                    {% if data[1] > 0 %}
+
+                    <p>{{imie}} {{nazwisko}}</p>
+                    <p> <b style="font-size: 22px; color: green;">Karnet aktywny</b> </p>
+                    <p>Pozstała ilość wejść do wykorzystania: {{data[1]}}</p>
+
+                    {% endif %}
+                    {% endif %}
+
+                    {% if data[1] > 800 %}
+
+                    <p>{{imie}} {{nazwisko}}</p>
+                    <p> <b style="font-size: 22px; color: green;">Karnet aktywny</b> </p>
+                    <p>Nielimitowany dostęp</p>
+
+                    {% endif %}
+
+
+                    {% if data[1] == 0 %}
+
+                    <p>{{imie}} {{nazwisko}}</p>
+                    <p> <b style="font-size: 22px; color: red;">Karnet nieaktywny</b> </p>
+                    <p>Brak pozostałych wejść do wykorzystania</p>
+
+                    {% endif %}
+
+
+                    {% if data[1] == -1 %}
+
+                    <p>Nie znaleziono takiej osoby w bazie</p>
+
+                    {% endif %}
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="custom-grey" style="width: 100px;" data-bs-dismiss="modal">Zamknij</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endif %}
 
 {% endblock %}

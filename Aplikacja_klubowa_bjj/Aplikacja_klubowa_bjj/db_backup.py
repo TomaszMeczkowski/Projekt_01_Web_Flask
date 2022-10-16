@@ -340,31 +340,31 @@ class BazaDanych:
             
             return False
 
-    #def ticket_check(self, id_osoby):
-    #    db, cursor_object = self.data_base_connector()
-    #    zapytanie = f"SELECT aktywny_karnet, pozostale_treningi_w_miesiacu " \
-    #                f"FROM karnety WHERE id = {id_osoby};"
-    #    cursor_object.execute(zapytanie)
-    #    wynik = cursor_object.fetchall()
-    #    db.commit()
-    #    db.close()
+    def ticket_check(self, id_osoby):
+        db, cursor_object = self.data_base_connector()
+        zapytanie = f"SELECT aktywny_karnet, pozostale_treningi_w_miesiacu " \
+                    f"FROM karnety WHERE id = {id_osoby};"
+        cursor_object.execute(zapytanie)
+        wynik = cursor_object.fetchall()
+        db.commit()
+        db.close()
 
-    #    activ = bool(wynik[0][0])
-    #    amount_left = wynik[0][1]
+        activ = bool(wynik[0][0])
+        amount_left = wynik[0][1]
 
-    #    if activ and 0 < amount_left < 800:
-    #        #print(f"{colored('Karnet jest aktywny', 'green')}"
-    #              #f"\nPozosta³a iloœæ wejœæ do wykorzystania: {amount_left}")
-    #        pass
+        if activ and 0 < amount_left < 800:
+            #print(f"{colored('Karnet jest aktywny', 'green')}"
+                  #f"\nPozosta³a iloœæ wejœæ do wykorzystania: {amount_left}")
+            pass
 
-    #    elif activ and amount_left > 800:
-    #        #print(f"{colored('Karnet jest aktywny', 'green')}"
-    #              #f"\nPozosta³a iloœæ wejœæ do wykorzystania: {colored('Nielimitowany dostêp', 'green')}\n")
-    #        pass
+        elif activ and amount_left > 800:
+            #print(f"{colored('Karnet jest aktywny', 'green')}"
+                  #f"\nPozosta³a iloœæ wejœæ do wykorzystania: {colored('Nielimitowany dostêp', 'green')}\n")
+            pass
 
-    #    else:
-    #        #print(f"{colored('Karnet zosta³ wykorzystany', 'red')}")
-    #        pass
+        else:
+            #print(f"{colored('Karnet zosta³ wykorzystany', 'red')}")
+            pass
 
     #def dane_osobowe_imie(self, id_osoby):
     #    db, cursor_object = self.data_base_connector()

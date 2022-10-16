@@ -451,6 +451,24 @@ class BazaDanych:
                 db.close()
         print("DataBase log: auto ticket month check (method COMPLETED)")
 
+    def ticket_check(self, id_osoby):
+        db, cursor_object = self.data_base_connector()
+        zapytanie = f"SELECT aktywny_karnet, pozostale_treningi_w_miesiacu " \
+                    f"FROM karnety WHERE id = {id_osoby};"
+        cursor_object.execute(zapytanie)
+        wynik = cursor_object.fetchall()
+        db.commit()
+        db.close()
+
+        active = bool(wynik[0][0])
+        amount_left = wynik[0][1]
+
+        if active and amount_left > 0:
+            return True, amount_left  
+
+        else:
+            return True, 0
+
     def dev_tool_klub_stat(self):
 
         print("DataBase log: dev tool klub stat (method ENTERED)")

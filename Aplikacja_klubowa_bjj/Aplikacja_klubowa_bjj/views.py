@@ -226,18 +226,38 @@ def obsluga_sell():
         message=''
     )
 
-@app.route('/obsluga_check')
+@app.route('/obsluga_check', methods=('GET', 'POST'))
 def obsluga_check():
     """Renders the about page."""
+    data = False
+    imie = ""
+    nazwisko = ""
 
     if not configuration_mysql:
         return acc()
+
+    if request.method == "POST":
+        imie = request.form['name']
+        nazwisko = request.form['last_name']
+
+        if imie and nazwisko:
+            user_id = database_instance.id_finder(imie, nazwisko)
+
+            if user_id:
+                data = database_instance.ticket_check(user_id)
+
+            else:
+               data = True, -1
+
+
 
     return render_template(
         'obsluga_klienta/obsluga_check.html',
         title='Obsluga klienta',
         year=datetime.now().year,
-        message=''
+        data=data,
+        imie = imie,
+        nazwisko = nazwisko
     )
 
 @app.route('/obsluga_id_finder', methods=('GET', 'POST'))
