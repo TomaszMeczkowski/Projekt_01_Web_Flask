@@ -166,6 +166,8 @@ def about():
 @app.route('/obsluga_wydawanie', methods=('GET', 'POST'))
 def obsluga_wyd():
     """Renders the about page."""
+    message = False
+    data = ""
 
     if not configuration_mysql:
         return acc()
@@ -173,30 +175,33 @@ def obsluga_wyd():
     if request.method == "POST":
         name = request.form['name']
         last_name = request.form['last_name']
-        #user_id = request.form['user_id']   # Wylaczono z uzytku lacznie z html. obsluga_wydawanie (input field)
+        
 
         user_id = database_instance.id_finder(name, last_name)
+        message = True
 
         if user_id:
             # JEST TAKA OSOBA
+            
 
             if database_instance.key_giveaway(user_id):
                 # Kluczyk wydany
-                pass
+                data = "succes"
+
             else:
                 # Karnet nieaktywny
-                pass
+                data = "failed"
 
         else:
-            pass
-            # Nie ma takiej osoby
+            data = "missing person"
 
 
     return render_template(
         'obsluga_klienta/obsluga_wydawanie.html',
         title='Obsluga klienta',
         year=datetime.now().year,
-        message='',
+        message=message,
+        data = data
     )
 
 @app.route('/obsluga_sprzedaz', methods=('GET', 'POST'))

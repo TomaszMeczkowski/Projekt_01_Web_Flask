@@ -18,4 +18,51 @@
     </form>
 </div>
 
+
+{% if message %}
+
+<script>
+    $(document).ready(function() {
+        $("#key_giveaway_toast").toast('show');
+    });
+</script>
+
+
+<div style="position: absolute; bottom: 20px; right: 20px;">
+    <div id="key_giveaway_toast" class="toast" role="status" aria-live="assertive" aria-atomic="true" data-bs-autohide="false">
+        <div class="toast-header">
+
+            <img src="/static/images/activity.svg" alt="Image not found">
+
+            <strong class="me-auto">BJJ CLUB</strong>
+            <small style="padding-right: 20px;">1 min temu</small>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+
+            {% if data == "succes" %}
+
+            <b>Kluczyk został wydany</b>
+
+            {% endif %}
+
+            {% if data == "failed" %}
+
+            <b style="color: red;">*Brak aktywnego karnetu*</b>
+
+            {% endif %}
+
+            {% if data == "missing person" %}
+
+            <b style="color: red;">Nie znaleziono takiego użytkownika</b>
+
+            {% endif %}
+
+        </div>
+    </div>
+</div>
+
+{% endif %}
+
+
 {% endblock %}
