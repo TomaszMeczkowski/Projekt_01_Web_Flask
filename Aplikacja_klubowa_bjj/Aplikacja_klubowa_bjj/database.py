@@ -184,7 +184,7 @@ class BazaDanych:
         print("DataBase log: id finder (method ENTERED)")
 
         db, cursor_object = self.data_base_connector()
-        zapytanie = f"SELECT id FROM osoby_trenujace WHERE imie = '{imie}' AND nazwisko = '{nazwisko}'"
+        zapytanie = f"SELECT id FROM osoby_trenujace WHERE imie = '{imie}' AND nazwisko = '{nazwisko}' LIMIT 1"
         cursor_object.execute(zapytanie)
         wynik = cursor_object.fetchall()
         db.commit()
@@ -197,6 +197,44 @@ class BazaDanych:
 
         print("DataBase log: id finder (method COMPLETED)")
         return id_osoby
+
+    def belt_finder(self, imie, nazwisko):
+
+        print("DataBase log: belt finder (method ENTERED)")
+
+        db, cursor_object = self.data_base_connector()
+        zapytanie = f"SELECT pas FROM osoby_trenujace WHERE imie = '{imie}' AND nazwisko = '{nazwisko}' LIMIT 1"
+        cursor_object.execute(zapytanie)
+        wynik = cursor_object.fetchall()
+        db.commit()
+        db.close()
+
+        try:
+            user_belt = wynik[0][0]
+        except IndexError:
+            user_belt = False
+
+        print("DataBase log: belt finder (method COMPLETED)")
+        return user_belt
+
+    def stripe_finder(self, imie, nazwisko):
+
+        print("DataBase log: stripe finder (method ENTERED)")
+
+        db, cursor_object = self.data_base_connector()
+        zapytanie = f"SELECT belki FROM osoby_trenujace WHERE imie = '{imie}' AND nazwisko = '{nazwisko}' LIMIT 1"
+        cursor_object.execute(zapytanie)
+        wynik = cursor_object.fetchall()
+        db.commit()
+        db.close()
+
+        try:
+            user_stripe = wynik[0][0]
+        except IndexError:
+            user_stripe = False
+
+        print("DataBase log: stripe finder (method COMPLETED)")
+        return user_stripe
 
     def key_giveaway(self, id_osoby):
 
@@ -520,7 +558,7 @@ class BazaDanych:
         rok = 2018
 
         for i in range(36):
-            ilosc_wejsc = int(np.random.randint(low=0, high=31 * 60, size=1))
+            ilosc_wejsc = int(np.random.randint(low=100*30, high=200*30, size=1))
 
             if i == 0:
                 counter = 0
@@ -564,14 +602,13 @@ class BazaDanych:
 
         db, cursor_object = self.data_base_connector()
 
-        counter = 0
-        rok = 2018
-
         for j in range(5):
 
             zapytanie = f"INSERT INTO dodatkowe_info_osoby(id_osoby, pierwszy_trening) VALUES(%s, %s)"
             wartosci = (j + 1, "2018-01-01")
             cursor_object.execute(zapytanie, wartosci)
+            rok = 2018
+            counter = 0
 
             for i in range(36):
                 id_osoby = j + 1

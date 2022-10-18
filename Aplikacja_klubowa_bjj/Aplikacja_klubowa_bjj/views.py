@@ -398,7 +398,7 @@ def statystyki_osob():
 
     choice, data, years, total = False, None, None, None
     missing_person = True
-    name, last_name = None, None
+    name, last_name, user_belt, user_stripe = None, None, None, None
 
     if not configuration_mysql:
         return acc()
@@ -408,6 +408,8 @@ def statystyki_osob():
         last_name = request.form['last_name']
 
         user_id = database_instance.id_finder(name, last_name)
+        user_belt = database_instance.belt_finder(name, last_name)
+        user_stripe = database_instance.stripe_finder(name, last_name)
 
         if user_id:
             missing_person = False
@@ -426,7 +428,9 @@ def statystyki_osob():
         total = total,
         missing_person = missing_person,
         imie = name,
-        nazwisko = last_name
+        nazwisko = last_name,
+        pas = user_belt,
+        belki = user_stripe
     )
 
 @app.route('/projekt info')

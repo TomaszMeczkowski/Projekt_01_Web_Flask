@@ -47,9 +47,33 @@
 
 <br>
 <br>
-<h5><b>{{imie}} {{nazwisko}}</b></h5>
+
+<h4><b>{{imie}} {{nazwisko}}</b></h4>
+
+{% if pas == "Biały" %}
+<h5>Aktualny pas: <img src="/static/images/belts/1.{{belki}}.{{pas}}.png" alt="Not found"></h5>
+{% endif %}
+
+{% if pas == "Niebieski" %}
+<h5>Aktualny pas: <img src="/static/images/belts/2.{{belki}}.{{pas}}.png" alt="Not found"></h5>
+{% endif %}
+
+{% if pas == "Purpurowy" %}
+<h5>Aktualny pas: <img src="/static/images/belts/3.{{belki}}.{{pas}}.png" alt="Not found"></h5>
+{% endif %}
+
+{% if pas == "Brązowy" %}
+<h5>Aktualny pas: <img src="/static/images/belts/4.{{belki}}.{{pas}}.png" alt="Not found"></h5>
+{% endif %}
+
+{% if pas == "Czarny" %}
+<h5>Aktualny pas: <img src="/static/images/belts/5.{{belki}}.{{pas}}.png" alt="Not found"></h5>
+{% endif %}
+
+
 <br>
-<h6>Całkowita ilość treningów: {{total}}</h6>
+<h5>Całkowita ilość treningów: {{total}}</h5>
+
 
 
 {% for year in years %}
