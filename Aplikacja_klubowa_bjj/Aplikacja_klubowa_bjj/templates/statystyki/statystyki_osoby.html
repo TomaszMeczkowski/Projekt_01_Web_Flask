@@ -2,7 +2,91 @@
 
 {% block body %}
 
-        <h2>Aktywność użytkowników</h2>
-        <p>Miejsce na budowanie funkcjonalności związanej z aktywnością poszczególnych użytkowników</p>
+
+<h2>Aktywność użytkowników</h2>
+
+
+<form method="post">
+
+    <div style="margin: auto; width: 25%; margin-top: 25px;">
+        <input type="text" name="name" id="name" class="form-control" placeholder="Imię...">
+    </div>
+
+    <div style="margin: auto; width: 25%; margin-top: 25px;">
+        <input type="text" name="last_name" id="last_name" class="form-control" placeholder="Nazwisko...">
+    </div>
+
+
+
+    <button type="submit" class="custom-blue" style="width: 150px; font-size: 16px; margin-top: 25px;">Sprawdź</button>
+</form>
+
+
+{% if not choice %}
+{% if not missing_person %}
+
+<br>
+<h4><b>Brak danych</b></h4>
+
+{% endif %}
+{% endif %}
+
+
+{% if choice %}
+{% if missing_person %}
+
+<br>
+<h4><b>Brak Takiej osoby w bazie</b></h4>
+
+{% endif %}
+{% endif %}
+
+
+{% if choice %}
+{% if not missing_person %}
+
+<br>
+<br>
+<h5><b>{{imie}} {{nazwisko}}</b></h5>
+<br>
+<h6>Całkowita ilość treningów: {{total}}</h6>
+
+
+{% for year in years %}
+
+<br>
+
+<canvas id="lineChart-user-{{year}}" , width="200" , height="100">
+    <script>
+            var ctx = document.getElementById("lineChart-user-{{year}}").getContext("2d");
+            var lineChar = new Chart(ctx,{
+                type: "line",
+                data: { labels: {{ data[year]['Labels'] | safe }} ,
+                       datasets: [
+                       {label: "Ilość wejść na sale",
+                        data: {{ data[year]['Values'] | safe }},
+                        fill: true,
+                        borderColor: "rgb(75, 192, 192)",
+                        lineTension: 0.1}]
+                       },
+                options:
+                    {responsive: true,
+                    scales: { y: { beginAtZero: true } },
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Rok: {{year}}',
+                            font: { size: 24 }}
+                            }
+                    }
+                });
+    </script>
+</canvas>
+
+{% endfor %}
+
+
+{% endif %}
+{% endif %}
 
 {% endblock %}

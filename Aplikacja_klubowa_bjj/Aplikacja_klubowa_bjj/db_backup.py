@@ -632,55 +632,55 @@ class BazaDanych:
         db.commit()
         db.close()
 
-    #def plot_osoba(self, id_osoby):
-    #    db, cursor_object = self.data_base_connector()
+    def plot_osoba(self, id_osoby):
+        db, cursor_object = self.data_base_connector()
 
-    #    zapytanie = f"SELECT ilosc_wejsc, miesiac, rok FROM statystyki_osobowe WHERE id_osoby = {id_osoby};"
-    #    cursor_object.execute(zapytanie)
-    #    wyniki = cursor_object.fetchall()
-    #    db.commit()
-    #    db.close()
-    #    ilosc_wejsc, daty = [], []
+        zapytanie = f"SELECT ilosc_wejsc, miesiac, rok FROM statystyki_osobowe WHERE id_osoby = {id_osoby};"
+        cursor_object.execute(zapytanie)
+        wyniki = cursor_object.fetchall()
+        db.commit()
+        db.close()
+        ilosc_wejsc, daty = [], []
 
-    #    try:
-    #        wyniki[0][0]
-    #    except IndexError:
-    #        #print(f"{colored('Brak danych statystycznych dla podanego id', 'red')}")
-    #        return False
+        try:
+            wyniki[0][0]
+        except IndexError:
+            #print(f"{colored('Brak danych statystycznych dla podanego id', 'red')}")
+            return False
 
-    #    for i in wyniki:
-    #        ilosc_wejsc.append(i[0])
-    #        daty.append(str(month_converter(i[1])) + "-" + str(i[2]))
+        for i in wyniki:
+            ilosc_wejsc.append(i[0])
+            daty.append(str(month_converter(i[1])) + "-" + str(i[2]))
 
-    #    ilosc_wejsc = np.array(ilosc_wejsc)
+        ilosc_wejsc = np.array(ilosc_wejsc)
 
-    #    x, y = np.array(daty), np.array(ilosc_wejsc)
+        x, y = np.array(daty), np.array(ilosc_wejsc)
 
-    #    fig, ax = plt.subplots()
-    #    ax.plot(x, y, 'o-', linewidth=2.0)
-    #    ax.set(xlabel="Data", ylabel="Iloœæ treningów", title=f"Aktywnoœæ u¿ytkownika o id = {id_osoby}")
-    #    fig.autofmt_xdate()
+        fig, ax = plt.subplots()
+        ax.plot(x, y, 'o-', linewidth=2.0)
+        ax.set(xlabel="Data", ylabel="Iloœæ treningów", title=f"Aktywnoœæ u¿ytkownika o id = {id_osoby}")
+        fig.autofmt_xdate()
 
-    #    day, month, year = data_for_user()
-    #    fig.text(0.8, 0.02, f"Data wydruku: {day} {month} {year}", ha='center',
-    #             fontweight='light', fontsize='x-small')
-    #    ax.grid()
+        day, month, year = data_for_user()
+        fig.text(0.8, 0.02, f"Data wydruku: {day} {month} {year}", ha='center',
+                 fontweight='light', fontsize='x-small')
+        ax.grid()
 
-    #    script_path = Path(__file__).parent.resolve()
-    #    path_dir = path.join(script_path, "Wydruki", "Aktywnosc_personalnie")
+        script_path = Path(__file__).parent.resolve()
+        path_dir = path.join(script_path, "Wydruki", "Aktywnosc_personalnie")
 
-    #    try:
-    #        makedirs(path_dir)
-    #    except FileExistsError:
-    #        pass
+        try:
+            makedirs(path_dir)
+        except FileExistsError:
+            pass
 
-    #    fig.savefig(rf"{path_dir}/aktywnosc_osoby_id = {id_osoby}.png")
+        fig.savefig(rf"{path_dir}/aktywnosc_osoby_id = {id_osoby}.png")
 
-    #    #print(f"\n{colored('Wykres zosta³ zapisany na dysku', 'green')}\n")
-    #    plt.show()
+        #print(f"\n{colored('Wykres zosta³ zapisany na dysku', 'green')}\n")
+        plt.show()
 
         
-    #    return True
+        return True
 
     def plot_klub(self):
         db, cursor_object = self.data_base_connector()

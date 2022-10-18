@@ -1,3 +1,4 @@
+from audioop import reverse
 from .database_functions_no_utf import month_converter, czas, mysql_data_converter, data_for_user
 import numpy as np
 #from .database_functions import month_converter, czas, mysql_data_converter, data_for_user
@@ -326,7 +327,7 @@ class BazaDanych:
 
     def plot_club_activity(self):
 
-        print("DataBase log: plot club activity 2 (method ENTERED)")
+        print("DataBase log: plot club activity (method ENTERED)")
 
         db, cursor_object = self.data_base_connector()
 
@@ -354,15 +355,56 @@ class BazaDanych:
 
             results[i[2]]["Values"].append(i[0])
 
-        years.reverse()
+        years.sort(reverse=True)
         years_descending = years
-        print("DataBase log: plot club activity 2 (method COMPLETED)")
+        print("DataBase log: plot club activity (method COMPLETED)")
 
         if years == []:
             return False, False, False
 
         return True, results, years_descending
 
+    def plot_user_activity(self, user_id):
+        id_osoby = user_id
+
+        print("DataBase log: plot user activity  (method ENTERED)")
+
+        db, cursor_object = self.data_base_connector()
+
+        zapytanie = f"SELECT ilosc_wejsc, miesiac, rok FROM statystyki_osobowe WHERE id_osoby = {id_osoby};"
+        cursor_object.execute(zapytanie)
+        wyniki = cursor_object.fetchall()
+        db.commit()
+        db.close()
+
+        results = dict()
+        years = []
+        total = 0
+
+        for i in wyniki:
+            year = i[2]
+            if year not in years:
+                years.append(year)
+                results[year] = {"Labels": [], "Values": []}
+
+        for i in wyniki:
+            if i[1] < 10:
+                string = "0" + str(i[1])
+                results[i[2]]["Labels"].append(string + "-" + str(i[2]))
+            else:
+                results[i[2]]["Labels"].append(str(i[1]) + "-" + str(i[2]))
+
+            results[i[2]]["Values"].append(i[0])
+            total += i[0]
+
+        years.sort(reverse=True)
+        years_descending = years
+        print("DataBase log: plot user activity (method COMPLETED)")
+
+        if years == []:
+            return False, False, False, False
+
+        return True, results, years_descending, total
        
 
     def ticket_sell_validate(self, imie, nazwisko, karnet):

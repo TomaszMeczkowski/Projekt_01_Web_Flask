@@ -181,15 +181,11 @@ def obsluga_wyd():
         message = True
 
         if user_id:
-            # JEST TAKA OSOBA
             
-
             if database_instance.key_giveaway(user_id):
-                # Kluczyk wydany
                 data = "succes"
 
             else:
-                # Karnet nieaktywny
                 data = "failed"
 
         else:
@@ -212,12 +208,9 @@ def obsluga_sell():
         return acc()
 
     if request.method == "POST":
-        print("DEBUG: POST METHOD ENTERED")
         name = request.form['name_selling_ticket']
         last_name = request.form['last_name_selling_ticket']
         karnet = request.form['karnet']
-
-        print("DEBUG: REQUEST FORM COMPLETED")
 
         if database_instance.ticket_sell_validate(name, last_name, karnet):
             return json.dumps({'message':'Sprzedano karnet'})
@@ -399,17 +392,41 @@ def statystyki_klubu():
         years = years
     )
 
-@app.route('/statystyki')
+@app.route('/statystyki', methods=('GET', 'POST'))
 def statystyki_osob():
     """Renders the about page."""
+
+    choice, data, years, total = False, None, None, None
+    missing_person = True
+    name, last_name = None, None
 
     if not configuration_mysql:
         return acc()
 
+    if request.method == "POST":
+        name = request.form['name']
+        last_name = request.form['last_name']
+
+        user_id = database_instance.id_finder(name, last_name)
+
+        if user_id:
+            missing_person = False
+            choice, data, years, total = database_instance.plot_user_activity(user_id)
+
+        else:
+            choice = True
+
     return render_template(
         'statystyki/statystyki_osoby.html',
         title='Statystyki',
-        year=datetime.now().year
+        year=datetime.now().year,
+        choice = choice,
+        data = data,
+        years = years,
+        total = total,
+        missing_person = missing_person,
+        imie = name,
+        nazwisko = last_name
     )
 
 @app.route('/projekt info')
