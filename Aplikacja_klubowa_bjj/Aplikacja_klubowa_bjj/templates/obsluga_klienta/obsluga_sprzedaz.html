@@ -30,6 +30,44 @@
         <!-- Przycisk do zatwierdzania  -->
         <button type="submit" class="custom-blue" style="width: 60%; margin-top: 35px;">Sprzedaj</button>
     </form>
+
+
+    {% if message != "" %}
+
+    <script>
+        $(document).ready(function() {
+            $("#selling_ticket_toast").toast('show');
+        });
+    </script>
+
+
+    <div style="position: absolute; bottom: 20px; right: 20px;">
+        <div id="selling_ticket_toast" class="toast" role="status" aria-live="assertive" aria-atomic="true" data-bs-autohide="false">
+            <div class="toast-header">
+
+                <img src="/static/images/activity.svg" alt="Image not found">
+
+                <strong class="me-auto">BJJ CLUB</strong>
+                <small style="padding-right: 20px;">1 min temu</small>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">
+
+                {% if message == "sold" %}
+                <b style="color: green;">Karnet sprzedany</b>
+                {% endif %}
+
+                {% if message == "failed" %}
+                <b style="color: red;">*Błąd*</b> Nie znaleziono takiej osoby
+                {% endif %}
+
+            </div>
+        </div>
+    </div>
+
+    {% endif %}
+
+
 </div>
 
 {% endblock %}

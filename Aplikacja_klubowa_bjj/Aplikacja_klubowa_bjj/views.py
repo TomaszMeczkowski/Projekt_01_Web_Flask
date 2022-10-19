@@ -203,6 +203,7 @@ def obsluga_wyd():
 @app.route('/obsluga_sprzedaz', methods=('GET', 'POST'))
 def obsluga_sell():
     """Renders the about page."""
+    message = ""
 
     if not configuration_mysql:
         return acc()
@@ -213,15 +214,19 @@ def obsluga_sell():
         karnet = request.form['karnet']
 
         if database_instance.ticket_sell_validate(name, last_name, karnet):
-            return json.dumps({'message':'Sprzedano karnet'})
+            message = "sold"
             # Dodaæ komunikat ¿e uda³o siê sprzedaæ
+
+        else:
+            message = "failed"
+            # Nie ma takiej osoby w bazie
             
 
     return render_template(
         'obsluga_klienta/obsluga_sprzedaz.html',
         title='Obsluga klienta',
         year=datetime.now().year,
-        message=''
+        message=message
     )
 
 @app.route('/obsluga_check', methods=('GET', 'POST'))

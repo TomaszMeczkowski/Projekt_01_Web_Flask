@@ -448,6 +448,10 @@ class BazaDanych:
     def ticket_sell_validate(self, imie, nazwisko, karnet):
         print("DataBase log: ticket sell validate (method ENTERED)")
         user_id = self.id_finder(imie, nazwisko)
+
+        if not user_id:
+            return False
+
         month = czas("month")
 
         if karnet == "Dzieci":
