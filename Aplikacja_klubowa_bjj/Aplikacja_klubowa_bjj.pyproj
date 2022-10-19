@@ -36,9 +36,7 @@
     <Compile Include="Aplikacja_klubowa_bjj\database_functions.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Aplikacja_klubowa_bjj\db_backup.py">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="Aplikacja_klubowa_bjj\db_backup.py" />
     <Compile Include="runserver.py" />
     <Compile Include="Aplikacja_klubowa_bjj\__init__.py" />
     <Compile Include="Aplikacja_klubowa_bjj\views.py" />

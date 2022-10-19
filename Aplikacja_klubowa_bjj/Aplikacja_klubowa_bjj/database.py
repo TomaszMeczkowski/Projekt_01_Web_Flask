@@ -179,6 +179,49 @@ class BazaDanych:
         print("DataBase log: training people report (method COMPLETED)")
         return data_lista_osob
 
+    def dane_osobwe(self, user_id):
+        print("DataBase log: dane osobowe (method ENTERED)")
+
+        db, cursor_object = self.data_base_connector()
+        zapytanie = f"SELECT * FROM osoby_trenujace WHERE id = '{user_id}' LIMIT 1;"
+        cursor_object.execute(zapytanie)
+        wyniki = cursor_object.fetchall()
+        db.commit()
+        db.close()
+
+        if not wyniki:
+            print("DataBase log: dane osobowe (method COMPLETED)")
+            return False, None, None, None, None
+
+        else:
+            wyniki = wyniki[0]
+            imie = wyniki[0]
+            nazwisko = wyniki[1]
+            pas = wyniki[2]
+            belki = wyniki[3]
+
+            print("DataBase log: dane osobowe (method COMPLETED)")
+            return True, imie, nazwisko, pas, belki
+
+    def id_validator(self, user_id):
+        print("DataBase log: id validator (method ENTERED)")
+
+        db, cursor_object = self.data_base_connector()
+        zapytanie = f"SELECT imie FROM osoby_trenujace WHERE id = '{user_id}' LIMIT 1;"
+        cursor_object.execute(zapytanie)
+        wyniki = cursor_object.fetchall()
+        db.commit()
+        db.close()
+
+        if not wyniki:
+            print("DataBase log: id validator (method COMPLETED)")
+            return False
+
+        else:
+            print("DataBase log: id validator (method COMPLETED)")
+            return True
+
+
     def id_finder(self, imie, nazwisko):
 
         print("DataBase log: id finder (method ENTERED)")
@@ -238,7 +281,6 @@ class BazaDanych:
 
     def key_giveaway(self, id_osoby):
 
-        # Dodac walidacje czy taka osoba istnieje w bazie danych (glownie czy ma karnet)
         print("DataBase log: key giveaway (method ENTERED)")
         
         db, cursor_object = self.data_base_connector()
@@ -638,3 +680,14 @@ class BazaDanych:
         db.close()
 
         print("DataBase log: dev tool osoby statystyki (method COMPLETED)")
+
+    def osoby_update(self, parametr, docelowa_wart, id_osoby):
+        db, cursor_object = self.data_base_connector()
+        zapytanie = f"UPDATE klub_zt.osoby_trenujace SET {parametr} = '{docelowa_wart}' WHERE (id = {id_osoby});"
+        cursor_object.execute(zapytanie)
+        db.commit()
+        db.close()
+
+        # Dostepne parametry:
+        # imie, nazwisko, pas, belki
+                                    

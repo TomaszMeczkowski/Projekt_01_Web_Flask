@@ -333,18 +333,46 @@ def baza_dodaj_osobe():
         data = data
     )
 
-@app.route('/baza_poprawianie')
+@app.route('/baza_poprawianie', methods=('GET', 'POST'))
 def baza_popraw():
     """Renders the about page."""
+    person_found, decision = False, False
+    imie, nazwisko, pas, belki = "", "", "", ""
 
     if not configuration_mysql:
         return acc()
+
+    if request.method == "POST":
+        user_number = request.form['user_id']
+
+        if user_number:
+        
+            if database_instance.id_validator(user_number):
+                user_id = user_number
+                decision, imie, nazwisko, pas, belki = database_instance.dane_osobwe(user_id)
+
+            if user_id:
+                person_found = True
+
+        else:
+            parameter = request.form['parametr']
+            new_data = request.form['new_data']
+
+            if parameter and new_data:
+                pass
+                # Tutaj tworzymy metode post dla zmiany danych  
+                
 
     return render_template(
         'baza_danych/baza_popraw_dane_osoby.html',
         title='Baza danych',
         year=datetime.now().year,
-        message=''
+        osoba = person_found,
+        imie = imie,
+        nazwisko = nazwisko,
+        pas = pas,
+        belki = belki,
+        decision = decision
     )
 
 @app.route('/baza_pokaz')
