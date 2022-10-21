@@ -343,25 +343,20 @@ def baza_popraw():
         return acc()
 
     if request.method == "POST":
-        user_number = request.form['user_id']
+
+        user_number = request.form.get('user_id')
+        parameter = request.form.get('parametr')
+        new_data = request.form.get('new_data')
 
         if user_number:
-        
+            
             if database_instance.id_validator(user_number):
                 user_id = user_number
                 decision, imie, nazwisko, pas, belki = database_instance.dane_osobwe(user_id)
 
-            if user_id:
-                person_found = True
+                if user_id:
+                    person_found = True
 
-        else:
-            parameter = request.form['parametr']
-            new_data = request.form['new_data']
-
-            if parameter and new_data:
-                pass
-                # Tutaj tworzymy metode post dla zmiany danych  
-                
 
     return render_template(
         'baza_danych/baza_popraw_dane_osoby.html',

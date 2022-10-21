@@ -13,19 +13,60 @@
 
         <button type="submit" class="custom-blue" style="width: 60%; margin-top: 35px;">Szukaj</button>
 
+        {% if osoba %}
+        {% if decision %}
+
+        <br>
+        <hr style="width:100%;text-align:left;margin-left:0">
+
+
+        <p>Drugi etap</p>
+
+        <p>Znaleziony użytkownik</p>
+
+        <p>Imie: {{imie}}</p>
+        <p>Nazwisko: {{nazwisko}}</p>
+        <p>Pas: {{pas}}</p>
+        <p>Belki: {{belki}}</p>
+
+        <br>
+
+        <div style="margin: auto; width: 80%; margin-top: 25px;">
+            <select name="parametr" id="parametr" class="form-select">
+                <option selected>Co zmieniamy ?</option>
+                <option value="imie">Imie</option>
+                <option value="nazwisko">Nazwisko</option>
+                <option value="pas">Pas</option>
+                <option value="belki">Belki</option>
+            </select>
+        </div>
+
+        <div style="margin: auto; width: 80%; margin-top: 25px;">
+            <input type="text" name="new_data" id="new_data" class="form-control" placeholder="Podaj prawidłowe dane...">
+        </div>
+
+        <button type="submit" class="custom-blue" style="width: 60%; margin-top: 35px;">Popraw</button>
+
+        {% endif %}
+        {% endif %}
+
+
     </form>
 </div>
 
 
 {% if osoba %}
 {% if decision %}
-<script>
+<!--<script>
         $(document).ready(function() {
             $("#data_update_modal").modal('show');
         });
-</script>
+</script>-->
 
-<div>
+
+
+
+<!--<div>
     <div class="modal fade" id="data_update_modal" tabindex="-1" aria-labelledby="data_update_modal_label" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -41,6 +82,8 @@
 
                     Tutaj wyświetlamy dane które dostaliśmy
 
+                    <br>
+
                     <p>Imie: {{imie}}</p>
                     <p>Nazwisko: {{nazwisko}}</p>
                     <p>Pas: {{pas}}</p>
@@ -48,7 +91,7 @@
 
                     <br>
 
-                    <!--<form method="post">                        
+                    <form method="post">                        
 
                         <div style="margin: auto; width: 80%; margin-top: 25px;">
                             <select name="parametr" id="parametr" class="form-select">
@@ -66,7 +109,7 @@
 
                         <button type="submit" class="custom-blue" style="width: 60%; margin-top: 35px;">Zmień</button>
 
-                    </form>-->
+                    </form>
 
 
                 </div>
@@ -78,7 +121,7 @@
             </div>
         </div>
     </div>
-</div>
+</div>-->
 
 {% endif %}
 {% endif %}

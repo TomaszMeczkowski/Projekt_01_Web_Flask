@@ -214,11 +214,11 @@ class BazaDanych:
         db.close()
 
         if not wyniki:
-            print("DataBase log: id validator (method COMPLETED)")
+            print("DataBase log: id validator (method COMPLETED, result = False)")
             return False
 
         else:
-            print("DataBase log: id validator (method COMPLETED)")
+            print("DataBase log: id validator (method COMPLETED, result = True)")
             return True
 
 
