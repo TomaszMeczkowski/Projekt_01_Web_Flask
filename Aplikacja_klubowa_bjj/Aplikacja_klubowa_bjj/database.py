@@ -195,10 +195,10 @@ class BazaDanych:
 
         else:
             wyniki = wyniki[0]
-            imie = wyniki[0]
-            nazwisko = wyniki[1]
-            pas = wyniki[2]
-            belki = wyniki[3]
+            imie = wyniki[1]
+            nazwisko = wyniki[2]
+            pas = wyniki[3]
+            belki = wyniki[4]
 
             print("DataBase log: dane osobowe (method COMPLETED)")
             return True, imie, nazwisko, pas, belki
