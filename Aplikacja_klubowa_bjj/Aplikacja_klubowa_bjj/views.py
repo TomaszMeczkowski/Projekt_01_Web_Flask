@@ -337,7 +337,6 @@ def baza_dodaj_osobe():
 def baza_popraw():
     """Renders the about page."""
     person_found, decision = False, False
-    imie, nazwisko, pas, belki = "", "", "", ""
 
     if not configuration_mysql:
         return acc()
@@ -345,8 +344,6 @@ def baza_popraw():
     if request.method == "POST":
 
         user_number = request.form.get('user_id')
-        parameter = request.form.get('parametr')
-        new_data = request.form.get('new_data')
 
         if user_number:
             
@@ -356,18 +353,44 @@ def baza_popraw():
 
                 if user_id:
                     person_found = True
+                    return baza_popraw_cd(imie, nazwisko, pas, belki, user_id)
 
+            else:
+                # Nie ma takiej osoby, zwracamy komunikat
+                decision = True
 
     return render_template(
         'baza_danych/baza_popraw_dane_osoby.html',
         title='Baza danych',
         year=datetime.now().year,
         osoba = person_found,
+        decision = decision
+    )
+
+@app.route('/baza_poprawianie', methods=('GET', 'POST'))
+def baza_popraw_cd(imie, nazwisko, pas, belki, user_id):
+    """Renders the about page."""
+
+    if not configuration_mysql:
+        return acc()
+
+    if request.method == "POST":
+        parametr = request.form.get('parametr')
+        new_data = request.form.get('new_data')
+
+        if parametr and new_data:
+            if database_instance.osoby_update(parametr, new_data, user_id):
+                # Tutaj odpalamy powiadomienie ¿e wszystko siê uda³o
+                pass
+            
+    return render_template(
+        'baza_danych/baza_popraw_dane_osoby_cd.html',
+        title='Baza danych',
+        year=datetime.now().year,
         imie = imie,
         nazwisko = nazwisko,
         pas = pas,
-        belki = belki,
-        decision = decision
+        belki = belki
     )
 
 @app.route('/baza_pokaz')

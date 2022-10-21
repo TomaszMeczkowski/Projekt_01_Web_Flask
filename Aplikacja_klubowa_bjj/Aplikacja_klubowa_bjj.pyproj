@@ -99,6 +99,7 @@
     <Content Include="Aplikacja_klubowa_bjj\templates\baza_danych.html" />
     <Content Include="Aplikacja_klubowa_bjj\templates\baza_danych\baza_dodaj_osobe.html" />
     <Content Include="Aplikacja_klubowa_bjj\templates\baza_danych\baza_pokaz_wszystkich.html" />
+    <Content Include="Aplikacja_klubowa_bjj\templates\baza_danych\baza_popraw_dane_osoby_cd.html" />
     <Content Include="Aplikacja_klubowa_bjj\templates\baza_danych\baza_popraw_dane_osoby.html" />
     <Content Include="Aplikacja_klubowa_bjj\templates\baza_danych\baza_usun_dane_osoby.html" />
     <Content Include="Aplikacja_klubowa_bjj\templates\dev_tools.html" />
