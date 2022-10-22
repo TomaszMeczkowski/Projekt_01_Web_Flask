@@ -682,11 +682,15 @@ class BazaDanych:
         print("DataBase log: dev tool osoby statystyki (method COMPLETED)")
 
     def osoby_update(self, parametr, docelowa_wart, id_osoby):
+        print("DataBase log: osoby update (method ENTERED)")
         db, cursor_object = self.data_base_connector()
         zapytanie = f"UPDATE klub_zt.osoby_trenujace SET {parametr} = '{docelowa_wart}' WHERE (id = {id_osoby});"
         cursor_object.execute(zapytanie)
         db.commit()
         db.close()
+
+        print("DataBase log: osoby update (method COMPLETED)")
+        return True
 
         # Dostepne parametry:
         # imie, nazwisko, pas, belki

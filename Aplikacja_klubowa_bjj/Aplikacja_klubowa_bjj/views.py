@@ -3,7 +3,7 @@ Routes and views for the flask application.
 """
 
 from datetime import datetime
-from flask import Flask, render_template, request, json
+from flask import Flask, render_template, request, json, redirect
 #from flask.scaffold import _matching_loader_thinks_module_is_package
 from flaskext.mysql import MySQL
 from Aplikacja_klubowa_bjj import app
@@ -113,7 +113,7 @@ def acc():
                     # Dodac informacje ze nie udalo sie zalogowac (niewlasciwe dane lub coœ innego)   
                      
     if configuration_mysql:
-        return acc_on()   
+        return acc_on()
 
     return render_template(
         'account.html',
@@ -367,7 +367,7 @@ def baza_popraw():
         decision = decision
     )
 
-@app.route('/baza_poprawianie', methods=('GET', 'POST'))
+@app.route('/baza_poprawianie_cd', methods=('GET', 'POST'))
 def baza_popraw_cd(imie, nazwisko, pas, belki, user_id):
     """Renders the about page."""
 
@@ -377,6 +377,8 @@ def baza_popraw_cd(imie, nazwisko, pas, belki, user_id):
     if request.method == "POST":
         parametr = request.form.get('parametr')
         new_data = request.form.get('new_data')
+
+        print(parametr, new_data)
 
         if parametr and new_data:
             if database_instance.osoby_update(parametr, new_data, user_id):
