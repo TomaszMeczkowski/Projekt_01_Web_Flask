@@ -25,7 +25,7 @@ mysql.init_app(app)
 
 # Dev made log in 
 app.config['MYSQL_DATABASE_USER']="root"
-app.config['MYSQL_DATABASE_PASSWORD']="Torex123kt" # Dopisac aktualne haslo
+app.config['MYSQL_DATABASE_PASSWORD']="" # Dopisac aktualne haslo
 configuration_mysql = True
 database_instance = BazaDanych(mysql)
 database_instance.inicjowanie_tabel_bazy_danych()
