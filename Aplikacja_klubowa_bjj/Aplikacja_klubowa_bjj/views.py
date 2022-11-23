@@ -23,14 +23,14 @@ configuration_mysql = False
 mysql.init_app(app)
 
 
-## Dev made log in 
-#app.config['MYSQL_DATABASE_USER']="root"
-#app.config['MYSQL_DATABASE_PASSWORD']="" # Dopisac aktualne haslo
-#configuration_mysql = True
-#database_instance = BazaDanych(mysql)
-#database_instance.inicjowanie_tabel_bazy_danych()
+# Dev made log in 
+app.config['MYSQL_DATABASE_USER']="root"
+app.config['MYSQL_DATABASE_PASSWORD']="Torex123kt" # Dopisac aktualne haslo
+configuration_mysql = True
+database_instance = BazaDanych(mysql)
+database_instance.inicjowanie_tabel_bazy_danych()
 dev_tools = True
-#db_log_info = True  # Zmienic plik tak zeby db logi w terminalu pokazywaly sie w zaleznosci od tej wartosci
+db_log_info = True  # Zmienic plik tak zeby db logi w terminalu pokazywaly sie w zaleznosci od tej wartosci
 
 
 @app.route('/')
